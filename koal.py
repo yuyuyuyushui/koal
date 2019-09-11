@@ -1,11 +1,14 @@
 from api.user.user_manage import Users
-from api.organiza_manage.organize_manage import Organize_manage
+from api.organiza_manage.organizemanage import OrganizeManage
 import json
+
+
 class Koal():
+
     def __init__(self, api_url, **kwargs):
         self.path = api_url
         self.users = Users(self.path, **kwargs)
-        self.organize_manage = Organize_manage(self.path, **kwargs)
+        self.organize_manage = OrganizeManage(self.path, **kwargs)
 if __name__ == "__main__":
     import json
     token = '0666f3650a93b2e009bbf878fb996daf'

@@ -37,11 +37,11 @@ class RestClient():
         url = self.api_url_path +url
         return self.session.request('patch', url, **kwargs)
 
-    def put(self,url,**kwargs):
+    def put(self, url, **kwargs):
         url = self.api_url_path+url
         return self.session.request('put', url, **kwargs)
 
     def delete(self, url, **kwargs):
         url = self.api_url_path+url
-        return self.session.request('delete',url,**kwargs)
+        return self.session.request('delete', url, **kwargs)
 
