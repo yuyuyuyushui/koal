@@ -1,5 +1,6 @@
 from api.user.user_manage import Users
 from api.organiza_manage.organizemanage import OrganizeManage
+from api.role_manage.role_manage import RoleManage
 import json
 
 
@@ -9,6 +10,7 @@ class Koal():
         self.path = api_url
         self.users = Users(self.path, **kwargs)
         self.organize_manage = OrganizeManage(self.path, **kwargs)
+        self.role_manage = RoleManage(self.path, **kwargs)
 if __name__ == "__main__":
     import json
     token = '0666f3650a93b2e009bbf878fb996daf'

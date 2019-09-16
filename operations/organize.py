@@ -1,3 +1,6 @@
+# import pytest
+# testdate=[]
+# @pytest.mark.parametrize("parentid, deptname",testdate)
 def add_organize(koal,parentid,deptname):
     organize={
         "parentId":parentid,

@@ -12,7 +12,35 @@ class Users(RestClient):
         return self.post('/v1/user', **kwargs)
 
     def query_user_list(self, **kwargs):
+        """
+        用户列表
+        :param kwargs:
+        :return:
+        """
         return self.get('/v1/user/list', **kwargs)
 
+    def query_user_details(self,userid,**kwargs):
+        """
+        查看用户详情
+        :param userid:
+        :param kwargs:
+        :return:
+        """
+        return self.get('/v1/user/{}'.format(userid),**kwargs)
+
     def delete_user(self, userID,**kwargs):
+        """
+        删除用户
+        :param userID:
+        :param kwargs:
+        :return:
+        """
         return self.delete('/v1/user/{}'.format(userID),**kwargs)
+
+    def retrieval_user_list(self,**kwargs):
+        """
+        检索角色列表
+        :param kwargs:
+        :return:
+        """
+        return self.get('/v1/user/roleList',**kwargs)
