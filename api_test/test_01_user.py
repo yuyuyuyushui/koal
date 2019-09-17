@@ -1,15 +1,34 @@
 from configparser import ConfigParser
 import pytest, json
-from operations.accunt import *
+from operations.users import *
 from random import randint
 add_user_data=[
     ("add_user_{}".format(randint(1,9999)),'lll_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',5,0, 666,777,None,9999,0000,2222,1111),
     ("add_user_{}".format(randint(1,9999)),'lll_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',5,0, '5107211995111111111', 333333333333333,None,None,None,None,None)
+
 ]
 @pytest.mark.parametrize("loginname,username,validityperiod,password,depid,authtype,idcard,jobnumber,roleidlist,email,mobile,sex,ipwhite",add_user_data)
 def test_add_user(env,loginname, username,validityperiod,password,depid,authtype,idcard,jobnumber,roleidlist,email,mobile,sex,ipwhite):
+    """
+        添加用户，关联角色，关联部门，角色和组织都可为空
+        :param koal:
+        :param loginname: 登录名
+        :param username: 用户名
+        :param validityperiod: 时间有效期
+        :param password:密码
+        :param depid:部门id
+        :param authtype:密码校验
+        :param idcard:身份证
+        :param jobnumber:工号
+        :param roleidlist:角色列表
+        :param email:邮件地址
+        :param mobile:电话号码
+        :param sex:男
+        :param ipwhite:白名单
+        :return:
+        """
     result = add_user(env.koal,loginname,username,validityperiod,password, depid,authtype,idcard,jobnumber,roleidlist,email,mobile,sex,ipwhite)
-    # assert json.loads(result.text)['code'] == 0
+
     print(result.json())
     assert result.json()['page']['list'][0]['loginName'] == loginname
     assert result.json()["page"]["list"][0]["status"] == 0
@@ -45,13 +64,18 @@ def test_query_user(env,page,limit,name,deptid):
     print(userlist_result.json())
     assert userlist_result.json()["code"] == 0
 def test_query_role_list(env):
+    """
+    检索角色列表
+    :param env:
+    :return:
+    """
     para = {
         "userId":''
     }
-    role_list = env.koal.users.retrieval_user_list(params=para)
+    role_list = env.koal.users.retrieval_role_list(params=para)
     print(role_list.json())
     assert role_list.json()['code']==0
-    assert 0
+    # assert 0
 
 
 
