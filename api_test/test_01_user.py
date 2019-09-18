@@ -2,6 +2,7 @@ from configparser import ConfigParser
 import pytest, json
 from operations.users import *
 from random import randint
+from scenario_test.add_users import add_users
 add_user_data=[
     ("add_user_{}".format(randint(1,9999)),'lll_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',5,0, 666,777,None,9999,0000,2222,1111),
     ("add_user_{}".format(randint(1,9999)),'lll_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',5,0, '5107211995111111111', 333333333333333,None,None,None,None,None)
@@ -76,7 +77,17 @@ def test_query_role_list(env):
     print(role_list.json())
     assert role_list.json()['code']==0
     # assert 0
+add_user_data=[
+    (None,None,5,"test_yuyuyuy{}".format(randint(1,999)),"add_users_{}".format(randint(1,9999)),'lll_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',0, 666,777,9999,0000,2222,1111),
+    # (None,None,5,"test_yuyuyuy{}".format(randint(1,999)),"add_users_{}".format(randint(1,9999)),'lll_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',0, '5107211995111111111', 333333333333333,None,None,None,None),
+    ("test_role","测试新增用户一个角色",5,"test_yuyuyuy{}".format(randint(1,999)),"add_users_{}".format(randint(1,9999)),'lll_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',0, '5107211995111111111', 333333333333333,"786313105@qq.com",None,None,None)
 
+]
+@pytest.mark.parametrize("rolename, remark, parentid, deptname,loginname, username,validityperiod,password,authtype,idcard,jobnumber,email,mobile,sex,ipwhite",add_user_data)
+def test_add_users(env,rolename, remark, parentid, deptname,loginname, username,validityperiod,password,authtype,idcard,jobnumber,email,mobile,sex,ipwhite):
+    result =add_users(env.koal,rolename, remark, parentid, deptname,loginname, username,validityperiod,password,authtype,idcard,jobnumber,email,mobile,sex,ipwhite)
+
+    assert result.success == True,result.error
 
 
 if __name__=="__main__":

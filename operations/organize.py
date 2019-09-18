@@ -29,9 +29,13 @@ def query_organize_detail(koal, depid):
     return koal.organize_manage.query_organize_detail(depid)
 
 
-def query_organize(koal):
-
-    return koal.organize_manage.query_organize()
+def query_organize(koal,page,limit,param):
+    query_params = {
+        "page": page,
+        "limit":limit,
+        "param":param
+    }
+    return koal.organize_manage.query_organize(params=query_params)
 
 from random import randint
 def update_organize(koal):

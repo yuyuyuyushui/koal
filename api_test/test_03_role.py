@@ -16,8 +16,7 @@ def test_add_role(env, rolename, remark):
     :return:
     """
     result = add_role(env.koal, rolename, remark)
-    print(rolename)
-    print(result.response.json())
+
     assert result.success == True, result.error
 
 if __name__ == "__main__":

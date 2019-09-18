@@ -17,7 +17,7 @@ def add_role(koal, rolename, remark):
     if response.json()['code'] != 0:
         result.success=False
         result.error = "add_role false,the code is {} should be 0".format(response.json()['code'])
-        result.response = response
+        result.response = response.json()
         return result
 
     para = {
@@ -28,14 +28,14 @@ def add_role(koal, rolename, remark):
     if response.json()["code"] != 0:
         result.success = False
         result.error = "add_role false,the code is {} should be 0".format(response.json()['code'])
-        result.response = response
+        result.response = response.json()
         return result
 
     for i in response.json()["list"]:
         if i["roleName"] == rolename:
             result.success = True
-            result.response = response
+            result.response = response.json()
             return result
-    result.success =False
-    result.response = response
-    return result
+    # result.success =True
+    # result.response = response.json()
+    # return result
