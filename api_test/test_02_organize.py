@@ -15,7 +15,7 @@ def test_add_organize(env, parentid, deptname):
 def test_delete_organize(env):
     pass
 data_param = {
-    (1,10,None)
+    (1, 10, None)
 }
 @pytest.mark.parametrize("page,limit,param",data_param)
 def test_query_organize(env,page,limit,param):
@@ -29,6 +29,6 @@ def test_query_organize(env,page,limit,param):
     """
     result = query_organize(env.koal,page,limit,param)
     assert result.json()["code"] == 0
-
+    assert 0
 if __name__=='__main__':
-    pytest.main("-V -s test_02_organize.py")
+    pytest.main(["-q","test_02_organize.py::test_query_organize"])

@@ -39,3 +39,29 @@ def add_role(koal, rolename, remark):
     # result.success =True
     # result.response = response.json()
     # return result
+def role_permission_query(koal,rolename, remark):
+    """
+    先创建角色，获取角色的ID，角色ID传入权限列表查询函数
+    :param koal:
+    :param rolename:
+    :param remark:
+    :return:
+    """
+    roleid = None
+    result = CommonItem()
+    response = add_role(koal, rolename, remark)
+    if response.success ==False:
+        return False
+    for i in response.response["list"]:
+        if i["roleName"] == rolename:
+            roleid = i["roleId"]
+    print(roleid)
+    response = koal.role_manage.query_function_menu(roleid)
+    if response.json()['code'] != 0:
+        result.success=False
+        result.error = "add_role false,the code is {} should be 0".format(response.json()['code'])
+        result.response = response.json()
+        return result
+    result.success = True
+    result.response = response.json()
+    return result

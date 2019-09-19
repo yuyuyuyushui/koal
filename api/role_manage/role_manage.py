@@ -31,7 +31,7 @@ class RoleManage(RestClient):
 
     def query_function_menu(self, role_id, **kwargs):
         """
-        检索功能菜单
+        检索权限功能菜单
         :param role_id:
         :param kwargs:
         :return:

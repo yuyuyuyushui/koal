@@ -1,2 +1,5 @@
 class CommonItem():
-    pass
+    def __init__(self):
+        self.success = False
+        self.response = False
+        self.error = False
