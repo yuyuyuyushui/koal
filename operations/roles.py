@@ -21,6 +21,9 @@ def add_role(koal, rolename, remark):
         return result
 
     para = {
+        """
+        查询条件userid为空
+        """
         "userId": ''
     }
 
@@ -36,9 +39,32 @@ def add_role(koal, rolename, remark):
             result.success = True
             result.response = response.json()
             return result
-    # result.success =True
-    # result.response = response.json()
-    # return result
+
+
+def delet_role(koal,rolename, remark):
+    """
+    先新增角色，再检索角色，最后取出roleid，根据roleid对用户删除
+    :param koal:
+    :param rolename:
+    :param remark:
+    :return:
+    """
+    roleid = None
+    result = CommonItem()
+    response = add_role(koal,rolename, remark)
+    if result.success == False:
+        result.success = False
+        result = response
+        return result
+    for i in response.response["list"]:
+        if i["roleName"] == rolename:
+            roleid = i["roleId"]
+    print(roleid)
+    response = koal.role_manage.delete_role(roleid)
+    if response.json()["code"] != 0:
+        result.success = False
+        result.error = "删除"
+
 def role_permission_query(koal,rolename, remark):
     """
     先创建角色，获取角色的ID，角色ID传入权限列表查询函数
@@ -51,7 +77,7 @@ def role_permission_query(koal,rolename, remark):
     result = CommonItem()
     response = add_role(koal, rolename, remark)
     if response.success ==False:
-        return False
+        return response
     for i in response.response["list"]:
         if i["roleName"] == rolename:
             roleid = i["roleId"]
