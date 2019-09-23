@@ -13,7 +13,7 @@ class RoleManage(RestClient):
         """
         return self.post("/v1/role", **kwargs)
 
-    def update_role(self,roleid, **kwargs):
+    def update_role(self, roleid, **kwargs):
         """
         修改角色
         :return:
