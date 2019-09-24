@@ -10,21 +10,25 @@ role_date=[
 @pytest.mark.parametrize("rolename, remark,expect", role_date)
 def test_add_role(env, rolename, remark,expect):
     """
-    测试角色的添加
+    测试角色的添加,判断输入的用户名不能重名
     :param env: 添加角色的前置条件
     :param rolename:  角色的姓名
     :param remark:  角色的标签
     :return:
     """
     result1 = add_role(env.koal, rolename, remark)
+    result2 = add_role(env.koal,rolename,remark)
 
     assert result1.success == expect, result1.error
+    assert result2.success == False,result2.response["msg"]
 
 
 
 modify_data=[
     ("test_add_role{}".format(randint(1,9999)),"添加角色标签","test_modify_role{}".format(randint(1,9999)),"修改角色标签",True)
 ]
+
+
 @pytest.mark.parametrize("add_rolename, add_remark, modify_rolename, modify_remark,expect",modify_data)
 def test_modify_role(env,add_rolename, add_remark, modify_rolename, modify_remark,expect):
     result = modify_roles(env.koal, add_rolename, add_remark, modify_rolename, modify_remark)
@@ -49,5 +53,7 @@ delete_data=[
 def test_delete_role(env,rolename,remark):
     response = delet_role(env.koal, rolename, remark)
     assert response.success == True, response.error
+
+
 if __name__ == "__main__":
-    pytest.main(["-q","test_03_role.py::test_delete_role"])
+    pytest.main(["-q","test_03_role.py::test_add_role"])

@@ -1,4 +1,4 @@
-
+from core.base import CommonItem
 def add_user(koal, loginname, username,validityperiod,password,depid,authtype,idcard=None,jobnumber=None,roleidlist=None,email=None,mobile=None,sex=None,ipwhite=None):
     """
     添加用户，关联角色，关联部门，角色和组织都可为空
@@ -39,9 +39,19 @@ def add_user(koal, loginname, username,validityperiod,password,depid,authtype,id
         'name': loginname,
         'deptId': ''
     }
-    txt = koal.users.add_user(json=user_message)
-    print(txt.text)
-    result = koal.users.query_user_list(params=query_pragram)
+    result = CommonItem()
+    response = koal.users.add_user(json=user_message)
+    if response.json()["code"] != 0:
+        result.error = "添加用户失败,返回的信息{}".format(response.json()["msg"])
+        result.response = response.json()
+        return result
+    response = koal.users.query_user_list(params=query_pragram)
+    if response.json()["code"] != 0:
+        result.error = "根据此用户名查询户失败,返回的信息{}".format(response.json()["msg"])
+        result.response = response.json()
+        return result
+    result.success = True
+    result.response = response.json()
     return result
 
 

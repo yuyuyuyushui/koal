@@ -29,13 +29,13 @@ def test_add_user(env,loginname, username,validityperiod,password,depid,authtype
         :return:
         """
     result = add_user(env.koal,loginname,username,validityperiod,password, depid,authtype,idcard,jobnumber,roleidlist,email,mobile,sex,ipwhite)
-
-    print(result.json())
+    result2 = add_user(env.koal,loginname,username,validityperiod,password, depid,authtype,idcard,jobnumber,roleidlist,email,mobile,sex,ipwhite)
     assert result.json()['page']['list'][0]['loginName'] == loginname
     assert result.json()["page"]["list"][0]["status"] == 0
     userid = result.json()["page"]["list"][0]["userId"]
     query_result = env.koal.users.query_user_details(userid)
     assert query_result.json()["data"]["deptId"]==5
+    assert result2.success == False, result2.error
 # def query_user_details(env):
 query_date=[
     ('1',10,'',''),
@@ -91,4 +91,4 @@ def test_add_users(env,rolename, remark, parentid, deptname,loginname, username,
 
 
 if __name__=="__main__":
-    pytest.main()
+    pytest.main(["-q", "test_01_user.py::test_add_user"])
