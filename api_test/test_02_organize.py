@@ -31,4 +31,4 @@ def test_query_organize(env,page,limit,param):
     assert result.json()["code"] == 0
     assert 0
 if __name__=='__main__':
-    pytest.main(["-q","test_02_organize.py::test_query_organize"])
+    pytest.main(['--alluredir=report', "test_02_organize.py::test_query_organize"])

@@ -20,7 +20,7 @@ def test_add_role(env, rolename, remark,expect):
     result2 = add_role(env.koal,rolename,remark)
 
     assert result1.success == expect, result1.error
-    assert result2.success == False,result2.response["msg"]
+    assert result2.success == False, result2.response["msg"]
 
 
 
@@ -56,4 +56,4 @@ def test_delete_role(env,rolename,remark):
 
 
 if __name__ == "__main__":
-    pytest.main(["-q","test_03_role.py::test_add_role"])
+    pytest.main(['--alluredir=report', "test_03_role.py::test_add_role"])
