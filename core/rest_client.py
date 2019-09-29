@@ -7,13 +7,8 @@ class RestClient():
         if username and password:
             self.session.auth = (username, password)
         elif token:
-            # print(self.session.headers)
-            # self.session.headers.update({'token':token})
             self.session.headers['token']=token
-            # print(self.session.headers)
-            # self.session.headers['Content-Type'] = "application/json"
-            # self.session.headers['Cookie'] = "JSESSIONID=B1B4E5526A70DB45EAF810BAC73237F0"
-            # print(self.session.headers)
+
         else:
              print('输入有误')
         self.api_url_path = api_url_path

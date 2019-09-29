@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://D:/auto_test/API_Automation/.idea/API_Automation.iml" filepath="D:/auto_test/API_Automation/.idea/API_Automation.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/koal.iml" filepath="$PROJECT_DIR$/.idea/koal.iml" />
-      <module fileurl="file://D:/robot/.idea/robot.iml" filepath="D:/robot/.idea/robot.iml" />
       <module fileurl="file://D:/zhangting/.idea/zhangting.iml" filepath="D:/zhangting/.idea/zhangting.iml" />
     </modules>
   </component>

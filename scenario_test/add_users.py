@@ -69,7 +69,7 @@ def add_users(koal,rolename, remark, parentid, deptname,loginname, username,vali
             result.erro="查询用户有误，返回参数{}".format(response.json()["code"])
             return result
         result.success = True
-        result.response = response
+        result.response = response.json()
         return result
     else:
         role_response = add_role(koal, rolename, remark)
@@ -122,5 +122,6 @@ def add_users(koal,rolename, remark, parentid, deptname,loginname, username,vali
             result.erro = "查询用户有误，返回参数{}".format(response.json()["code"])
             return result
         result.success = True
-        result.response = response
+        print(response.json())
+        result.response = response.json()
         return result
