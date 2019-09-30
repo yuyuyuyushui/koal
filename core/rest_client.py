@@ -15,10 +15,7 @@ class RestClient():
 
     def get(self, url, **kwargs):
         url = self.api_url_path + url
-        # print(url)
-        # print(self.session.headers)
-        #re = self.session.request('get', 'http://10.143.220.117:9090/v1/dept/list')
-        # print(re.text)
+
         return self.session.request('get', url, **kwargs)
 
     def post(self, url, **kwargs):

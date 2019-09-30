@@ -14,21 +14,11 @@ def test_add_organize(env, parentid, deptname):
 
 def test_delete_organize(env):
     pass
-data_param = {
-    (1, 10, None)
-}
-@pytest.mark.parametrize("page,limit,param",data_param)
-def test_query_organize(env,page,limit,param):
-    """
-    查询组织结构系统
-    :param env:
-    :param page:
-    :param limit:
-    :param param:
-    :return:
-    """
-    result = query_organize(env.koal,page,limit,param)
-    assert result.json()["code"] == 0
+
+def test_qury_orgize(env):
+    response = query_organize(env.koal)
+    print(response.response)
+    assert response.success == True
     assert 0
 if __name__=='__main__':
-    pytest.main(['--alluredir=report', "test_02_organize.py::test_query_organize"])
+    pytest.main(['-s', "test_02_organize.py::test_qury_orgize"])

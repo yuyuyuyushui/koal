@@ -1,4 +1,16 @@
 from core.base import CommonItem
+from random import randint
+def response(func):
+    def wrapper(*args, **kwargs):
+        result = CommonItem()
+        response = func(*args, **kwargs)
+        if response.json() != 0:
+            result.error = "的返回码{}".format(response.json()["code"])
+            result.response=response.json()
+        result.success = True
+        result.response = response.json()
+        return result
+    return wrapper
 def add_organize(koal,parentid,deptname):
     organize={
         "parentId":parentid,
@@ -28,16 +40,12 @@ def query_organize_detail(koal, depid):
 
     return koal.organize_manage.query_organize_detail(depid)
 
+@response
+def query_organize(koal):
+    return koal.organize_manage.query_organize()
 
-def query_organize(koal,page,limit,param):
-    query_params = {
-        "page": page,
-        "limit":limit,
-        "param":param
-    }
-    return koal.organize_manage.query_organize(params=query_params)
 
-from random import randint
+
 def update_organize(koal):
     deptname = 'test_update_{}'.format(randint(1,9999))
     add_organize(koal, 0, deptname)
