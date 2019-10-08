@@ -143,19 +143,19 @@ def delet_role(koal,rolename, remark):
     return result
 
 
-def query_role(koal,page,limit,param=None):
+def query_role_list(koal,page,limit,param=None):
     param = {
-        "page": page,
-        "limit":limit,
-        "param":param
+        "page":  page,
+        "limit": limit,
+        "param": param
     }
     result = CommonItem()
     response = koal.role_manage.system_role_list(params=param)
-    if response.json()["code"] !=0:
+    if response.json()["code"] != 0:
         result.response = response.json()
         return result
     result.success =True
-    result.response =response.json()
+    result.response = response.json()
     return result
 
 def role_permission_query(koal, rolename, remark):
@@ -184,3 +184,23 @@ def role_permission_query(koal, rolename, remark):
     result.success = True
     result.response = response.json()
     return result
+def query_role_user_list(koal, roleid, page, limit):
+    """
+    根据角色id，页码数，页面限制条数
+    :param koal:
+    :param roleid:
+    :param userid:
+    :return:
+    """
+    param = {
+        "roleId": roleid,
+        "page": page,
+        "limit": limit
+    }
+    result = CommonItem()
+    response = koal.role_manage.role_user_list(params=param)
+    if response.json()["code"] != 0:
+        result.error =  "查询角色下的用户列表,返回码{}".format(response.json()["code"])
+        result.response = response.json()
+    result.success = True
+    result.response = response.json()
