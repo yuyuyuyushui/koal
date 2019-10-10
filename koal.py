@@ -12,7 +12,7 @@ class Koal():
         self.users = Users(self.path, **kwargs)
         self.organize_manage = OrganizeManage(self.path, **kwargs)
         self.role_manage = RoleManage(self.path, **kwargs)
-        # self.business_system = BusinessSystemManagement(self.path, **kwargs)
+        self.business_system = BusinessSystemManagement(self.path, **kwargs)
 if __name__== "__main__":
     pa = {
         "userId":""

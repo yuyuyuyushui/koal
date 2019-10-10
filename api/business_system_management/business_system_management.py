@@ -6,15 +6,14 @@ class BusinessSystemManagement(RestClient):
 
     def query_business_system_list(self, **kwargs):
         """
-        ÒµÎñÏµÍ³ÁĞ±í²éÑ¯
+        æŸ¥è¯¢ä¸šåŠ¡ç³»ç»Ÿåˆ—è¡¨
         :param kwargs:
         :return:
-
         """
         return self.get("/v1/abis/list", **kwargs)
     def add_business_system(self, **kwargs):
         """
-        Ôö¼ÓÒµÎñÏµÍ³
+        å¢åŠ ä¸šåŠ¡ç³»ç»Ÿ
         :param kwargs:
         :return:
 
@@ -22,7 +21,7 @@ class BusinessSystemManagement(RestClient):
         return self.post("/v1/abis", **kwargs)
     def delete_business_system(self, abisid, **kwargs):
         """
-        É¾³ıÒµÎñÏµÍ³
+        åˆ é™¤ä¸šåŠ¡ç³»ç»Ÿ
         :param kwargs:
         :return:
         """
@@ -30,14 +29,14 @@ class BusinessSystemManagement(RestClient):
 
     def query_business_detail(self,abisid, **kwargs):
         """
-        ²éÑ¯ÒµÎñÏµÍ³ÏêÇé
+        æŸ¥è¯¢ä¸šåŠ¡ç³»ç»Ÿè¯¦æƒ…
         :param kwargs:
         :return:
         """
         return self.get("/v1/abis/{}".format(abisid),**kwargs)
     def modify_business_system(self,abisid,**kwargs):
         """
-        ĞŞ¸ÄÒµÎñÏµÍ³
+         ä¿®æ”¹ä¸šåŠ¡ç³»ç»Ÿ
         :param abisid:
         :param kwargs:
         :return:
@@ -46,7 +45,7 @@ class BusinessSystemManagement(RestClient):
 
     def query_business_admin_list(self,abisid,**kwargs):
         """
-        ²éÑ¯ÒµÎñÏµÍ³¹ÜÀíÔ±ÁĞ±í
+        æŸ¥è¯¢ä¸šåŠ¡ç®¡ç†å‘˜åˆ—è¡¨
         :param abisid:
         :param kwargs:
         :return:
@@ -55,13 +54,13 @@ class BusinessSystemManagement(RestClient):
 
     def modify_business_admin_jurisdiction(self,**kwargs):
         """
-        ĞŞ¸ÄÒµÎñÏµÍ³¹ÜÀíÔ±È¨ÏŞ
+        ä¿®æ”¹ä¸šåŠ¡ç®¡ç†å‘˜
         :return:
         """
         return self.put("/v1/abis/admin/update", **kwargs)
     def query_admin(self,**kwargs):
         """
-        ¼ìË÷´ıÌí¼ÓµÄ¹ÜÀíÔ±
+        æŸ¥è¯¢ç®¡ç†å‘˜
         :param kwargs:
         :return:
         """

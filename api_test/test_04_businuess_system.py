@@ -12,4 +12,4 @@ def test_business_system(env,page,limit):
     assert resonse.success == True, resonse.error
     assert 0
 if __name__=="__main__":
-    pytest.main(["-s","test_04_businuess_system::test_business_system"])
+    pytest.main(["-s", "test_04_businuess_system.py::test_business_system"])

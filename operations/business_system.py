@@ -10,7 +10,7 @@ def business_system_list(koal, page, limit):
     response = koal.business_system.query_business_system_list(params=param)
     print(response.json())
     if response.json()["code"] != 0 :
-        result.error = "查询业务系统列表失败,返回码{}".format(response.json()["code"])
+        result.error = "鏌ヨ澶辫触锛岃繑鍥炵爜{}".format(response.json()["code"])
         return result
     result.success = True
     result.response = response.json()
