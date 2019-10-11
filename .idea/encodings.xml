@@ -2,6 +2,9 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/api/business_system_management/business_system_management.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/api_test/test_02_organize.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/api_test/test_04_businuess_system.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/log/test.log" charset="GBK" />
     <file url="file://$PROJECT_DIR$/operations/business_system.py" charset="UTF-8" />
     <file url="PROJECT" charset="GBK" />
   </component>
