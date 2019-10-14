@@ -25,9 +25,9 @@ class BusinessSystemManagement(RestClient):
         :param kwargs:
         :return:
         """
-        return  self.put("/v1/abis/{}".format(abisid),**kwargs)
+        return self.delete("/v1/abis/{}".format(abisid), **kwargs)
 
-    def query_business_detail(self,abisid, **kwargs):
+    def query_business_detail(self, abisid, **kwargs):
         """
         查询业务系统详情
         :param kwargs:
@@ -54,7 +54,7 @@ class BusinessSystemManagement(RestClient):
 
     def modify_business_admin_jurisdiction(self,**kwargs):
         """
-        修改业务管理员
+        修改业务管理员权限
         :return:
         """
         return self.put("/v1/abis/admin/update", **kwargs)
