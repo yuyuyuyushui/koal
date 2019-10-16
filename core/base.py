@@ -1,4 +1,4 @@
-import functools
+import functools, os
 from library.loggins import *
 class CommonItem():
     def __init__(self):
@@ -6,19 +6,19 @@ class CommonItem():
         self.response = False
         self.error = False
 def response(func):
-    @functools.wraps(func)
+
     def wrapper(self,*args, **kwargs):
         result = CommonItem()
         response=None
         try:
             response = func(self, *args, **kwargs)
-        except:
-            print("接口有误")
-        if response.json()["code"] !=  0:
+            logger_info("请求方式：{}，请求头{}，响应体{}".format(func.__name__, self.session.headers, response.json()))
+        except Exception as e:
+            logger_error(e)
+        if response.json()["code"] != 0:
             result.error = "{name}返回的错误代码{code}".format(name=func.__name__, code=response.json()["code"])
             result.response=response.json()
             return result
-        print(response.json())
         result.success = True
         result.response = response.json()
         return result
@@ -29,8 +29,31 @@ def logger(leve):
     def load_func(func):
         def wrapper(*args, **kwargs):
             log_path = os.path.dirname(os.path.dirname(__file__)) + '/log/test.log'
-            if leve=='':
-                pass
+            if leve == '1':
+                Loger(clevel=logging.DEBUG,Flevel=logging.DEBUG).debug("测试的内容{}".format(func.__name__))
+                return func(*args,**kwargs)
+            if leve == '2':
+                Loger(clevel=logging.INFO,Flevel=logging.INFO).debug("测试的内容{}".format(func.__name__))
+                return func(*args, **kwargs)
+            if leve == '3':
+                Loger(clevel=logging.WARNING,Flevel=logging.WARNING).debug("测试的内容{}".format(func.__name__))
+                return func(*args, **kwargs)
+            if leve == '4':
+                Loger(clevel=logging.ERROR,Flevel=logging.ERROR).debug("测试的内容{}".format(func.__name__))
+                return func(*args, **kwargs)
+            if leve == '5':
+                Loger(clevel=logging.CRITICAL,Flevel=logging.CRITICAL).debug("测试的内容{}".format(func.__name__))
+                return func(*args, **kwargs)
+            else:
+                return func(*args,**kwargs)
         return wrapper
 
     return load_func
+def logger_error(message):
+    # log_path = os.path.dirname(os.path.dirname(__file__)) + '/log/test.log'
+    return Loger(clevel=logging.ERROR,Flevel=logging.ERROR).error(message)
+def logger_info(message):
+    return Loger(clevel=logging.INFO,Flevel=logging.INFO).info(message)
+
+if __name__== "__main__":
+    logger_info("s")

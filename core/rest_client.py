@@ -16,7 +16,6 @@ class RestClient():
     @response
     def get(self, url, **kwargs):
         url = self.api_url_path + url
-
         return self.session.request('get', url, **kwargs)
 
     @response
