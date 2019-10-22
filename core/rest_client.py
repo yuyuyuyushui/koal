@@ -15,30 +15,30 @@ class RestClient():
 
     @response
     def get(self, url, **kwargs):
-        url = self.api_url_path + url
-        return self.session.request('get', url, **kwargs)
+        self.api_url_path = self.api_url_path + url
+        return self.session.request('get', self.api_url_path, **kwargs)
 
     @response
     def post(self, url, **kwargs):
-        url = self.api_url_path + url
+        self.api_url_path = self.api_url_path + url
         # s = requests.session().get(url)
         # print(s.text)
-
-        return self.session.request('post', url, **kwargs)
+        # print(self.session.params)
+        return self.session.request('post', self.api_url_path, **kwargs)
 
     @response
     def patch(self,url,**kwargs):
-        url = self.api_url_path +url
-        return self.session.request('patch', url, **kwargs)
+        self.api_url_path = self.api_url_path +url
+        return self.session.request('patch', self.api_url_path, **kwargs)
 
     @response
     def put(self, url, **kwargs):
-        url = self.api_url_path+url
-        return self.session.request('put', url, **kwargs)
+        self.api_url_path = self.api_url_path+url
+        return self.session.request('put', self.api_url_path, **kwargs)
 
     @response
     def delete(self, url, **kwargs):
-        url = self.api_url_path + url
-        print(url)
-        return self.session.request('delete', url, **kwargs)
+        self.api_url_path = self.api_url_path + url
+        # print(url)
+        return self.session.request('delete', self.api_url_path, **kwargs)
 

@@ -21,10 +21,10 @@ data = [
 
 @pytest.mark.parametrize("abisid",data)
 def test_deletbusnisess_system_query_list(env, abisid):
-    print(abisid)
+    logger_info("删除业务系统查询列表")
     response = Business_system_api(env.koal).delet_busuness_system(abisid)
     assert response.success == True, response.error
-    assert 0
+    # assert 0
 
 if __name__=="__main__":
     pytest.main(["-s", "test_04_businuess_system.py::test_business_system_query_list"])

@@ -7,14 +7,22 @@ class CommonItem():
         self.error = False
 def response(func):
 
-    def wrapper(self,*args, **kwargs):
+    def wrapper(self, *args, **kwargs):
         result = CommonItem()
         response=None
         try:
             response = func(self, *args, **kwargs)
-            logger_info("请求方式：{}，请求头{}，响应体{}".format(func.__name__, self.session.headers, response.json()))
+            if "params" in kwargs:
+                logger_info("请求方式：{a}，请求连接{b}，响应体{c}，请求体params={d}".format(a=func.__name__, b=self.api_url_path, c=response.json(), d=kwargs["params"]))
+            elif "json" in kwargs:
+                logger_info(
+                    "请求方式：{a}，请求连接{b}，响应体{c}，请求体json={d}".format(a=func.__name__, b=self.api_url_path, c=response.json(), d=kwargs["json"]))
+            else:
+                logger_info("请求方式：{a}，请求连接{b}，响应体{c}，请求体{d}".format(a=func.__name__, b=self.api_url_path, c=response.json(), d="为空"))
         except Exception as e:
             logger_error(e)
+            result.content = response.content
+            return result
         if response.json()["code"] != 0:
             result.error = "{name}返回的错误代码{code}".format(name=func.__name__, code=response.json()["code"])
             result.response=response.json()
@@ -49,11 +57,10 @@ def logger(leve):
         return wrapper
 
     return load_func
-def logger_error(message):
-    # log_path = os.path.dirname(os.path.dirname(__file__)) + '/log/test.log'
-    return Loger(clevel=logging.ERROR,Flevel=logging.ERROR).error(message)
 def logger_info(message):
-    return Loger(clevel=logging.INFO,Flevel=logging.INFO).info(message)
-
+    return Loger().info(message)
+def logger_error(message):
+    return Loger().error(message)
 if __name__== "__main__":
-    logger_info("s")
+   a.info(111)
+

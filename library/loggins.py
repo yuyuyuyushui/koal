@@ -1,6 +1,6 @@
 import logging, os
 class Loger():
-    def __init__(self,clevel=logging.INFO, Flevel=logging.DEBUG):
+    def __init__(self,clevel=logging.INFO, Flevel=logging.INFO):
         self.path= os.path.dirname(os.path.dirname(__file__)) + '/log/test.log'
         self.logger = logging.getLogger(self.path)
         self.logger.setLevel(logging.DEBUG)
@@ -15,6 +15,7 @@ class Loger():
         fh.setLevel(Flevel)
         self.logger.addHandler(sh)
         self.logger.addHandler(fh)
+        self.logger.handlers = self.logger.handlers[:2]
         level = [logging.DEBUG,logging.INFO,logging.WARNING,logging.ERROR,logging.CRITICAL]
 
 
@@ -32,10 +33,11 @@ class Loger():
 
     def cri(self, message):
         self.logger.critical(message)
+class a():
+    def __init__(self):
+        self.a = 1
+    def test(self, message):
+        print(message)
 if __name__ =='__main__':
-    logyyx = Loger(logging.INFO,logging.DEBUG)
-    logyyx.debug('一个debug信息')
-    logyyx.info('一个info信息')
-    logyyx.warning('一个warning信息')
-    logyyx.error('一个error信息')
-    logyyx.cri('一个致命critical信息')
+    a().test(33)
+    a().test(55)
