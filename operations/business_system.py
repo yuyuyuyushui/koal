@@ -26,7 +26,7 @@ class Business_system_api():
         """
         return self.koal.business_system.delete_business_system(abisid)
 
-    def add_business_system(self, abisname, workflownodenum,abisadminids):
+    def add_business_system(self, abisname, workflownodenum, abisadminids):
         """
         新增业务系统
         :param abisname:
@@ -42,10 +42,14 @@ class Business_system_api():
         return self.koal.business_system.add_business_system(json=add_data)
 
     def query_business_detail(self, abisid):
-        """查询业务系统详情"""
+        """
+        查询业务系统详情
+        :param abisid:
+        :return:
+        """
         return self.koal.business_system.query_business_detail(abisid)
 
-    def modify_business_system(self,abisId,abisName, workflowNodeNum,abisAdminIds):
+    def modify_business_system(self, abisId, abisName, workflowNodeNum, abisAdminIds):
         """
         修改业务系统
         :param abisId: 业务系统id
@@ -67,9 +71,9 @@ class Business_system_api():
         :param abisid:业务系统id
         :return:
         """
-        return self.koal.business_system.query_business_system_list(abisid)
+        return self.koal.business_system.query_business_admin_list(abisid)
 
-    def modify_business_admin_jurisdiction(self, id, permsSetPassword, permsViewPassword,permsApproveFirst, permsApproveSecond, receiveWarn):
+    def modify_business_admin_jurisdiction(self, id, permsSetPassword, permsViewPassword, permsApproveFirst, permsApproveSecond, receiveWarn):
         """
         修改业务系统管理员权限
         :param id:
@@ -90,7 +94,7 @@ class Business_system_api():
         }]}
         return self.koal.business_system.modify_business_admin_jurisdiction(json=admin_data)
 
-    def query_admin(self,keyword, page, limit, abisId=None):
+    def query_admin(self, keyword, page, limit, abisId=None):
         """
         检索待添加的管理员
         :param keyword:查询条件
