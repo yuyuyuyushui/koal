@@ -24,7 +24,6 @@ list_query = [
 ]
 
 
-
 @pytest.mark.parametrize(" page, limit, resKind, abisId", list_query)
 def test_assert_list_query(env, page, limit, resKind, abisId):
     logger_info("测试资产列表查询")

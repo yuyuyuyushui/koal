@@ -12,11 +12,12 @@ class RestClient():
         else:
              print('输入有误')
         self.api_url_path = api_url_path
+        self.url = None
 
     @response
     def get(self, url, **kwargs):
-        self.api_url_path = self.api_url_path + url
-        return self.session.request('get', self.api_url_path, **kwargs)
+        self.url = self.api_url_path + url
+        return self.session.request('get', self.url, **kwargs)
 
     @response
     def post(self, url, **kwargs):

@@ -1,6 +1,6 @@
 import pytest,os,sys
 from library.environment import Env
-import yaml
+# import yaml
 
 
 @pytest.fixture(scope="module")
