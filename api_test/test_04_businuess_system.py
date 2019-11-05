@@ -41,6 +41,7 @@ def test_add_business_system(env, abisname, workflownodenum, abisadminids):
     assert response.success == True, response.error
 business_id=[
     ('23f317934c35a2acbb1922ec6d14ae6c'),
+    ('3c76d6c7e1cf42a6825da6b5e3e076d0')
 ]
 
 
@@ -93,3 +94,4 @@ def test_query_admin(env, keyword, page, limit, abisId):
     assert response.success == True, response.error
 if __name__=="__main__":
     pytest.main(["-s", "test_04_businuess_system.py::test_business_detail"])
+    # Business_system_api(env.koal).query_business_detail(abisid)

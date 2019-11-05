@@ -25,7 +25,7 @@ def response(func):
             return result
         if response.json()["code"] != 0:
             result.error = "{name}返回的错误代码{code}".format(name=func.__name__, code=response.json()["code"])
-            result.response=response.json()
+            result.response = response.json()
             return result
         result.success = True
         result.response = response.json()
