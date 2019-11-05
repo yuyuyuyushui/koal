@@ -21,25 +21,25 @@ class RestClient():
 
     @response
     def post(self, url, **kwargs):
-        self.api_url_path = self.api_url_path + url
+        self.url = self.api_url_path + url
         # s = requests.session().get(url)
         # print(s.text)
         # print(self.session.params)
-        return self.session.request('post', self.api_url_path, **kwargs)
+        return self.session.request('post', self.url, **kwargs)
 
     @response
     def patch(self,url,**kwargs):
-        self.api_url_path = self.api_url_path +url
-        return self.session.request('patch', self.api_url_path, **kwargs)
+        self.url = self.api_url_path +url
+        return self.session.request('patch', self.url, **kwargs)
 
     @response
     def put(self, url, **kwargs):
-        self.api_url_path = self.api_url_path+url
-        return self.session.request('put', self.api_url_path, **kwargs)
+        self.url = self.api_url_path+url
+        return self.session.request('put', self.url, **kwargs)
 
     @response
     def delete(self, url, **kwargs):
-        self.api_url_path = self.api_url_path + url
+        self.url = self.api_url_path + url
         # print(url)
-        return self.session.request('delete', self.api_url_path, **kwargs)
+        return self.session.request('delete', self.url, **kwargs)
 
