@@ -29,7 +29,7 @@ class It_assert():
         }
         return self.koal.it_assert.assert_list(params=param)
 
-    def add_assert(self, resName, abisId, resKind, resCategory, ip4Addr, resVersion, resType, cmdPrompt, protocolPort, winDomain,instanceName, databaseName, httpLoginUri, status, asJumpDevice, needJumpLogin, fromResId, fromAccountId, fromCommand, ip_white):
+    def add_assert(self, resName, abisId, resKind, resCategory, ip4Addr, resVersion, resType, protocolPort ,ip_white, status, cmdPrompt=None, winDomain=None,instanceName=None, databaseName=None, httpLoginUri=None, asJumpDevice=None, needJumpLogin=None, fromResId=None, fromAccountId=None, fromCommand=None):
         """
         添加资产
         :param resName: 资源名称
@@ -78,29 +78,30 @@ class It_assert():
         }
         return self.koal.it_assert.add_assert(json=json_data)
 
-    def modify_assert(self, resId, resName,abisId, resKind, resCategory, ip4Addr, resVersion, resType, cmdPrompt, protocolPort, winDomain,instanceName, databaseName, httpLoginUri, status, asJumpDevice, needJumpLogin, fromResId, fromAccountId, fromCommand, ip_white):
+    def modify_assert(self, resId, resName, abisId, resKind, resCategory, ip4Addr, resVersion, resType,protocolPort ,ip_white, status, cmdPrompt=None, winDomain=None,instanceName=None, databaseName=None, httpLoginUri=None, asJumpDevice=None, needJumpLogin=None, fromResId=None, fromAccountId=None, fromCommand=None):
         """
         修改资产
-        :param resId: 资源id
+        :param resId:
         :param resName:
+        :param abisId:
         :param resKind:
         :param resCategory:
         :param ip4Addr:
         :param resVersion:
         :param resType:
-        :param cmdPrompt:
         :param protocolPort:
+        :param ip_white:
+        :param status:
+        :param cmdPrompt:
         :param winDomain:
         :param instanceName:
         :param databaseName:
         :param httpLoginUri:
-        :param status:
         :param asJumpDevice:
         :param needJumpLogin:
         :param fromResId:
         :param fromAccountId:
         :param fromCommand:
-        :param ip_white:
         :return:
         """
         json_date={

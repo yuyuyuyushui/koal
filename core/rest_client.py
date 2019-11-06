@@ -22,9 +22,6 @@ class RestClient():
     @response
     def post(self, url, **kwargs):
         self.url = self.api_url_path + url
-        # s = requests.session().get(url)
-        # print(s.text)
-        # print(self.session.params)
         return self.session.request('post', self.url, **kwargs)
 
     @response
@@ -40,6 +37,5 @@ class RestClient():
     @response
     def delete(self, url, **kwargs):
         self.url = self.api_url_path + url
-        # print(url)
         return self.session.request('delete', self.url, **kwargs)
 

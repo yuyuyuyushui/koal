@@ -17,29 +17,37 @@ def test_business_system(env):
     logger_info("测试业务系统查询")
     response = It_assert(env.koal).business_system_query()
     assert response.success == True, response.error
-list_query = [
 
+list_query = [
     (1, 10, 1, "3c76d6c7e1cf42a6825da6b5e3e076d0"),
-    (1, 20, 1, "3c76d6c7e1cf42a6825da6b5e3e076d0")
+    (1, 20, 1, None)
 ]
 
 
-@pytest.mark.parametrize(" page, limit, resKind, abisId", list_query)
+@pytest.mark.parametrize("page, limit, resKind, abisId", list_query)
 def test_assert_list_query(env, page, limit, resKind, abisId):
     logger_info("测试资产列表查询")
-    a = It_assert(env.koal)
-    logger_info(a)
-    response = a.assert_list_query(page, limit, resKind, abisId)
+    response = It_assert(env.koal).assert_list_query(page, limit, resKind, abisId)
     assert response.success == True, response.error
+assert_data = [
+    ("test_assert_{}".format(randint(1,10000)), '3c76d6c7e1cf42a6825da6b5e3e076d0', 1, 1,"10.143.220.9", 8.0, 2)
+]
+
+@pytest.mark.parametrize("resName, abisId, resKind, resCategory, ip4Addr, resVersion, resType, protocolPort ,ip_white, status",assert_data)
+def test_add_assert(env, resName, abisId, resKind, resCategory, ip4Addr, resVersion, resType, protocolPort ,ip_white, status, cmdPrompt=None, winDomain=None,instanceName=None, databaseName=None, httpLoginUri=None, asJumpDevice=None, needJumpLogin=None, fromResId=None, fromAccountId=None, fromCommand=None):
+    It_assert(env.koal).add_assert(resName, abisId, resKind, resCategory, ip4Addr, resVersion, resType, protocolPort ,ip_white, status, cmdPrompt=None, winDomain=None,instanceName=None, databaseName=None, httpLoginUri=None, asJumpDevice=None, needJumpLogin=None, fromResId=None, fromAccountId=None, fromCommand=None)
+resid=[
+    ("30964bd6a9ea4f638288a388a17fd814")
+]
 
 
+@pytest.mark.parametrize("resid", resid)
 def test_query_assert_detail(env, resid):
     logger_info("查询业务系统详情")
     a = It_assert(env.koal)
-    logger_info(a)
     response =a .query_assert_detail(resid)
     assert response.success == True, response.error
 
 
 if __name__=="__main__":
-    pytest.main(["-s", "test_05_it_assert.py::test_assert_list_query"])
+    pytest.main(["-s", "test_05_it_assert.py::test_query_assert_detail"])
