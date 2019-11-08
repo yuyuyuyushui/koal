@@ -1,4 +1,4 @@
-import pytest
+import pytest, json
 from operations.it_assert import *
 from core.base import *
 from random import randint
@@ -30,12 +30,16 @@ def test_assert_list_query(env, page, limit, resKind, abisId):
     response = It_assert(env.koal).assert_list_query(page, limit, resKind, abisId)
     assert response.success == True, response.error
 assert_data = [
-    ("test_assert_{}".format(randint(1,10000)), '3c76d6c7e1cf42a6825da6b5e3e076d0', 1, 1,"10.143.220.9", 8.0, 2)
+    ("test_assert_{}".format(randint(1,10000)), '3c76d6c7e1cf42a6825da6b5e3e076d0', "1", "1", "10.143.220.9", "8.0", "2", json.dumps([{"protocols":"ssh","port":22,"established":"true"}]), None, 0)
 ]
 
+
 @pytest.mark.parametrize("resName, abisId, resKind, resCategory, ip4Addr, resVersion, resType, protocolPort ,ip_white, status",assert_data)
-def test_add_assert(env, resName, abisId, resKind, resCategory, ip4Addr, resVersion, resType, protocolPort ,ip_white, status, cmdPrompt=None, winDomain=None,instanceName=None, databaseName=None, httpLoginUri=None, asJumpDevice=None, needJumpLogin=None, fromResId=None, fromAccountId=None, fromCommand=None):
-    It_assert(env.koal).add_assert(resName, abisId, resKind, resCategory, ip4Addr, resVersion, resType, protocolPort ,ip_white, status, cmdPrompt=None, winDomain=None,instanceName=None, databaseName=None, httpLoginUri=None, asJumpDevice=None, needJumpLogin=None, fromResId=None, fromAccountId=None, fromCommand=None)
+def test_add_assert(env, resName, abisId, resKind, resCategory, ip4Addr, resVersion, resType, protocolPort,ip_white, status, cmdPrompt=None, winDomain=None,instanceName=None, databaseName=None, httpLoginUri=None, asJumpDevice=None, needJumpLogin=None, fromResId=None, fromAccountId=None, fromCommand=None):
+    response = It_assert(env.koal).add_assert(resName, abisId, resKind, resCategory, ip4Addr, resVersion, resType, protocolPort, ip_white, status, cmdPrompt=None, winDomain=None,instanceName=None, databaseName=None, httpLoginUri=None, asJumpDevice=None, needJumpLogin=None, fromResId=None, fromAccountId=None, fromCommand=None)
+    assert response.success ==True, response.error
+
+
 resid=[
     ("30964bd6a9ea4f638288a388a17fd814")
 ]
@@ -50,4 +54,4 @@ def test_query_assert_detail(env, resid):
 
 
 if __name__=="__main__":
-    pytest.main(["-s", "test_05_it_assert.py::test_query_assert_detail"])
+    pytest.main(["-s", "test_05_it_assert.py::test_add_assert"])

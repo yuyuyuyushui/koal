@@ -1,3 +1,4 @@
+
 class It_assert():
     def __init__(self, koal):
         self.koal = koal
