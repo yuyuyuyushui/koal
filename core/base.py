@@ -5,6 +5,8 @@ class CommonItem():
         self.success = False
         self.response = False
         self.error = False
+
+
 def response(func):
 
     def wrapper(self, *args, **kwargs):
@@ -23,12 +25,14 @@ def response(func):
             logger_error(e)
             result.content = response.content
             return result
+        print("json:{}".format(response.json()))
         if response.json()["code"] != 0:
             result.error = "{name}返回的错误代码{code}".format(name=func.__name__, code=response.json()["code"])
             result.response = response.json()
             return result
         result.success = True
         result.response = response.json()
+        # result = response
         return result
     return wrapper
 

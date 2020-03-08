@@ -21,4 +21,4 @@ def test_qury_orgize(env):
     assert response.success == True
     assert 0
 if __name__=='__main__':
-    pytest.main(['-s', "test_02_organize.py::test_qury_orgize"])
+    pytest.main(['-s', "test_02_organize.py::test_add_organize"])

@@ -13,7 +13,7 @@ class Users(RestClient):
 
     def query_user_list(self, **kwargs):
         """
-        用户列表
+        用户列表(分页)
         :param kwargs:
         :return:
         """

@@ -41,17 +41,17 @@ def add_user(koal, loginname, username,validityperiod,password,depid,authtype,id
     }
     result = CommonItem()
     response = koal.users.add_user(json=user_message)
-    if response.json()["code"] != 0:
-        result.error = "添加用户失败,返回的信息{}".format(response.json()["msg"])
-        result.response = response.json()
+    if response.response["code"] != 0:
+        result.error = "添加用户失败,返回的信息{}".format(response.response["msg"])
+        result.response = response.response
         return result
     response = koal.users.query_user_list(params=query_pragram)
-    if response.json()["code"] != 0:
-        result.error = "根据此用户名查询户失败,返回的信息{}".format(response.json()["msg"])
-        result.response = response.json()
+    if response.response["code"] != 0:
+        result.error = "根据此用户名查询户失败,返回的信息{}".format(response.response["msg"])
+        result.response = response.response
         return result
     result.success = True
-    result.response = response.json()
+    result.response = response.response
     return result
 
 
@@ -70,8 +70,8 @@ def query_user_detail(koal, page, limit, name, deptid):
     pages = None
     try:
         user_result = koal.users.query_user_list(params=user_list)
-        pages = user_result.json()['page']
-        assert user_result.json()['code']==0
+        pages = user_result.response['page']
+        assert user_result.response['code']==0
     except:
         print("查询有误")
 

@@ -5,12 +5,15 @@ from random import randint
 from scenario_test.add_users import add_users
 from library.loggins import *
 add_user_data=[
-    ("add_user_{}".format(randint(1,9999)),'lll_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',5,0, 666,777,None,9999,0000,2222,1111),
-    ("add_user_{}".format(randint(1,9999)),'lll_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',5,0, '5107211995111111111', 333333333333333,None,None,None,None,None)
+    ("add_user_{}".format(randint(1,9999)),'lll_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',5,0, 666, 777, None, 9999, 0000, 2222, 1111),
+    ("add_user_{}".format(randint(1,9999)),'lll_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',5,0, '5107211995111111111', 333333333333333, None,None,None,None,None)
 
 ]
-@pytest.mark.parametrize("loginname,username,validityperiod,password,depid,authtype,idcard,jobnumber,roleidlist,email,mobile,sex,ipwhite",add_user_data)
-def test_add_user(env,loginname, username,validityperiod,password,depid,authtype,idcard,jobnumber,roleidlist,email,mobile,sex,ipwhite):
+
+
+@pytest.mark.parametrize("loginname, username, validityperiod, password, "
+                         "depid, authtype,idcard,jobnumber,roleidlist,email,mobile,sex,ipwhite",add_user_data)
+def test_add_user(env, loginname, username, validityperiod, password, depid, authtype, idcard,jobnumber,roleidlist,email,mobile,sex,ipwhite):
     """
         添加用户，关联角色，关联部门，角色和组织都可为空
         :param koal:
@@ -45,6 +48,8 @@ query_date=[
     ('1',50,'',''),
     ('1',100,'','')
 ]
+
+
 @pytest.mark.parametrize("page,limit,name,deptid",query_date)
 def test_query_user(env,page,limit,name,deptid):
     query_params = {
@@ -63,8 +68,11 @@ def test_query_user(env,page,limit,name,deptid):
     currPage：当前页
     """
     userlist_result = env.koal.users.query_user_list(params=query_params)
-    env.logger.info("test_query_list的返回码{}".format(userlist_result.json()["code"]))
+    print(userlist_result.json())
+    # env.logger.info("test_query_list的返回码{}".format(userlist_result.json()["code"]))
     assert userlist_result.json()["code"] == 0
+
+
 def test_query_role_list(env):
     """
     检索角色列表
@@ -72,18 +80,22 @@ def test_query_role_list(env):
     :return:
     """
     para = {
-        "userId":''
+        "userId": ''
     }
     role_list = env.koal.users.retrieval_role_list(params=para)
     env.logger.info("角色列表信息{}".format(role_list.json()))
-    assert role_list.json()['code']==0
+    assert role_list.json()['code'] == 0
     # assert 0
+
+
 add_user_data=[
     (None,None,5,"test_yuyuyuy{}".format(randint(1,999)),"add_users_{}".format(randint(1,9999)),'lll_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',0, 666,777,9999,0000,2222,1111),
     # (None,None,5,"test_yuyuyuy{}".format(randint(1,999)),"add_users_{}".format(randint(1,9999)),'lll_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',0, '5107211995111111111', 333333333333333,None,None,None,None),
     #("test_role","测试新增用户一个角色",5,"test_yuyuyuy{}".format(randint(1,999)),"add_users_{}".format(randint(1,9999)),'lll_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',0, '5107211995111111111', 333333333333333,"786313105@qq.com",None,None,None)
 
 ]
+
+
 @pytest.mark.parametrize("rolename, remark, parentid, deptname,loginname, username,validityperiod,password,authtype,idcard,jobnumber,email,mobile,sex,ipwhite",add_user_data)
 def test_add_users(env,rolename, remark, parentid, deptname,loginname, username,validityperiod,password,authtype,idcard,jobnumber,email,mobile,sex,ipwhite):
     result =add_users(env.koal,rolename, remark, parentid, deptname,loginname, username,validityperiod,password,authtype,idcard,jobnumber,email,mobile,sex,ipwhite)
@@ -92,4 +104,4 @@ def test_add_users(env,rolename, remark, parentid, deptname,loginname, username,
 
 
 if __name__=="__main__":
-    pytest.main(["-s", "--capture=no","test_01_user.py::test_add_users"])
+    pytest.main(["-s", "test_01_user.py::test_query_user"])

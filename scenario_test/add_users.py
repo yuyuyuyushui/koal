@@ -5,23 +5,20 @@ def add_users(koal,rolename, remark, parentid, deptname,loginname, username,vali
     """
     判断角色是否为空，角色，可以为列表模式，都不为空时，获取角色ID，部门ID
     :param koal:
-    :param rolename:角色名
-    :param remark:
-    :param parentid:
-    :param deptname:
-    :param loginname:
-    :param username:
-    :param validityperiod:
-    :param password:
-    :param depid:
-    :param authtype:
-    :param idcard:
-    :param jobnumber:
-    :param roleidlist:
-    :param email:
-    :param mobile:
-    :param sex:
-    :param ipwhite:
+    :param koal:
+    :param loginname: 登录名
+    :param username: 用户名
+    :param validityperiod: 时间有效期
+    :param password:密码
+    :param depid:部门id
+    :param authtype:密码校验
+    :param idcard:身份证
+    :param jobnumber:工号
+    :param roleidlist:角色列表
+    :param email:邮件地址
+    :param mobile:电话号码
+    :param sex:男
+    :param ipwhite:白名单
     :return:
     """
     result = CommonItem()

@@ -3,6 +3,10 @@ from operations.it_assert import *
 from core.base import *
 from random import randint
 
+"""
+资产管理的测试
+"""
+
 dictionary_date = [
     ("OsType","ResCategory:1")
 ]

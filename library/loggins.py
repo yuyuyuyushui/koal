@@ -18,7 +18,6 @@ class Loger():
         self.logger.handlers = self.logger.handlers[:2]
         level = [logging.DEBUG,logging.INFO,logging.WARNING,logging.ERROR,logging.CRITICAL]
 
-
     def debug(self, message):
         self.logger.debug(message)
 
@@ -33,11 +32,16 @@ class Loger():
 
     def cri(self, message):
         self.logger.critical(message)
+
+
 class a():
     def __init__(self):
         self.a = 1
+
     def test(self, message):
         print(message)
+
+
 if __name__ =='__main__':
     a().test(33)
     a().test(55)

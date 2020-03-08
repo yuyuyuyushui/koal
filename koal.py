@@ -21,5 +21,5 @@ if __name__== "__main__":
     pa = {
         "userId":""
     }
-    response = Koal('http://10.143.220.117:9090',token='0666f3650a93b2e009bbf878fb996daf').users.retrieval_role_list(params=pa)
+    response = Koal('http://10.11.220.117:9090', token='0666f3650a93b2e009bbf878fb996daf').users.retrieval_role_list(params=pa)
     print(response.json()["code"])

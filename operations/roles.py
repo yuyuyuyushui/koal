@@ -16,10 +16,11 @@ def add_role(koal, rolename, remark):
     result = CommonItem()
     result.success = False
     response = koal.role_manage.add_role(json=role_message)
-    if response.json()['code'] != 0:
+    print(response)
+    if response.response['code'] != 0:
         result.success=False
-        result.error = "add_role false,the code is {} should be 0".format(response.json()['code'])
-        result.response = response.json()
+        result.error = "add_role false,the code is {} should be 0".format(response.response['code'])
+        result.response = response.response
         return result
 
     para = {
@@ -28,17 +29,17 @@ def add_role(koal, rolename, remark):
     }
 
     response1 = koal.users.retrieval_role_list(params=para)
-    print(response1.json()["code"])
-    if response1.json()["code"] != 0:
+    print(response1.response["code"])
+    if response1.response["code"] != 0:
         result.success = False
-        result.error = "retrieval_role_list false,the code is {} should be 0".format(response1.json()['code'])
-        result.response = response1.json()
+        result.error = "retrieval_role_list false,the code is {} should be 0".format(response1.response['code'])
+        result.response = response1.response
         return result
 
-    for i in response1.json()["list"]:
+    for i in response1.response["list"]:
         if i["roleName"] == rolename:
             result.success = True
-            result.response = response1.json()
+            result.response = response1.response
             return result
     result.success = False
     result.response = response1
@@ -69,30 +70,30 @@ def modify_roles(koal, add_rolename, add_remark, modify_rolename, modify_remark)
 
     print(roleid)
     response = koal.role_manage.update_role(roleid, json=update_rolename)
-    if response.json()['code'] != 0:
+    if response.response['code'] != 0:
         result.success=False
-        result.error = "modify_role false,the code is {} should be 0".format(response.json()['code'])
-        result.response = response.json()
+        result.error = "modify_role false,the code is {} should be 0".format(response.response['code'])
+        result.response = response.response
         return result
     para = {
 
         "userId": ""
     }
     response2 = koal.users.retrieval_role_list(params=para)
-    if response2.json()["code"] != 0:
+    if response2.response["code"] != 0:
         result.success = False
-        result.error = "retrieval_role_list false,the code is {} should be 0".format(response2.json()['code'])
-        result.response = response2.json()
+        result.error = "retrieval_role_list false,the code is {} should be 0".format(response2.response['code'])
+        result.response = response2.response
         return result
 
-    for i in response2.json()["list"]:
+    for i in response2.response["list"]:
         if i["roleName"] == modify_rolename:
             result.success = True
-            result.response = response2.json()
+            result.response = response2.response
             return result
     result.success = False
     result.error = "修改角色失败"
-    result.response = response.json()
+    result.response = response.response
     return result
 
 
@@ -115,31 +116,31 @@ def delet_role(koal,rolename, remark):
             roleid = i["roleId"]
     print(roleid)
     response = koal.role_manage.delete_role(roleid)
-    if response.json()["code"] != 0:
+    if response.response["code"] != 0:
         result.success = False
         result.error = "删除失败"
-        result = response.json()
+        result = response.response
         return result
     para = {
 
         "userId": ""
     }
     response1 = koal.users.retrieval_role_list(params=para)
-    print(response1.json()["code"])
-    if response1.json()["code"] != 0:
+    print(response1.response["code"])
+    if response1.response["code"] != 0:
         result.success = False
-        result.error = "retrieval_role_list false,the code is {} should be 0".format(response1.json()['code'])
-        result.response = response1.json()
+        result.error = "retrieval_role_list false,the code is {} should be 0".format(response1.response['code'])
+        result.response = response1.response
         return result
 
-    for i in response1.json()["list"]:
+    for i in response1.response["list"]:
         if i["roleName"] == rolename:
             result.success = False
             result.error = "用户名还存在，删除失败"
-            result.response = response1.json()
+            result.response = response1.response
             return result
     result.success=True
-    result.response = response1.json()
+    result.response = response1.response
     return result
 
 
@@ -151,11 +152,11 @@ def query_role_list(koal,page,limit,param=None):
     }
     result = CommonItem()
     response = koal.role_manage.system_role_list(params=param)
-    if response.json()["code"] != 0:
-        result.response = response.json()
+    if response.response["code"] != 0:
+        result.response = response.response
         return result
     result.success =True
-    result.response = response.json()
+    result.response = response.response
     return result
 
 def role_permission_query(koal, rolename, remark):
@@ -176,13 +177,13 @@ def role_permission_query(koal, rolename, remark):
             roleid = i["roleId"]
     print(roleid)
     response = koal.role_manage.query_function_menu(roleid)
-    if response.json()['code'] != 0:
+    if response.response['code'] != 0:
         result.success=False
-        result.error = "add_role false,the code is {} should be 0".format(response.json()['code'])
-        result.response = response.json()
+        result.error = "add_role false,the code is {} should be 0".format(response.response['code'])
+        result.response = response.response
         return result
     result.success = True
-    result.response = response.json()
+    result.response = response.response
     return result
 def query_role_user_list(koal, roleid, page, limit):
     """
@@ -199,8 +200,8 @@ def query_role_user_list(koal, roleid, page, limit):
     }
     result = CommonItem()
     response = koal.role_manage.role_user_list(params=param)
-    if response.json()["code"] != 0:
-        result.error =  "查询角色下的用户列表,返回码{}".format(response.json()["code"])
-        result.response = response.json()
+    if response.response["code"] != 0:
+        result.error =  "查询角色下的用户列表,返回码{}".format(response.response["code"])
+        result.response = response.response
     result.success = True
-    result.response = response.json()
+    result.response = response.response

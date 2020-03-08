@@ -2,12 +2,16 @@ from operations.business_system import *
 import pytest
 from core.base import *
 from random import randint
+
+"""
+业务系统的测试
+"""
+
 business_data=[
     (1, 10),
     # (1, 25),
     # (1, 50)
 ]
-
 
 @pytest.mark.parametrize("page,limit",business_data)
 def test_business_system_query_list(env, page, limit):
