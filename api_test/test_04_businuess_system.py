@@ -7,6 +7,36 @@ from random import randint
 业务系统的测试
 """
 
+@pytest.fixture(scope=function)
+def setup_add_bussiness(env, abisname, workflownodenum, abisadminids):
+    return Business_system_api(env.koal).add_business_system(abisname, workflownodenum, abisadminids)
+
+
+add_business_data=[
+    ("test_business_{}".format(randint(1, 1000)), 1, "81b647371a4d6e8fa9d0f0b8fa9d0a6d"),
+    ("test_business_{}".format(randint(1, 1000)), 2, ""),
+]
+
+
+@pytest.mark.parametrize("abisname, workflownodenum, abisadminids", add_business_data)
+def test_add_business_system(env, abisname, workflownodenum, abisadminids):
+    logger_info("测试增加业务系统")
+    response = Business_system_api(env.koal).add_business_system(abisname, workflownodenum,abisadminids)
+    assert response.success == True, response.error
+
+
+modidate = [
+    ("23f317934c35a2acbb1922ec6d14ae6c" , "modify_business_{}".format(randint(1, 1000)), 2, "81b647371a4d6e8fa9d0f0b8fa9d0a6d")
+]
+
+
+@pytest.mark.parametrize("abisid, abisName,workflowNodeNum,abisAdminIds", modidate)
+def test_modify_business_system(env,setup_add_bussiness,abisid, abisName,workflowNodeNum,abisAdminIds):
+    logger_info("测试修改业务系统")
+    setup_add_bussiness()
+    response = Business_system_api(env.koal).modify_business_system(abisid, abisName,workflowNodeNum,abisAdminIds)
+    assert response.success == True, response.error
+
 business_data=[
     (1, 10),
     # (1, 25),
@@ -32,17 +62,7 @@ def test_deletbusnisess_system_query_list(env, abisid):
     assert response.success == True, response.error
     # assert 0
 
-add_business_data=[
-    ("test_business_{}".format(randint(1, 1000)), 1, "81b647371a4d6e8fa9d0f0b8fa9d0a6d"),
-    ("test_business_{}".format(randint(1, 1000)), 2, ""),
-]
 
-
-@pytest.mark.parametrize("abisname, workflownodenum, abisadminids", add_business_data)
-def test_add_business_system(env, abisname, workflownodenum, abisadminids):
-    logger_info("测试增加业务系统")
-    response = Business_system_api(env.koal).add_business_system(abisname, workflownodenum,abisadminids)
-    assert response.success == True, response.error
 business_id=[
     ('23f317934c35a2acbb1922ec6d14ae6c'),
     ('3c76d6c7e1cf42a6825da6b5e3e076d0')
@@ -54,16 +74,7 @@ def test_business_detail(env, abisid):
     logger_info("测试查询业务系统详情")
     response=Business_system_api(env.koal).query_business_detail(abisid)
     assert response.success == True, response.error
-modidate = [
-    ("23f317934c35a2acbb1922ec6d14ae6c" , "modify_business_{}".format(randint(1, 1000)), 2, "81b647371a4d6e8fa9d0f0b8fa9d0a6d")
-]
 
-
-@pytest.mark.parametrize("abisid, abisName,workflowNodeNum,abisAdminIds", modidate)
-def test_modify_business_system(env,abisid, abisName,workflowNodeNum,abisAdminIds):
-    logger_info("测试修改业务系统")
-    response = Business_system_api(env.koal).modify_business_system(abisid, abisName,workflowNodeNum,abisAdminIds)
-    assert response.success == True, response.error
 
 id_date=[
     ("23f317934c35a2acbb1922ec6d14ae6c"),
