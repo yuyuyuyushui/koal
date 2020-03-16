@@ -35,7 +35,7 @@ def add_organize(koal,parentid,deptname):
     for i in response2.response["data"]:
         if i["parentId"]  == parentid and i["deptName"] ==deptname:
             result.success =True
-            result.response = response.response
+            result.response = response2.response
             return result
 
 

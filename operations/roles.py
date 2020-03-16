@@ -42,7 +42,7 @@ def add_role(koal, rolename, remark):
             result.response = response1.response
             return result
     result.success = False
-    result.response = response1
+    result.response = response1.response
     return result
 def modify_roles(koal, add_rolename, add_remark, modify_rolename, modify_remark):
     """

@@ -4,6 +4,27 @@ from operations.users import *
 from random import randint
 from scenario_test.add_users import add_users
 from library.loggins import *
+from operations.organize import *
+from operations.roles import *
+
+
+@pytest.fixture(scope="function")
+def Role_Organize(env):
+    add_organize(env.koal,0,'add-user2')
+    result = add_role(env.koal,'add-user-role2','333')
+    print(result.response)
+    roleid=None
+    for i in result.response["list"]:
+        if i["roleName"] == 'add-user-role1':
+            roleid = i["roleId"]
+    role_oraganize={
+        "depid":1,
+        "role_id": roleid
+    }
+    yield role_oraganize
+    env.koal.role_manage.delete_role(roleid)
+def test__(env,Role_Organize):
+    print(Role_Organize)
 add_user_data=[
     ("add_user_{}".format(randint(1,9999)),'lll_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',5,0, 666, 777, None, 9999, 0000, 2222, 1111),
     ("add_user_{}".format(randint(1,9999)),'lll_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',5,0, '5107211995111111111', 333333333333333, None,None,None,None,None)
@@ -104,4 +125,4 @@ def test_add_users(env,rolename, remark, parentid, deptname,loginname, username,
 
 
 if __name__=="__main__":
-    pytest.main(["-s", "test_01_user.py::test_query_user"])
+    pytest.main(["-s", "test_01_user.py::test__"])
