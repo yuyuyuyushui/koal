@@ -10,31 +10,32 @@ from operations.roles import *
 
 @pytest.fixture(scope="function")
 def Role_Organize(env):
-    add_organize(env.koal,0,'add-user2')
-    result = add_role(env.koal,'add-user-role2','333')
-    print(result.response)
-    roleid=None
+    add_organize(env.koal,0,'add-user78901')
+    result = add_role(env.koal,'add-user-role78901','333')
+    global roleid
+    print(result.response["list"])
     for i in result.response["list"]:
-        if i["roleName"] == 'add-user-role1':
+        if i["roleName"] == 'add-user-role78901':
             roleid = i["roleId"]
+            print(roleid)
     role_oraganize={
-        "depid":1,
-        "role_id": roleid
+        "depid": 1,
+        "roleid": roleid
     }
     yield role_oraganize
     env.koal.role_manage.delete_role(roleid)
 def test__(env,Role_Organize):
     print(Role_Organize)
 add_user_data=[
-    ("add_user_{}".format(randint(1,9999)),'lll_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',5,0, 666, 777, None, 9999, 0000, 2222, 1111),
-    ("add_user_{}".format(randint(1,9999)),'lll_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',5,0, '5107211995111111111', 333333333333333, None,None,None,None,None)
+    ("add_user_{}".format(randint(1,9999)),'lll_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',5, 666, 777,  9999, 0000, 2222, 1111),
+    ("add_user_{}".format(randint(1,9999)),'lll_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',5,'5107211995111111111', 333333333333333,None,None,None,None)
 
 ]
 
 
 @pytest.mark.parametrize("loginname, username, validityperiod, password, "
-                         "depid, authtype,idcard,jobnumber,roleidlist,email,mobile,sex,ipwhite",add_user_data)
-def test_add_user(env, loginname, username, validityperiod, password, depid, authtype, idcard,jobnumber,roleidlist,email,mobile,sex,ipwhite):
+                         " authtype,idcard,jobnumber,email,mobile,sex,ipwhite",add_user_data)
+def test_add_user(env, Role_Organize, loginname, username, validityperiod, password, authtype, idcard,jobnumber,email,mobile,sex,ipwhite):
     """
         添加用户，关联角色，关联部门，角色和组织都可为空
         :param koal:
@@ -53,11 +54,11 @@ def test_add_user(env, loginname, username, validityperiod, password, depid, aut
         :param ipwhite:白名单
         :return:
         """
-    result = add_user(env.koal,loginname,username,validityperiod,password, depid,authtype,idcard,jobnumber,roleidlist,email,mobile,sex,ipwhite)
-    result2 = add_user(env.koal,loginname,username,validityperiod,password, depid,authtype,idcard,jobnumber,roleidlist,email,mobile,sex,ipwhite)
-    assert result.json()['page']['list'][0]['loginName'] == loginname
-    assert result.json()["page"]["list"][0]["status"] == 0
-    userid = result.json()["page"]["list"][0]["userId"]
+    result = add_user(env.koal,loginname,username,validityperiod,password, Role_Organize["depid"],authtype,idcard,jobnumber,Role_Organize["roleid"],email,mobile,sex,ipwhite)
+    result2 = add_user(env.koal,loginname,username,validityperiod,password, Role_Organize["depid"],authtype,idcard,jobnumber,Role_Organize["roleid"],email,mobile,sex,ipwhite)
+    assert result['page']['list'][0]['loginName'] == loginname
+    assert result["page"]["list"][0]["status"] == 0
+    userid = result["page"]["list"][0]["userId"]
     query_result = env.koal.users.query_user_details(userid)
     assert query_result.json()["data"]["deptId"]==5
     assert result2.success == False, result2.error
@@ -119,10 +120,11 @@ add_user_data=[
 
 @pytest.mark.parametrize("rolename, remark, parentid, deptname,loginname, username,validityperiod,password,authtype,idcard,jobnumber,email,mobile,sex,ipwhite",add_user_data)
 def test_add_users(env,rolename, remark, parentid, deptname,loginname, username,validityperiod,password,authtype,idcard,jobnumber,email,mobile,sex,ipwhite):
-    result =add_users(env.koal,rolename, remark, parentid, deptname,loginname, username,validityperiod,password,authtype,idcard,jobnumber,email,mobile,sex,ipwhite)
+    result =add_users(env.koal, remark, parentid, deptname,loginname, username,validityperiod,password,authtype,idcard,jobnumber,email,mobile,sex,ipwhite)
     env.logger.info("添加用户的返回信息{}".format(result.response))
     assert result.success == True, result.error
 
 
 if __name__=="__main__":
-    pytest.main(["-s", "test_01_user.py::test__"])
+    pytest.main(["-s", "test_01_user.py::test_add_user"])
+    # pytest.main(["-s", "test_01_user.py::test__"])

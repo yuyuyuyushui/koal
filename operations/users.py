@@ -24,7 +24,7 @@ def add_user(koal, loginname, username,validityperiod,password,depid,authtype,id
         "deptId": depid,
         "idCard	": idcard,
         "jobNumber": jobnumber,
-        "roleIdList": roleidlist,
+        "roleIdList": [roleidlist],
         "validityPeriod": validityperiod,
         "password": password,
         "email": email,
