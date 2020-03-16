@@ -16,7 +16,7 @@ def add_role(koal, rolename, remark):
     result = CommonItem()
     result.success = False
     response = koal.role_manage.add_role(json=role_message)
-    print(response)
+    # print(response)
     if response.response['code'] != 0:
         result.success=False
         result.error = "add_role false,the code is {} should be 0".format(response.response['code'])
@@ -29,7 +29,7 @@ def add_role(koal, rolename, remark):
     }
 
     response1 = koal.users.retrieval_role_list(params=para)
-    print(response1.response["code"])
+    # print(response1.response["code"])
     if response1.response["code"] != 0:
         result.success = False
         result.error = "retrieval_role_list false,the code is {} should be 0".format(response1.response['code'])

@@ -5,6 +5,7 @@ class CommonItem():
         self.success = False
         self.response = False
         self.error = False
+        self.deptid = {}
 
 
 def response(func):
@@ -25,7 +26,7 @@ def response(func):
             logger_error(e)
             result.content = response.content
             return result
-        print("json:{}".format(response.json()))
+        # print("json:{}".format(response.json()))
         if response.json()["code"] != 0:
             result.error = "{name}返回的错误代码{code}".format(name=func.__name__, code=response.json()["code"])
             result.response = response.json()

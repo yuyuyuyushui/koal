@@ -21,6 +21,7 @@ def add_organize(koal,parentid,deptname):
     result = CommonItem()
     result.success = False
 
+
     response = koal.organize_manage.add_organize(json=organize)
     if response.response["code"] != 0:
         result.success = False
@@ -33,9 +34,12 @@ def add_organize(koal,parentid,deptname):
         return result
 
     for i in response2.response["data"]:
-        if i["parentId"]  == parentid and i["deptName"] ==deptname:
+        if i["parentId"]  == parentid and i["deptName"] == deptname:
             result.success =True
             result.response = response2.response
+            result.deptid['deptid'] = i["deptId"]
+            print(result.deptid)
+            print('------------')
             return result
 
 

@@ -10,25 +10,30 @@ from operations.roles import *
 
 @pytest.fixture(scope="function")
 def Role_Organize(env):
-    add_organize(env.koal,0,'add-user78901')
-    result = add_role(env.koal,'add-user-role78901','333')
+    deptname = 'add-user789051151'
+    result = add_organize(env.koal,0,deptname)
+    print(result.response,type(result))
+    deptid = result.deptid["deptid"]
+    print(deptid)
+    result1 = add_role(env.koal,'add-user-role789051151','333')
     global roleid
-    print(result.response["list"])
-    for i in result.response["list"]:
-        if i["roleName"] == 'add-user-role78901':
+    # print(result1.response["list"])
+    for i in result1.response["list"]:
+        if i["roleName"] == 'add-user-role789051151':
             roleid = i["roleId"]
             print(roleid)
     role_oraganize={
-        "depid": 1,
+        "depid": deptid,
         "roleid": roleid
     }
     yield role_oraganize
     env.koal.role_manage.delete_role(roleid)
+    env.koal.organize_manage.delete_organize(result.deptid)
 def test__(env,Role_Organize):
     print(Role_Organize)
 add_user_data=[
     ("add_user_{}".format(randint(1,9999)),'lll_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',5, 666, 777,  9999, 0000, 2222, 1111),
-    ("add_user_{}".format(randint(1,9999)),'lll_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',5,'5107211995111111111', 333333333333333,None,None,None,None)
+    # ("add_user_{}".format(randint(1,9999)),'lll_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',5,'5107211995111111111', 333333333333333,None,None,None,None)
 
 ]
 
@@ -54,6 +59,7 @@ def test_add_user(env, Role_Organize, loginname, username, validityperiod, passw
         :param ipwhite:白名单
         :return:
         """
+    print(Role_Organize)
     result = add_user(env.koal,loginname,username,validityperiod,password, Role_Organize["depid"],authtype,idcard,jobnumber,Role_Organize["roleid"],email,mobile,sex,ipwhite)
     result2 = add_user(env.koal,loginname,username,validityperiod,password, Role_Organize["depid"],authtype,idcard,jobnumber,Role_Organize["roleid"],email,mobile,sex,ipwhite)
     assert result['page']['list'][0]['loginName'] == loginname
@@ -126,5 +132,5 @@ def test_add_users(env,rolename, remark, parentid, deptname,loginname, username,
 
 
 if __name__=="__main__":
-    pytest.main(["-s", "test_01_user.py::test_add_user"])
+     pytest.main(["-s", "test_01_user.py::test_add_user"])
     # pytest.main(["-s", "test_01_user.py::test__"])
