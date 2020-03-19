@@ -1,8 +1,8 @@
 from core.rest_client import RestClient
 
 class BusinessSystemManagement(RestClient):
-    def __init__(self, api_url_path, **kwargs):
-        super(BusinessSystemManagement, self).__init__(api_url_path, **kwargs)
+    def __init__(self,api_user_path, **kwargs):
+        super(BusinessSystemManagement, self).__init__(api_user_path,**kwargs)
 
     def query_business_system_list(self, **kwargs):
         """

@@ -4,6 +4,7 @@ from core.base import *
 class RestClient():
     def __init__(self, api_url_path, username=None,password=None,token=None,**kwargs):
         self.session = requests.session()
+
         if username and password:
             self.session.auth = (username, password)
         elif token:

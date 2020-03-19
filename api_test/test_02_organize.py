@@ -9,7 +9,7 @@ add_organize_testdata=[
 @pytest.mark.parametrize("parentid, deptname", add_organize_testdata)
 def test_add_organize(env, parentid, deptname):
     result = add_organize(env.koal, parentid, deptname)
-    print(result)
+    # print(result)
     assert result.success == True, result.error
 
 def test_delete_organize(env):
