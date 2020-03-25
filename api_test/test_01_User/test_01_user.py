@@ -132,5 +132,5 @@ def test_add_users(env,rolename, remark, parentid, deptname,loginname, username,
 
 
 if __name__=="__main__":
-     pytest.main(["-s", "test_01_user.py::test_add_user"])
+     pytest.main(["-v", "test_01_user.py::test_add_user"])
     # pytest.main(["-s", "test_01_user.py::test__"])
