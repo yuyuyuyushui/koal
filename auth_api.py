@@ -12,6 +12,7 @@ class Config(RestClient):
         # self.session.headers["Content-Type"] = "application/json"
         print(self.session.headers)
         return self.post("/v1/api/config/{}/{}/{}/hello".format(appTag,nodeId,profileTag),**kwargs)
+
     def Authentication(self,token,appTag,nodeId,profileTag):
         self.session.headers["token"] = token
 
@@ -25,19 +26,30 @@ if __name__=="__main__":
     import hashlib, json, base64
     from Crypto.Cipher import AES
     key = 'dffc2b944d5665075a0bd81657c620a0'
-    def add_to_16(value):
-        while len(value) % 16 != 0:
-            value += '\0'
-        return str.encode(value)  # ����bytes
+
     appTag = '2222222222'
     nodeId = "333"
     profileTag = '111111'
+    valeu = 'dffc2b944d5665075a0bd81657c620a0'
+
     response = Config("https://10.11.220.162").get_key(appTag, nodeId, profileTag)
     random = response.response["data"]["random"]
-    aes = AES.new(add_to_16(key), mode=AES.MODE_ECB).encrypt(random)
+    print(random, type(random))
+
+    def add_to_16(value):
+        while len(value) % 32 != 0:
+            value += '\0'
+        return str.encode(value)
+
+
+    # t = base64.b64decode(random)
+    aes = AES.new(key[0:16].encode("utf-8"),  AES.MODE_ECB)  # 初始化加密器，本例采用ECB加密模式
+
     # aes.encrypt(random)
-    # base64.b64encode(aes.encrypt(random)).decode("utf-8")
-    print(aes,type(aes))
+    # random.encode("utf-8")
+
+    a = aes.decrypt(bytes(random, encoding="utf-8"))
+    print(a,type(a))
 
     # date = {
     #     "response": hashlib.md5(aes.encode("utf-8")).hexdigest()

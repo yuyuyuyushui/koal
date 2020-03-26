@@ -8,11 +8,12 @@
     <file url="file://$PROJECT_DIR$/api_test/test_02_organize.py" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/api_test/test_04_businuess_system.py" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/api_test/test_05_it_assert.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/auth_api.py" charset="GBK" />
     <file url="file://$PROJECT_DIR$/core/base.py" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/log/test.log" charset="GBK" />
     <file url="file://$PROJECT_DIR$/operations/business_system.py" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/operations/it_assert.py" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/test.py" charset="UTF-8" />
-    <file url="PROJECT" charset="GBK" />
+    <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
