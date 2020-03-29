@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/koal.iml" filepath="$PROJECT_DIR$/.idea/koal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../koalApplication/.idea/koalApplication.iml" filepath="$PROJECT_DIR$/../koalApplication/.idea/koalApplication.iml" />
       <module fileurl="file://$PROJECT_DIR$/../koalUI/.idea/koalUI.iml" filepath="$PROJECT_DIR$/../koalUI/.idea/koalUI.iml" />
     </modules>
   </component>
