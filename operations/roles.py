@@ -32,6 +32,9 @@ def quer_roles(koal,page,limit,param=None):
     return koal.role_manage.system_role_list(params=param)
 
 
+def delete_role(koal,roleId):
+    return koal.role_manage.delete_role(roleId)
+
 def Add_role_verifica(koal, rolename, remark):
     """
     先创建角色，在检索角色,判断角色是否已添加
@@ -128,7 +131,7 @@ def Modify_roles_verufica(koal, add_rolename, add_remark, modify_rolename, modif
     return result
 
 
-def delet_role(koal,rolename, remark):
+def Delet_role(koal, rolename, remark):
     """
     先新增角色，再检索角色，最后取出roleid，根据roleid对用户删除,在检索用户是否还存在
     :param koal:

@@ -21,6 +21,15 @@ def test_add_role(env, rolename, remark, expect):
     assert result1.success == expect, result1.error
     assert result2.success == False, result2.response["msg"]
 
+def test_delet(env,rolename,remark):
+    result = add_role(env,rolename,remark)
+    assert result.success==True,result.error
+    roles = quer_roles(env.koal, '1', '1000')
+    roleId = None
+    for i in roles.response["page"]["list"]:
+        if i["roleName"] in rolename:
+            roleId = i["roleId"]
+    assert roleId != None
 
 
 modify_data=[
