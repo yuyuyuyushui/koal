@@ -44,7 +44,7 @@ class RestClient2():
     #          print('输入有误')
     #     self.api_url_path = api_url_path
     #     self.url = None
-    def __init__(self,api_url_path,**kwargs):
+    def __init__(self, api_url_path):
         self.session = requests.session()
         self.api_url_path = api_url_path
     @response

@@ -3,12 +3,14 @@ from core.rest_client2 import *
 
 class Config_first(RestClient2):
     def __init__(self,**kwargs):
+
         super(Config_first, self).__init__(**kwargs)
 
     def get_key(self, appTag, nodeId, profileTag, **kwargs):
+
         return self.get("/v1/api/config/{}/{}/{}/hello".format(appTag, nodeId, profileTag), **kwargs)
 
-    def get_token(self,appTag, nodeId, profileTag,**kwargs):
+    def get_token(self,appTag, nodeId, profileTag, **kwargs):
         # self.session.headers["Content-Type"] = "application/json"
         print(self.session.headers)
         return self.post("/v1/api/config/{}/{}/{}/hello".format(appTag,nodeId,profileTag),**kwargs)
@@ -18,12 +20,14 @@ class Config_seconde(RestClient1):
     def __init__(self,**kwargs):
         super(Config_seconde, self).__init__(**kwargs)
 
-    def Authentication(self,appTag,nodeId,profileTag):
+    def Authentication(self, appTag, nodeId, profileTag):
         print(self.session.headers)
         return self.get("/v1/api/config/{}/{}/{}/all".format(appTag,nodeId,profileTag))
 
-    def query_config(self,appTag,nodeId,profileTag):
+    def query_config(self, appTag, nodeId, profileTag):
         return self.get("/v1/api/config/{}/{}/{}/update".format(appTag,nodeId,profileTag))
+
+
 if __name__=="__main__":
     import hashlib, json, base64
     from Crypto.Cipher import AES

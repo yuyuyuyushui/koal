@@ -3,12 +3,6 @@ class Asseart_account():
         self.koal = koal
 
     def accunt_list_export(self, abisId, resId):
-        """
-        账号列表导出
-        :param abisId: 业务系统ID
-        :param resId: 资源ID
-        :return:
-        """
         param = {
             "abisId": abisId,
             "resId": resId

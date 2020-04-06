@@ -1,7 +1,38 @@
 from core.base import CommonItem
 
-
 def add_role(koal, rolename, remark):
+    """
+    添加角色
+    :param koal:
+    :param rolename:
+    :param remark:
+    :return:
+    """
+    role_message = {
+        "roleName": rolename,
+        "remark": remark
+    }
+    return koal.role_manage.add_role(json=role_message)
+
+
+def mody_roles(koal,roleid, modify_rolename, modify_remark):
+    update_rolename = {
+        "roleName": modify_rolename,
+        "modify_remark": modify_remark
+    }
+    return koal.role_manage.update_role(roleid, json=update_rolename)
+
+
+def quer_roles(koal,page,limit,param=None):
+    param = {
+        "page": page,
+        "limit": limit,
+        "param": param
+    }
+    return koal.role_manage.system_role_list(params=param)
+
+
+def Add_role_verifica(koal, rolename, remark):
     """
     先创建角色，在检索角色,判断角色是否已添加
     :param koal:
@@ -44,7 +75,7 @@ def add_role(koal, rolename, remark):
     result.success = False
     result.response = response1.response
     return result
-def modify_roles(koal, add_rolename, add_remark, modify_rolename, modify_remark):
+def Modify_roles_verufica(koal, add_rolename, add_remark, modify_rolename, modify_remark):
     """
     修改角色，先添加角色名和标志，再找到角色ID，传入需要修改的角色名以及标志，根据ID判断角色名和标志是否修改
     :param koal:
