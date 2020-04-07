@@ -21,8 +21,19 @@ def test_add_role(env, rolename, remark, expect):
     assert result1.success == expect, result1.error
     assert result2.success == False, result2.response["msg"]
 
-def test_delet(env,rolename,remark):
-    result = add_role(env,rolename,remark)
+delete_data=[
+    ("test_delete_data{}".format(randint(1,9999)),"删除标签"),
+]
+@pytest.mark.parametrize("rolename,remark",delete_data)
+def test_delet_role(env,rolename,remark):
+    """
+    先增加角色，再检索角色得到ID，再根据ID删除角色
+    :param env:
+    :param rolename:
+    :param remark:
+    :return:
+    """
+    result = add_role(env.koal,rolename,remark)
     assert result.success==True,result.error
     roles = quer_roles(env.koal, '1', '1000')
     roleId = None
@@ -30,7 +41,8 @@ def test_delet(env,rolename,remark):
         if i["roleName"] in rolename:
             roleId = i["roleId"]
     assert roleId != None
-
+    result_delete = delete_role(env.koal,roleId)
+    assert result_delete.success, result_delete.error
 
 modify_data=[
 
@@ -56,11 +68,25 @@ def test_modify_role(env, add_rolename, add_remark, modify_rolename, modify_rema
     roles = quer_roles(env.koal,'1','1000')
     assert roles.success == expect,result.error
     for i in roles.response["page"]["list"]:
-        if i["roleName"] in add_rolename:
+        if i["roleName"] == add_rolename:
             roleId = i["roleId"]
     assert roleId != None
     roles_result = mody_roles(env.koal, roleId,modify_rolename,modify_remark)
     assert roles_result.success == expect, roles_result.error
+query_data=[
+    (1, 10),
+    (2, 10),
+    (3, 10),
+    (1, 25),
+    (1, 50),
+    (1,100)
+]
+
+
+@pytest.mark.parametrize("page,limit",query_data)
+def test_role_query(env,page,limit):
+    result_qury = quer_roles(env.koal,page,limit)
+    assert result_qury.success, result_qury.error
 
 role_date = [
         ('query_promission_role{}'.format(randint(1, 9999)), '测试标签')
@@ -81,12 +107,12 @@ def test_query_promission_list(env, rolename, remark):
     assert result.success == True, result.error
     assert 0
 
-delete_data=[
+delete_date=[
     ("test_delete_data{}".format(randint(1,9999)),"删除标签"),
 ]
-@pytest.mark.parametrize("rolename,remark",delete_data)
+@pytest.mark.parametrize("rolename,remark",delete_date)
 def test_delete_role(env,rolename,remark):
-    response = delet_role(env.koal, rolename, remark)
+    response = Delet_role(env.koal, rolename, remark)
     assert response.success == True, response.error
 
 query_data=[
@@ -105,4 +131,4 @@ def test_query_role_list(env, page, limit):
     assert result.success == True, result.error
 
 if __name__ == "__main__":
-    pytest.main(['-s', "test_03_role.py::test_modify_role"])
+    pytest.main(['-s', "test_03_role.py::test_role_query"])

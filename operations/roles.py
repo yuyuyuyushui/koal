@@ -24,6 +24,14 @@ def mody_roles(koal,roleid, modify_rolename, modify_remark):
 
 
 def quer_roles(koal,page,limit,param=None):
+    """
+    查询关键字
+    :param koal:
+    :param page:
+    :param limit:
+    :param param:
+    :return:
+    """
     param = {
         "page": page,
         "limit": limit,
