@@ -21,15 +21,22 @@ def test_add_role(env, rolename, remark, expect):
     assert result1.success == expect, result1.error
     assert result2.success == False, result2.response["msg"]
 
+
+delete_data=[
+    ("test_delete_data{}".format(randint(1,9999)),"删除标签"),
+]
+@pytest.mark.parametrize("rolename,remark",delete_data)
 def test_delet(env,rolename,remark):
-    result = add_role(env,rolename,remark)
+    result = add_role(env.koal,rolename,remark)
     assert result.success==True,result.error
     roles = quer_roles(env.koal, '1', '1000')
     roleId = None
     for i in roles.response["page"]["list"]:
-        if i["roleName"] in rolename:
+        if i["roleName"] == rolename:
             roleId = i["roleId"]
     assert roleId != None
+    result_delete = delete_role(env.koal, roleId)
+    assert result_delete.success, result_delete.error
 
 
 modify_data=[
@@ -105,4 +112,4 @@ def test_query_role_list(env, page, limit):
     assert result.success == True, result.error
 
 if __name__ == "__main__":
-    pytest.main(['-s', "test_03_role.py::test_modify_role"])
+    pytest.main(['-s', "test_03_role.py::test_delet"])

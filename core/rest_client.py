@@ -1,10 +1,13 @@
-import requests
+import requests,urllib3
+
 from core.base import *
 
 class RestClient():
-    def __init__(self, api_url_path, username=None,password=None,token=None,**kwargs):
-        self.session = requests.session()
 
+    def __init__(self, api_url_path, username=None,password=None,token=None,**kwargs):
+
+        self.session = requests.session()
+        urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
         if username and password:
             self.session.auth = (username, password)
         elif token:
