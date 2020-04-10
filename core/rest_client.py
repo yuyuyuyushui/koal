@@ -1,5 +1,7 @@
 import requests,urllib3
 
+
+
 from core.base import *
 
 class RestClient():
@@ -8,6 +10,9 @@ class RestClient():
 
         self.session = requests.session()
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+        self.session = requests.session()
+
         if username and password:
             self.session.auth = (username, password)
         elif token:

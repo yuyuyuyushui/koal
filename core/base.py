@@ -5,7 +5,7 @@ class CommonItem():
         self.success = False
         self.response = False
         self.error = False
-        self.deptid = {}
+
 
 
 def response(func):

@@ -29,7 +29,7 @@ class RoleManage(RestClient):
         """
         return self.delete("/v1/role/{}".format(roleid),**kwargs)
 
-    def query_function_menu(self, role_id, **kwargs):
+    def query_role_Jurisdiction_menu(self, role_id, **kwargs):
         """
         检索权限功能菜单
         :param role_id:
