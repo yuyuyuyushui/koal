@@ -1,5 +1,5 @@
 from core.base import CommonItem
-def add_user(koal, loginname, username,validityperiod,password,depid,authtype,idcard=None,jobnumber=None,roleidlist=None,email=None,mobile=None,sex=None,ipwhite=None):
+def add_user(koal, loginname, username,validityperiod,password,depid,authtype,idcard=None,jobnumber=None,roleidlist=None,email=None,mobile=None,sex=None,ipwhite=None,identity=None):
     """
     添加用户，关联角色，关联部门，角色和组织都可为空
     :param koal:
@@ -31,7 +31,8 @@ def add_user(koal, loginname, username,validityperiod,password,depid,authtype,id
         "mobile": mobile,
         "authType": authtype,
         "sex": sex,
-        "ipwhite": ipwhite
+        "ipwhite": ipwhite,
+        "identity":identity
     }
     query_pragram = {
         'page': 1,

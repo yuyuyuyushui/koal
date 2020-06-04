@@ -1,5 +1,11 @@
-from core.base import CommonItem
+# from core.base import CommonItem
 from random import randint
+
+class CommonItem():
+    def __init__(self):
+        self.success = False
+        self.response = False
+        self.error = False
 def response(func):
     def wrapper(*args, **kwargs):
         result = CommonItem()
@@ -20,27 +26,23 @@ def add_organize(koal,parentid,deptname):
     }
     result = CommonItem()
     result.success = False
+    oraganizeId =None
 
 
     response = koal.organize_manage.add_organize(json=organize)
-    if response.response["code"] != 0:
-        result.success = False
-        result.error = "创建部门组织失败，返回码为{}".format(response.response["code"])
-        return result
+    # return response
+    if response.success == False:
+        return False
+
     response2 = koal.organize_manage.query_organize()
-    if response2.response["code"] != 0:
-        result.success = False
-        result.error = "查询部门组织失败，返回码{}".format(response.response["code"])
-        return result
+    if response.success == False:
+        return False
 
     for i in response2.response["data"]:
         if i["parentId"]  == parentid and i["deptName"] == deptname:
-            result.success =True
-            result.response = response2.response
-            result.deptid['deptid'] = i["deptId"]
-            print(result.deptid)
-            print('------------')
-            return result
+            oraganizeId = i["deptId"]
+
+    return oraganizeId
 
 
 def query_organize_detail(koal, depid):

@@ -9,28 +9,38 @@ from operations.roles import *
 
 
 @pytest.fixture(scope="function")
-def Role_Organize(env):
-    deptname = 'add-user7890511523'
-    result = add_organize(env.koal,0,deptname)
-    # print(result.response,type(result))
-    deptid = result.deptid["deptid"]
+def Role_Organize(koal):
+    deptname = 'add-user-78905115281'
+    deptid = None
+    try:
+
+        oraganizeId = add_organize(koal, 0, deptname)
+        if oraganizeId == False:
+            raise Exception("获取组织ID失败")
+
+        deptid = oraganizeId
+    except Exception as e:
+        print(e)
+
     # print(deptid)
-    result1 = add_role(env.koal,'add-user-role7890511523','333')
-    global roleid
-    # print(result1.response["list"])
-    for i in result1.response["list"]:
-        if i["roleName"] == 'add-user-role7890511523':
-            roleid = i["roleId"]
+    # result1 = add_role(env.koal,'add-user-role7890511523','333')
+    roleid = None
+    try:
+        result1 = get_roleid(koal,'2','65','add-user-role7890511523','333')
+        if result1 == False:
+            raise Exception("获取角色ID失败")
+        roleid = result1
             # print(roleid)
+    except Exception as e:
+        print(e)
     role_oraganize={
         "depid": deptid,
         "roleid": roleid
     }
     yield role_oraganize
-    # env.koal.role_manage.delete_role(roleid)
-    # env.koal.organize_manage.delete_organize(result.deptid)
-def test__(env,Role_Organize):
-    print(Role_Organize)
+    koal.role_manage.delete_role(roleid)
+    koal.organize_manage.delete_organize(deptid)
+
 add_user_data=[
     ("add_user_{}".format(randint(1,9999)),'lll_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',5, 666, 777,  9999, 0000, 2222, 1111),
     # ("add_user_{}".format(randint(1,9999)),'lll_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',5,'5107211995111111111', 333333333333333,None,None,None,None)
@@ -40,7 +50,7 @@ add_user_data=[
 
 @pytest.mark.parametrize("loginname, username, validityperiod, password, "
                          " authtype,idcard,jobnumber,email,mobile,sex,ipwhite",add_user_data)
-def test_add_user(env, Role_Organize, loginname, username, validityperiod, password, authtype, idcard,jobnumber,email,mobile,sex,ipwhite):
+def test_add_user(koal, Role_Organize, loginname, username, validityperiod, password, authtype, idcard,jobnumber,email,mobile,sex,ipwhite):
     """
         添加用户，关联角色，关联部门，角色和组织都可为空
         :param koal:
@@ -60,12 +70,12 @@ def test_add_user(env, Role_Organize, loginname, username, validityperiod, passw
         :return:
         """
     # print(Role_Organize)
-    result = add_user(env.koal,loginname,username,validityperiod,password, Role_Organize["depid"],authtype,idcard,jobnumber,Role_Organize["roleid"],email,mobile,sex,ipwhite)
-    result2 = add_user(env.koal,loginname,username,validityperiod,password, Role_Organize["depid"],authtype,idcard,jobnumber,Role_Organize["roleid"],email,mobile,sex,ipwhite)
+    result = add_user(koal,loginname,username,validityperiod,password, Role_Organize["depid"],authtype,idcard,jobnumber,Role_Organize["roleid"],email,mobile,sex,ipwhite,identity=2)
+    result2 = add_user(koal,loginname,username,validityperiod,password, Role_Organize["depid"],authtype,idcard,jobnumber,Role_Organize["roleid"],email,mobile,sex,ipwhite,identity=2)
     assert result.response['page']['list'][0]['loginName'] == loginname
     assert result.response["page"]["list"][0]["status"] == 0
     userid = result.response["page"]["list"][0]["userId"]
-    query_result = env.koal.users.query_user_details(userid)
+    query_result = koal.users.query_user_details(userid)
     assert query_result.response["data"]["deptId"]==Role_Organize["depid"]
     assert result2.success == False, result2.error
 # def query_user_details(env):
@@ -133,4 +143,4 @@ def test_add_users(env,rolename, remark, parentid, deptname,loginname, username,
 
 if __name__=="__main__":
      pytest.main(["-v", "test_01_user.py::test_add_user"])
-    # pytest.main(["-s", "test_01_user.py::test__"])
+    # pytest.main(["-s", "test_01_user.py::test_add_user"])

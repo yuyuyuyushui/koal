@@ -11,6 +11,7 @@ class BusinessSystemManagement(RestClient):
         :return:
         """
         return self.get("/v1/abis/list", **kwargs)
+
     def add_business_system(self, **kwargs):
         """
         增加业务系统
@@ -19,6 +20,7 @@ class BusinessSystemManagement(RestClient):
 
         """
         return self.post("/v1/abis", **kwargs)
+
     def delete_business_system(self, abisid, **kwargs):
         """
         删除业务系统
@@ -58,6 +60,7 @@ class BusinessSystemManagement(RestClient):
         :return:
         """
         return self.put("/v1/abis/admin/update", **kwargs)
+
     def query_admin(self,**kwargs):
         """
         查询管理员

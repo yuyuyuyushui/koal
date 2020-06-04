@@ -1,7 +1,7 @@
 from core.base import CommonItem
 
 
-def add_role(koal, rolename, remark):
+def add_role(koal,identity, parentId,rolename, remark):
     """
     添加角色
     :param koal:
@@ -11,7 +11,9 @@ def add_role(koal, rolename, remark):
     """
     role_message = {
         "roleName": rolename,
-        "remark": remark
+        'identity': identity,
+        "remark": remark,
+        'parentId': parentId
     }
     return koal.role_manage.add_role(json=role_message)
 
@@ -44,13 +46,13 @@ def quer_roles(koal, page, limit, param=None):
 def delete_role(koal, roleId):
     return koal.role_manage.delete_role(roleId)
 
-def get_roleid(koal, rolename, remark):
-    add_result = add_role(koal,rolename,remark)
+def get_roleid(koal, identity,parentId,rolename, remark):
+    add_result = add_role(koal,identity,parentId,rolename,remark)
     if add_result.success == False:
-        return add_result
+        return False
     roles = quer_roles(koal, '1', '1000')
     if roles.success ==False:
-        return roles
+        return False
     roleId = None
     for i in roles.response["page"]["list"]:
         if i["roleName"] == rolename:

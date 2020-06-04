@@ -6,12 +6,10 @@ from core.base import *
 
 class RestClient():
 
-    def __init__(self, api_url_path, username=None,password=None,token=None,**kwargs):
+    def __init__(self, api_url_path, username=None,password=None,token=None, *args, **kwargs):
 
         self.session = requests.session()
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-
-        self.session = requests.session()
 
         if username and password:
             self.session.auth = (username, password)
