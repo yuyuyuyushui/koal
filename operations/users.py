@@ -40,20 +40,19 @@ def add_user(koal, loginname, username,validityperiod,password,depid,authtype,id
         'name': loginname,
         'deptId': ''
     }
-    result = CommonItem()
-    response = koal.users.add_user(json=user_message)
-    if response.response["code"] != 0:
-        result.error = "添加用户失败,返回的信息{}".format(response.response["msg"])
-        result.response = response.response
-        return result
-    response = koal.users.query_user_list(params=query_pragram)
-    if response.response["code"] != 0:
-        result.error = "根据此用户名查询户失败,返回的信息{}".format(response.response["msg"])
-        result.response = response.response
-        return result
-    result.success = True
-    result.response = response.response
-    return result
+    try:
+        response = koal.users.add_user(json=user_message)
+        print(response.success)
+        if response.success == False:
+            raise Exception("添加用户失败")
+        response_query = koal.users.query_user_list(params=query_pragram)
+        if response_query.success == False:
+            return False
+        return response_query
+    except Exception as e:
+        print(e)
+
+
 
 
 def query_user_detail(koal, page, limit, name, deptid):

@@ -1,7 +1,7 @@
 from core.base import CommonItem
 
 
-def add_role(koal,identity, parentId,rolename, remark):
+def add_role(koal, identity, parentId, rolename, remark):
     """
     添加角色
     :param koal:
@@ -13,7 +13,8 @@ def add_role(koal,identity, parentId,rolename, remark):
         "roleName": rolename,
         'identity': identity,
         "remark": remark,
-        'parentId': parentId
+        'parentId': parentId,
+        'root': 'true'
     }
     return koal.role_manage.add_role(json=role_message)
 
@@ -50,6 +51,7 @@ def get_roleid(koal, identity,parentId,rolename, remark):
     add_result = add_role(koal,identity,parentId,rolename,remark)
     if add_result.success == False:
         return False
+
     roles = quer_roles(koal, '1', '1000')
     if roles.success ==False:
         return False

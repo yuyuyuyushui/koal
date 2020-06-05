@@ -10,7 +10,7 @@ from operations.roles import *
 
 @pytest.fixture(scope="function")
 def Role_Organize(koal):
-    deptname = 'add-user-78905115281'
+    deptname = 'add-user-7189052252691'
     deptid = None
     try:
 
@@ -26,7 +26,7 @@ def Role_Organize(koal):
     # result1 = add_role(env.koal,'add-user-role7890511523','333')
     roleid = None
     try:
-        result1 = get_roleid(koal,'2','65','add-user-role7890511523','333')
+        result1 = get_roleid(koal,'2','3','add-user-role7890511523','333')
         if result1 == False:
             raise Exception("获取角色ID失败")
         roleid = result1
@@ -42,7 +42,7 @@ def Role_Organize(koal):
     koal.organize_manage.delete_organize(deptid)
 
 add_user_data=[
-    ("add_user_{}".format(randint(1,9999)),'lll_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',5, 666, 777,  9999, 0000, 2222, 1111),
+    ("add_loginname_{}".format(randint(1,9999)),'name_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',5, 666, 777,  "9999@qq.com", 13221212121, 2222, 1111),
     # ("add_user_{}".format(randint(1,9999)),'lll_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',5,'5107211995111111111', 333333333333333,None,None,None,None)
 
 ]
@@ -71,13 +71,14 @@ def test_add_user(koal, Role_Organize, loginname, username, validityperiod, pass
         """
     # print(Role_Organize)
     result = add_user(koal,loginname,username,validityperiod,password, Role_Organize["depid"],authtype,idcard,jobnumber,Role_Organize["roleid"],email,mobile,sex,ipwhite,identity=2)
-    result2 = add_user(koal,loginname,username,validityperiod,password, Role_Organize["depid"],authtype,idcard,jobnumber,Role_Organize["roleid"],email,mobile,sex,ipwhite,identity=2)
+    # result2 = add_user(koal,loginname,username,validityperiod,password, Role_Organize["depid"],authtype,idcard,jobnumber,Role_Organize["roleid"],email,mobile,sex,ipwhite,identity=2)
+    # print(result.response['page']['list'][0]['loginName'])
     assert result.response['page']['list'][0]['loginName'] == loginname
     assert result.response["page"]["list"][0]["status"] == 0
     userid = result.response["page"]["list"][0]["userId"]
     query_result = koal.users.query_user_details(userid)
     assert query_result.response["data"]["deptId"]==Role_Organize["depid"]
-    assert result2.success == False, result2.error
+    # assert result2.success == False, result2.error
 # def query_user_details(env):
 query_date=[
     ('1',10,'',''),
