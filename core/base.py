@@ -65,6 +65,4 @@ def logger_info(message):
     return Loger().info(message)
 def logger_error(message):
     return Loger().error(message)
-if __name__== "__main__":
-   a.info(111)
 
