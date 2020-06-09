@@ -1,4 +1,4 @@
-import requests
+import requests,urllib3
 from core.base import *
 
 class RestClient1():
@@ -47,6 +47,7 @@ class RestClient2():
     def __init__(self, api_url_path):
         self.session = requests.session()
         self.api_url_path = api_url_path
+        urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     @response
     def get(self, url, **kwargs):
         self.url = self.api_url_path + url
