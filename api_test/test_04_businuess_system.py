@@ -6,23 +6,30 @@ from random import randint
 """
 业务系统的测试
 """
-
-@pytest.fixture(scope=function)
-def setup_add_bussiness(env, abisname, workflownodenum, abisadminids):
-    return Business_system_api(env.koal).add_business_system(abisname, workflownodenum, abisadminids)
+@pytest.fixture(scope="function")
+def get_abisadminids(koal):
+    keyword = None
+    page = 1
+    limit = 1
+    abisId = None
+    response = Business_system_api(koal).query_admin(keyword, page, limit, abisId)
+    if response.success == False:
+        raise Exception("管理员人员接口获取失败")
 
 
 add_business_data=[
-    ("test_business_{}".format(randint(1, 1000)), 1, "81b647371a4d6e8fa9d0f0b8fa9d0a6d"),
-    ("test_business_{}".format(randint(1, 1000)), 2, ""),
+    ("test_business_{}".format(randint(1, 1000)), 1),
+    # ("test_business_{}".format(randint(1, 1000)), 2, ""),
 ]
 
 
-@pytest.mark.parametrize("abisname, workflownodenum, abisadminids", add_business_data)
-def test_add_business_system(env, abisname, workflownodenum, abisadminids):
+@pytest.mark.parametrize("abisname, workflownodenum", add_business_data)
+def test_add_business_system(koal, abisname, workflownodenum, get_abisadminids):
     logger_info("测试增加业务系统")
-    response = Business_system_api(env.koal).add_business_system(abisname, workflownodenum,abisadminids)
+    response = Business_system_api(koal).add_business_system(abisname, workflownodenum,abisadminids)
     assert response.success == True, response.error
+
+
 
 
 modidate = [
@@ -97,16 +104,19 @@ def test_modify_business_admin_jurisdiction(env, id, permsSetPassword, permsView
     logger_info("测试修改业务系统管理员权限")
     response = Business_system_api(env.koal).modify_business_admin_jurisdiction(id, permsSetPassword, permsViewPassword, permsApproveFirst, permsApproveSecond, receiveWarn)
     assert response.success == True, response.error
+
+
 admin_date= [
     (None, 1, 10, None),
 ]
 
 
 @pytest.mark.parametrize("keyword, page,limit,abisId", admin_date)
-def test_query_admin(env, keyword, page, limit, abisId):
+def test_query_admin(koal, keyword, page, limit, abisId):
     logger_info("测试查询待添加的管理员")
-    response = Business_system_api(env.koal).query_admin(keyword, page, limit, abisId)
+    response = Business_system_api(koal).query_admin(keyword, page, limit, abisId)
+    print(response.response)
     assert response.success == True, response.error
 if __name__=="__main__":
-    pytest.main(["-s", "test_04_businuess_system.py::test_business_detail"])
+    pytest.main(["-s", "test_04_businuess_system.py::test_query_admin"])
     # Business_system_api(env.koal).query_business_detail(abisid)

@@ -42,7 +42,7 @@ def add_user(koal, loginname, username,validityperiod,password,depid,authtype,id
     }
     try:
         response = koal.users.add_user(json=user_message)
-        print(response.success)
+
         if response.success == False:
             raise Exception("添加用户失败")
         response_query = koal.users.query_user_list(params=query_pragram)
@@ -77,5 +77,10 @@ def query_user_detail(koal, page, limit, name, deptid):
 
     result = koal.users.query_user_details(pages)
     return result
+
+
+def delete_users(koal,userid):
+
+    return  koal.users.delete_user(userid)
 
 

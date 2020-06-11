@@ -2,8 +2,10 @@ from api.login.loging import *
 # class Loging():
 #     def __init__(self,url):
 #         self.login = Login(url)
-url = 'https://10.11.132.131'
-def loging(loginName,password,verifyType,t=None,validcode=None,csrf=None):
+
+
+
+def loging(url,loginName,password,verifyType, t=None,validcode=None,csrf=None):
     data = {
         "loginname": loginName,
         "password":password,
@@ -14,5 +16,6 @@ def loging(loginName,password,verifyType,t=None,validcode=None,csrf=None):
     }
     return Login(api_url_path=url).login(json=data)
 if __name__=="__main__":
-    response = loging('ghcatest', '11111111', 5)
+    url = 'https://10.11.132.131'
+    response = loging(url, 'ghcatest', '11111111', 5)
     print(response.response)

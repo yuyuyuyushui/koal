@@ -59,3 +59,7 @@ def update_organize(koal):
     }
     print(organize)
     return koal.organize_manage.update_organize(json=organize)
+
+def delele_organize(koal,organize_id):
+
+    return koal.organize_manage.delete_organize(organize_id)
