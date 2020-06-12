@@ -1,5 +1,6 @@
 from  core.rest_client2 import *
-class Login(RestClient2):
+from core.rest_client import *
+class Login(RestClient):
     def __init__(self,api_url_path):
         super(Login, self).__init__(api_url_path)
 

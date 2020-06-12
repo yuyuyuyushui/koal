@@ -39,6 +39,7 @@ class Business_system_api():
             "workflowNodeNum":workflownodenum,
             "abisAdminIds":abisadminids
         }
+        logger_info(add_data)
         return self.koal.business_system.add_business_system(json=add_data)
 
     def query_business_detail(self, abisid):
@@ -61,7 +62,7 @@ class Business_system_api():
         json_data={
             "abisName":abisName,
             "workflowNodeNum":workflowNodeNum,
-            "abisAdminIds":abisAdminIds
+            "abisAdminIds":"abisAdminIds"
         }
         return self.koal.business_system.modify_business_system(abisId,json=json_data)
 
@@ -110,3 +111,15 @@ class Business_system_api():
             "abisId":abisId
         }
         return self.koal.business_system.query_admin(params=query_data)
+
+
+def add_business_system(koal,abisname, workflownodenum, abisadminids ):
+    add_data = {
+        "abisName": abisname,
+        "workflowNodeNum": workflownodenum,
+        "abisAdminIds": abisadminids
+    }
+    logger_info(add_data)
+    return koal.business_system.add_business_system(json=add_data)
+def query_admin_list():
+    pass

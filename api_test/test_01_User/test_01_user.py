@@ -71,7 +71,7 @@ def test_add_user(koal, Role_Organize, loginname, username, validityperiod, pass
         """
 
     result = add_user(koal,loginname,username,validityperiod,password, Role_Organize["depid"],authtype,idcard,jobnumber,Role_Organize["roleid"],email,mobile,sex,ipwhite,identity=2)
-    check.equal(100, 101)
+    # check.equal(100, 101)
     assert result.response['page']['list'][0]['loginName'] == loginname
     assert result.response["page"]["list"][0]["status"] == 0
     userid = result.response["page"]["list"][0]["userId"]

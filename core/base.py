@@ -15,6 +15,7 @@ def response(func):
         # response=None
         try:
             response = func(self, *args, **kwargs)
+
             if "params" in kwargs:
                 logger_info("请求方式：{a}，请求连接{b}，请求体params={d}，响应体{c}".format(a=func.__name__, b= self.url, c=response.json(), d=kwargs["params"]))
             elif "json" in kwargs:

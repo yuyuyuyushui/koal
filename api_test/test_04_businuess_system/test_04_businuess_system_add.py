@@ -2,7 +2,7 @@ from operations.business_system import *
 import pytest
 from core.base import *
 from random import randint
-
+import json
 """
 业务系统的测试
 """
@@ -10,12 +10,22 @@ from random import randint
 def get_abisadminids(koal):
     keyword = None
     page = 1
-    limit = 1
+    limit = 10
     abisId = None
+    userid = ""
     response = Business_system_api(koal).query_admin(keyword, page, limit, abisId)
     if response.success == False:
         raise Exception("管理员人员接口获取失败")
+    totalCount = response.response["page"]["totalCount"]
+    if totalCount>0:
+        for i in response.response["page"]["list"]:
+            userid = userid + i["userId"]+","
+        print(userid)
+        yield userid.strip(',')
 
+    else:
+        logger_info('管理人员为空')
+        yield userid
 
 add_business_data=[
     ("test_business_{}".format(randint(1, 1000)), 1),
@@ -24,9 +34,10 @@ add_business_data=[
 
 
 @pytest.mark.parametrize("abisname, workflownodenum", add_business_data)
-def test_add_business_system(koal, abisname, workflownodenum, get_abisadminids):
+def test_add_business_system(koal, get_abisadminids,abisname, workflownodenum):
+
     logger_info("测试增加业务系统")
-    response = Business_system_api(koal).add_business_system(abisname, workflownodenum,abisadminids)
+    response = add_business_system(koal,abisname, workflownodenum,get_abisadminids)
     assert response.success == True, response.error
 
 
@@ -118,5 +129,5 @@ def test_query_admin(koal, keyword, page, limit, abisId):
     print(response.response)
     assert response.success == True, response.error
 if __name__=="__main__":
-    pytest.main(["-s", "test_04_businuess_system.py::test_query_admin"])
+    pytest.main(["-s", "test_04_businuess_system_add.py::test_add_business_system"])
     # Business_system_api(env.koal).query_business_detail(abisid)

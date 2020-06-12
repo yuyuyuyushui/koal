@@ -9,20 +9,14 @@ class RestClient():
     def __init__(self, api_url_path, username=None,password=None,token=None, *args, **kwargs):
 
         self.session = requests.session()
+        self.session.headers["Content-Type"] = "application/json"
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-
-        if username and password:
-            self.session.auth = (username, password)
-        elif token:
-            self.session.headers['token']=token
-
-        else:
-             print('输入有误')
+        if token==None:
+            raise Exception("token有误")
+        self.session.headers['token'] = token
         self.api_url_path = api_url_path
         self.url = None
-    # def __init__(self,api_url_path,**kwargs):
-    #     self.session = requests.session()
-    #     self.api_url_path = api_url_path
+
     @response
     def get(self, url, **kwargs):
         self.url = self.api_url_path + url
@@ -30,6 +24,7 @@ class RestClient():
 
     @response
     def post(self, url, **kwargs):
+        logger_info(self.session.headers)
         self.url = self.api_url_path + url
         return self.session.request('post', self.url, verify = False, **kwargs)
 

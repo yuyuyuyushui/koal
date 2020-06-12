@@ -4,7 +4,7 @@ from core.base import *
 class RestClient1():
     def __init__(self, api_url_path, username=None,password=None,token=None,**kwargs):
         self.session = requests.session()
-
+        self.session.headers["Content-Type"] = "application/json"
         if username and password:
             self.session.auth = (username, password)
         elif token:
@@ -32,21 +32,10 @@ class RestClient1():
         self.url = self.api_url_path +url
         return self.session.request('patch', self.url, verify = False,**kwargs)
 class RestClient2():
-    # def __init__(self, api_url_path, username=None,password=None,token=None,**kwargs):
-    #     self.session = requests.session()
-    #
-    #     if username and password:
-    #         self.session.auth = (username, password)
-    #     elif token:
-    #         self.session.headers['token']=token
-    #
-    #     else:
-    #          print('输入有误')
-    #     self.api_url_path = api_url_path
-    #     self.url = None
     def __init__(self, api_url_path):
         self.session = requests.session()
         self.api_url_path = api_url_path
+        self.session.headers["Content-Type"] = "application/json"
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     @response
     def get(self, url, **kwargs):
