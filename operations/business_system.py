@@ -160,7 +160,7 @@ def get_abisadminids(koal,keyword, page, limit, abisId=None):
     userid= ''
     response = query_admin_list(koal,keyword, page, limit, abisId)
     if response.success == False:
-        return response
+        raise Exception("查询用户列表失败")
     for i in response.response["page"]["list"]:
         userid = userid + i["userId"] + ","
     print(userid)

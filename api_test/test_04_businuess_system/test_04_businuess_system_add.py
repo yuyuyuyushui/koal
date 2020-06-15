@@ -37,7 +37,7 @@ add_business_data=[
 def test_add_business_system(koal, abisname, workflownodenum):
     logger_info("测试增加业务系统")
     userid = get_abisadminids(koal,keyword=None, page=1, limit=10)
-    response = add_business_system(koal,abisname, workflownodenum,abisadminids=userid)
+    response = add_business_system(koal, abisname, workflownodenum, abisadminids=userid)
     assert response.success == True, response.error
 
 
