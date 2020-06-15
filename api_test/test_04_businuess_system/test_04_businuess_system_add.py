@@ -6,26 +6,26 @@ import json
 """
 业务系统的测试
 """
-@pytest.fixture(scope="function")
-def get_abisadminids(koal):
-    keyword = None
-    page = 1
-    limit = 10
-    abisId = None
-    userid = ""
-    response = Business_system_api(koal).query_admin(keyword, page, limit, abisId)
-    if response.success == False:
-        raise Exception("管理员人员接口获取失败")
-    totalCount = response.response["page"]["totalCount"]
-    if totalCount>0:
-        for i in response.response["page"]["list"]:
-            userid = userid + i["userId"]+","
-        print(userid)
-        yield userid.strip(',')
-
-    else:
-        logger_info('管理人员为空')
-        yield userid
+# @pytest.fixture(scope="function")
+# def get_abisadminids(koal):
+#     keyword = None
+#     page = 1
+#     limit = 10
+#     abisId = None
+#     userid = ""
+#     response = Business_system_api(koal).query_admin(keyword, page, limit, abisId)
+#     if response.success == False:
+#         raise Exception("管理员人员接口获取失败")
+#     totalCount = response.response["page"]["totalCount"]
+#     if totalCount>0:
+#         for i in response.response["page"]["list"]:
+#             userid = userid + i["userId"]+","
+#         print(userid)
+#         yield userid.strip(',')
+#
+#     else:
+#         logger_info('管理人员为空')
+#         yield userid
 
 add_business_data=[
     ("test_business_{}".format(randint(1, 1000)), 1),
@@ -34,10 +34,10 @@ add_business_data=[
 
 
 @pytest.mark.parametrize("abisname, workflownodenum", add_business_data)
-def test_add_business_system(koal, get_abisadminids,abisname, workflownodenum):
-
+def test_add_business_system(koal, abisname, workflownodenum):
     logger_info("测试增加业务系统")
-    response = add_business_system(koal,abisname, workflownodenum,get_abisadminids)
+    userid = get_abisadminids(koal,keyword=None, page=1, limit=10)
+    response = add_business_system(koal,abisname, workflownodenum,abisadminids=userid)
     assert response.success == True, response.error
 
 

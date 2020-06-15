@@ -114,6 +114,14 @@ class Business_system_api():
 
 
 def add_business_system(koal,abisname, workflownodenum, abisadminids ):
+    """
+    添加业务系统
+    :param koal:
+    :param abisname:
+    :param workflownodenum:
+    :param abisadminids:
+    :return:
+    """
     add_data = {
         "abisName": abisname,
         "workflowNodeNum": workflownodenum,
@@ -121,5 +129,47 @@ def add_business_system(koal,abisname, workflownodenum, abisadminids ):
     }
     logger_info(add_data)
     return koal.business_system.add_business_system(json=add_data)
-def query_admin_list():
+def query_admin_list(koal,keyword, page, limit, abisId=None):
+    """
+        检索待添加的管理员
+        :param keyword:查询条件
+        :param page:当前页
+        :param limit:页大小
+        :param abisId:
+        :return:
+    """
+    query_data = {
+        "keyword": keyword,
+        "page": page,
+        "limit": limit,
+        "abisId": abisId
+    }
+    return koal.business_system.query_admin(params=query_data)
+
+
+def get_abisadminids(koal,keyword, page, limit, abisId=None):
+    """
+    获取管理员id
+    :param koal:
+    :param keyword:
+    :param page:
+    :param limit:
+    :param abisId:
+    :return:
+    """
+    userid= ''
+    response = query_admin_list(koal,keyword, page, limit, abisId)
+    if response.success == False:
+        return response
+    totalCount = response.response["page"]["totalCount"]
+    if totalCount > 0:
+        for i in response.response["page"]["list"]:
+            userid = userid + i["userId"] + ","
+        print(userid)
+        return userid.strip(',')
+
+    else:
+        logger_info('管理人员为空')
+        return userid
+def get_abisadminids_and_add_business_system(koal,keyword, page, limit, abisI,abisname, workflownodenum, abisadminids):
     pass

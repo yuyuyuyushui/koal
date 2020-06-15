@@ -12,7 +12,6 @@ def response(func):
 
     def wrapper(self, *args, **kwargs):
         result = CommonItem()
-        # response=None
         try:
             response = func(self, *args, **kwargs)
 
@@ -25,9 +24,7 @@ def response(func):
                 logger_info("请求方式：{a}，请求连接{b}，，请求体{d}，响应体{c}".format(a=func.__name__, b=self.url, c=response.json(), d="为空"))
         except Exception as e:
             logger_error(e)
-            # result.content = response.content
             return result
-        # print("json:{}".format(response.json()))
         if response.json()["code"] != 0:
             result.error = "{name}返回的错误代码{code}".format(name=func.__name__, code=response.json()["code"])
             result.response = response.json()
