@@ -161,15 +161,11 @@ def get_abisadminids(koal,keyword, page, limit, abisId=None):
     response = query_admin_list(koal,keyword, page, limit, abisId)
     if response.success == False:
         return response
-    totalCount = response.response["page"]["totalCount"]
-    if totalCount > 0:
-        for i in response.response["page"]["list"]:
-            userid = userid + i["userId"] + ","
-        print(userid)
-        return userid.strip(',')
+    for i in response.response["page"]["list"]:
+        userid = userid + i["userId"] + ","
+    print(userid)
+    return userid.strip(',')
 
-    else:
-        logger_info('管理人员为空')
-        return userid
+
 def get_abisadminids_and_add_business_system(koal,keyword, page, limit, abisI,abisname, workflownodenum, abisadminids):
     pass
