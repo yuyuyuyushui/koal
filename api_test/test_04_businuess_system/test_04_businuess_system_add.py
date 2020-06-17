@@ -3,29 +3,6 @@ import pytest
 from core.base import *
 from random import randint
 import json
-"""
-业务系统的测试
-"""
-# @pytest.fixture(scope="function")
-# def get_abisadminids(koal):
-#     keyword = None
-#     page = 1
-#     limit = 10
-#     abisId = None
-#     userid = ""
-#     response = Business_system_api(koal).query_admin(keyword, page, limit, abisId)
-#     if response.success == False:
-#         raise Exception("管理员人员接口获取失败")
-#     totalCount = response.response["page"]["totalCount"]
-#     if totalCount>0:
-#         for i in response.response["page"]["list"]:
-#             userid = userid + i["userId"]+","
-#         print(userid)
-#         yield userid.strip(',')
-#
-#     else:
-#         logger_info('管理人员为空')
-#         yield userid
 
 add_business_data=[
     ("test_business_{}".format(randint(1, 1000)), 1),
@@ -34,13 +11,16 @@ add_business_data=[
 
 
 @pytest.mark.parametrize("abisname, workflownodenum", add_business_data)
-def test_add_business_system(koal, abisname, workflownodenum):
+def test_query_admin_list_and_add_business_system(koal, abisname, workflownodenum):
     logger_info("测试增加业务系统")
-    userid = get_abisadminids(koal,keyword=None, page=1, limit=10)
-    response = add_business_system(koal, abisname, workflownodenum, abisadminids=userid)
-    assert response.success == True, response.error
+    response = query_admin_list_and_add_business_system(koal, keyword=None, page=1, limit=10, abisId=None, abisname=abisname, workflownodenum=workflownodenum)
+    assert response.success==True,response.error
 
-
+@pytest.mark.parametrize("abisname, workflownodenum", add_business_data)
+def test_query_admin_list_and_add_business_system_and_delete(koal, abisname, workflownodenum):
+    logger_info("测试删除业务系统")
+    result = query_admin_list_and_add_business_system_delete(koal,keyword=None, page=1, limit=100, abisname=abisname, workflownodenum=workflownodenum)
+    assert result.success==True,result.error
 
 
 modidate = [
@@ -129,5 +109,5 @@ def test_query_admin(koal, keyword, page, limit, abisId):
     print(response.response)
     assert response.success == True, response.error
 if __name__=="__main__":
-    pytest.main(["-s", "test_04_businuess_system_add.py::test_add_business_system"])
+    pytest.main(["-s", "test_04_businuess_system_add.py::test_query_admin_list_and_add_business_system_and_delete"])
     # Business_system_api(env.koal).query_business_detail(abisid)
