@@ -151,3 +151,51 @@ class It_assert():
         :return:
         """
         return self.koal.it_assert.query_assert_detail(resId)
+def add_assert(koal, resName, abisId, resKind, resCategory, ip4Addr, resVersion, resType, protocolPort ,ip_white, status, cmdPrompt=None, winDomain=None,instanceName=None, databaseName=None, httpLoginUri=None, asJumpDevice=None, needJumpLogin=None, fromResId=None, fromAccountId=None, fromCommand=None):
+        """
+        添加资产
+        :param resName: 资源名称
+        :param abisId: 所属业务系统ID
+        :param resKind: 资产类别
+        :param resCategory: 设备类型
+        :param ip4Addr: IP地址
+        :param resVersion: 系统版本
+        :param resType: 系统类型
+        :param cmdPrompt: 命令提示符
+        :param protocolPort:协议端口
+        :param winDomain:归属windows域
+        :param instanceName:数据库实例
+        :param databaseName:数据库名称
+        :param httpLoginUri:应用资源登录uri
+        :param status:状态
+        :param asJumpDevice:是跳转设备
+        :param needJumpLogin:是否跳转才能登录
+        :param fromResId:跳转设备ID
+        :param fromAccountId:跳转账号
+        :param fromCommand:跳转命令
+        :param ip_white:允许访问ip白名单
+        :return:
+        """
+        json_data = {
+            "resName":resName,
+            "abisId":abisId,
+            "resKind":resKind,
+            "resCategory":resCategory,
+            "ip4Addr": ip4Addr,
+            "resVersion": resVersion,
+            "resType": resType,
+            "cmdPrompt":cmdPrompt,
+            "protocolPort": protocolPort,
+            "winDomain":winDomain,
+            "instanceName":instanceName,
+            "databaseName":databaseName,
+            "httpLoginUri":httpLoginUri,
+            "status":status,
+            "asJumpDevice":asJumpDevice,
+            "needJumpLogin":needJumpLogin,
+            "fromResId":fromResId,
+            "fromAccountId":fromAccountId,
+            "fromCommand":fromCommand,
+            "ip_white":ip_white
+        }
+        return koal.it_assert.add_assert(json=json_data)

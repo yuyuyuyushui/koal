@@ -155,11 +155,11 @@ def query_business_list_and_get_business_id(koal,page, limit,abisname):
             response.abisId = i["abisId"]
     return response
 
+
 def query_admin_list_and_get_admin_id(koal, keyword, page, limit, userName):
     response = query_system_admin_list(koal, keyword, page, limit, abisId=None)
     if response.success==False:
         return response
-
     for i in response.response["page"]["list"]:
         if userName==i["userName"]:
             response.adminid = i["userId"]
