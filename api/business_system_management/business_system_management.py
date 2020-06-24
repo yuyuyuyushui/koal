@@ -47,7 +47,7 @@ class BusinessSystemManagement(RestClient):
 
     def query_business_admin_list(self,abisid,**kwargs):
         """
-        查询业务管理员列表
+        根据业务系统id，查询业务管理员权限
         :param abisid:
         :param kwargs:
         :return:

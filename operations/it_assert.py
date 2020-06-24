@@ -32,6 +32,9 @@ def assert_list_query(koal, page, limit, resKind, abisId):
     }
     return koal.it_assert.assert_list(params=param)
 
+
+
+
 def add_assert(koal, resName, abisId, resKind, resCategory, ip4Addr, resVersion, resType, protocolPort ,ip_white, status, cmdPrompt=None, winDomain=None,instanceName=None, databaseName=None, httpLoginUri=None, asJumpDevice=None, needJumpLogin=None, fromResId=None, fromAccountId=None, fromCommand=None):
         """
         添加资产
@@ -151,3 +154,14 @@ def query_assert_detail(koal, resId):
     :return:
     """
     return koal.it_assert.query_assert_detail(resId)
+
+
+def abisName_get_abisId(koal,abisName):
+    response_busniss = business_system_query(koal )
+    if response_busniss.success==False:
+        return response_busniss
+    response_busniss.abisId = None
+    for i in response_busniss.response["data"]:
+        if i["abisName"] == abisName:
+            response_busniss.abisId = i["abIsId"]
+    return response_busniss

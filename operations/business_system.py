@@ -107,17 +107,22 @@ def modify_business_admin_jurisdiction(koal, id, permsSetPassword, permsViewPass
     return koal.business_system.modify_business_admin_jurisdiction(json=admin_data)
 
 def admin_jursisdiction_set(koal,abisId):
-
+    """
+    根据业务系统ID，查询业务系统管理员权限设置
+    :param koal:
+    :param abisId:
+    :return:
+    """
     return koal.business_system.admin_jursisdiction_set(abisId)
 
 
-def query_admin_list_and_get_amdin_id(koal,keyword, page, limit, abisId=None):
+def query_admin_list_and_get_amdin_id(koal, keyword, page, limit, abisId=None):
     """
-         检索待添加的管理员
+         查询管理员列表，获取管理员ID
         :param keyword:查询条件
         :param page:当前页
         :param limit:页大小
-        :param abisId:
+        :param abisId:业务系统ID
         :return:
     """
     query_data = {
