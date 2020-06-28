@@ -9,48 +9,16 @@ from operations.roles import *
 import pytest_check as check
 
 
-@pytest.fixture(scope="function")
-def Role_Organize(koal):
-    deptname = 'add-user-7189052252691'
-    deptid = None
-    try:
-
-        oraganizeId = add_organize(koal, 0, deptname)
-        if oraganizeId == False:
-            raise Exception("获取组织ID失败")
-
-        deptid = oraganizeId
-    except Exception as e:
-        print(e)
-    roleid = None
-    try:
-        result1 = get_roleid(koal,'2','3','add-user-role7890511523','333')
-        if result1 == False:
-            raise Exception("获取角色ID失败")
-        roleid = result1
-            # print(roleid)
-    except Exception as e:
-        print(e)
-    role_oraganize={
-        "depid": deptid,
-        "roleid": roleid
-    }
-    yield role_oraganize
-
-    delete_role(koal,roleid)
-    delele_organize(koal,deptid)
-
 
 add_user_data=[
-    ("add_loginname_{}".format(randint(1,9999)),'name_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',5, 666, 777,  "9999@qq.com", 13221212121, 2222, 1111),
-    # ("add_user_{}".format(randint(1,9999)),'lll_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',5,'5107211995111111111', 333333333333333,None,None,None,None)
+    ("add_loginname_{}".format(randint(1,9999)),'name_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',5, 666, 777,  "9999@qq.com", 13221212121, 2222, 1111)
 
 ]
 
 
 @pytest.mark.parametrize("loginname, username, validityperiod, password, "
                          " authtype,idcard,jobnumber,email,mobile,sex,ipwhite",add_user_data)
-def test_add_user(koal, Role_Organize, loginname, username, validityperiod, password, authtype, idcard,jobnumber,email,mobile,sex,ipwhite):
+def test_add_user(koal, Role_Organize_Date, loginname, username, validityperiod, password, authtype, idcard,jobnumber,email,mobile,sex,ipwhite):
     """
         添加用户，关联角色，关联部门，角色和组织都可为空
         :param koal:

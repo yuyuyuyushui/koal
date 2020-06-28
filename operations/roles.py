@@ -27,7 +27,7 @@ def mody_roles(koal, roleid, modify_rolename, modify_remark):
     return koal.role_manage.update_role(roleid, json=update_rolename)
 
 
-def quer_roles(koal, page, limit, param=None):
+def query_roles(koal, page, limit, param=None):
     """
     查询关键字
     :param koal:
@@ -47,19 +47,23 @@ def quer_roles(koal, page, limit, param=None):
 def delete_role(koal, roleId):
     return koal.role_manage.delete_role(roleId)
 
-def get_roleid(koal, identity,parentId,rolename, remark):
-    add_result = add_role(koal,identity,parentId,rolename,remark)
-    if add_result.success == False:
-        return False
 
-    roles = quer_roles(koal, '1', '1000')
-    if roles.success ==False:
-        return False
-    roleId = None
+def rolename_get_roleid(koal, page, limit, rolename):
+    """
+    根据角色名获取角色ID
+    :param koal:
+    :param page:
+    :param limit:
+    :param rolename:
+    :return:
+    """
+    roles=query_roles(koal, page, limit, param=None)
+    if roles.success==False:
+        return roles
     for i in roles.response["page"]["list"]:
         if i["roleName"] == rolename:
-            roleId = i["roleId"]
-    return roleId
+            roles.roleId = i["roleId"]
+    return roles
 def retrieval_role_Jurisdiction(koal, roleid):
     """
     检索角色权限
@@ -113,120 +117,9 @@ def Add_role_verifica(koal, rolename, remark):
     return result
 
 
-def Modify_roles_verufica(koal, add_rolename, add_remark, modify_rolename, modify_remark):
-    """
-    修改角色，先添加角色名和标志，再找到角色ID，传入需要修改的角色名以及标志，根据ID判断角色名和标志是否修改
-    :param koal:
-    :param add_rolename:
-    :param add_remark:
-    :param modify_rolename:
-    :param modify_remark:
-    :return:
-    """
-    update_rolename = {
-        "roleName": modify_rolename,
-        "modify_remark": modify_remark
-    }
-    result = CommonItem()
-    result.success = False
-    response = add_role(koal, add_rolename, add_remark)
-    roleid = None
-    if response.success == False:
-        return response
-    for i in response.response["list"]:
-        if i["roleName"] == add_rolename:
-            roleid = i["roleId"]
-
-    print(roleid)
-    response = koal.role_manage.update_role(roleid, json=update_rolename)
-    if response.response['code'] != 0:
-        result.success = False
-        result.error = "modify_role false,the code is {} should be 0".format(response.response['code'])
-        result.response = response.response
-        return result
-    para = {
-
-        "userId": ""
-    }
-    response2 = koal.users.retrieval_role_list(params=para)
-    if response2.response["code"] != 0:
-        result.success = False
-        result.error = "retrieval_role_list false,the code is {} should be 0".format(response2.response['code'])
-        result.response = response2.response
-        return result
-
-    for i in response2.response["list"]:
-        if i["roleName"] == modify_rolename:
-            result.success = True
-            result.response = response2.response
-            return result
-    result.success = False
-    result.error = "修改角色失败"
-    result.response = response.response
-    return result
 
 
-def Delet_role(koal, rolename, remark):
-    """
-    先新增角色，再检索角色，最后取出roleid，根据roleid对用户删除,在检索用户是否还存在
-    :param koal:
-    :param rolename:
-    :param remark:
-    :return:
-    """
-    roleid = None
-    result = CommonItem()
-    response = add_role(koal, rolename, remark)
 
-    if response.success == False:
-        return response
-    for i in response.response["list"]:
-        if i["roleName"] == rolename:
-            roleid = i["roleId"]
-    print(roleid)
-    response = koal.role_manage.delete_role(roleid)
-    if response.response["code"] != 0:
-        result.success = False
-        result.error = "删除失败"
-        result = response.response
-        return result
-    para = {
-
-        "userId": ""
-    }
-    response1 = koal.users.retrieval_role_list(params=para)
-    print(response1.response["code"])
-    if response1.response["code"] != 0:
-        result.success = False
-        result.error = "retrieval_role_list false,the code is {} should be 0".format(response1.response['code'])
-        result.response = response1.response
-        return result
-
-    for i in response1.response["list"]:
-        if i["roleName"] == rolename:
-            result.success = False
-            result.error = "用户名还存在，删除失败"
-            result.response = response1.response
-            return result
-    result.success = True
-    result.response = response1.response
-    return result
-
-
-def query_role_list(koal, page, limit, param=None):
-    param = {
-        "page": page,
-        "limit": limit,
-        "param": param
-    }
-    result = CommonItem()
-    response = koal.role_manage.system_role_list(params=param)
-    if response.response["code"] != 0:
-        result.response = response.response
-        return result
-    result.success = True
-    result.response = response.response
-    return result
 
 
 def role_permission_query(koal, rolename, remark):

@@ -1,33 +1,29 @@
 # from core.base import CommonItem
 from random import randint
 
-
-
-
 def add_organize(koal,parentid,deptname):
+    organize = {
+        "parentId": parentid,
+        "deptName": deptname
+    }
+    return koal.organize_manage.add_organize(json=organize)
+
+
+def add_organize_and_get_deptId(koal,parentid,deptname):
     organize={
         "parentId":parentid,
         "deptName":deptname
     }
-
-    oraganizeId =None
-
-
     response = koal.organize_manage.add_organize(json=organize)
-    print(response.success)
-    # return response
     if response.success == False:
-        return False
-
+        return response
     response2 = koal.organize_manage.query_organize()
-    if response.success == False:
-        return False
-
+    if response2.success == False:
+        return response2
     for i in response2.response["data"]:
         if i["parentId"]  == parentid and i["deptName"] == deptname:
-            oraganizeId = i["deptId"]
-
-    return oraganizeId
+            response2.deptId = i["deptId"]
+    return response2
 
 
 def query_organize_detail(koal, depid):
@@ -40,25 +36,7 @@ def query_organize(koal):
 
 
 
-def update_organize(koal):
-    deptname = 'test_update_{}'.format(randint(1,9999))
-    add_organize(koal, 0, deptname)
-    result = query_organize(koal)
-    deptid = None
 
-    for i in  result.response['data']:
-        if i['deptName'] == deptname:
-            deptid = i["deptId"]
-    else:
-        print('youwu')
-    print(deptid)
-    organize={
-        "deptId": deptid,
-        "deptName": 'koal',
-        "parentId": 0
-    }
-    print(organize)
-    return koal.organize_manage.update_organize(json=organize)
 
 def delele_organize(koal,organize_id):
 

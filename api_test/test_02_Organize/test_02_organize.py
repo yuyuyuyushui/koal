@@ -28,4 +28,4 @@ def test_qury_orgize(env):
 
 
 if __name__=='__main__':
-    pytest.main(['-s', "test_02_organize.py::test_add_organize"])
+    pytest.main(['-s', "test_02_Organize.py::test_add_organize"])
