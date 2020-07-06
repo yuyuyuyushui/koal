@@ -6,6 +6,7 @@ role_organize_date=[
     ('0',"test1",None,1,"安全管理员",'系统所有权限',1,100),
     ('0',"test2",None,1,"系统管理员",'系统所有权限',1,100)
 ]
+
 @pytest.mark.parametrize("parentid,deptname,identity, parentId, rolename, remark, page, limit",role_organize_date)
 @pytest.fixture(scope=function)
 def Role_Organize_Date(koal,parentid,deptname,identity, parentId, rolename, remark, page, limit):

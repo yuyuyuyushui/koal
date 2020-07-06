@@ -159,5 +159,5 @@ def test_retrieval_role_Jurisdiction(koal,setup_get_roleid):
 
 
 if __name__ == "__main__":
-    pytest.main(['-s', "test_03_role.py::test_retrieval_role_Jurisdiction"])
+    pytest.main(['-s', "test_01_role_add.py::test_retrieval_role_Jurisdiction"])
     # pytest.main()

@@ -29,5 +29,5 @@ def test_query_admin_list_and_add_business_system_and_delete(koal, abisname, wor
 
 
 if __name__=="__main__":
-    pytest.main(["-s", "test_04_businuess_system_add.py::test_query_admin_list_and_add_business_system"])
+    pytest.main(["-s", "test_01_businuess_system_add.py::test_query_admin_list_and_add_business_system"])
 

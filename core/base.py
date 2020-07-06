@@ -59,8 +59,12 @@ def logger(leve):
         return wrapper
 
     return load_func
+
+def logger_debug(message):
+    return Loger().debug(message)
 def logger_info(message):
     return Loger().info(message)
 def logger_error(message):
     return Loger().error(message)
+
 

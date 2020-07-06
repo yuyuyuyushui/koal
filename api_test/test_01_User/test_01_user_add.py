@@ -39,7 +39,7 @@ def test_add_user(koal, Role_Organize_Date, loginname, username, validityperiod,
         """
 
     result = add_user(koal,loginname,username,validityperiod,password, Role_Organize["depid"],authtype,idcard,jobnumber,Role_Organize["roleid"],email,mobile,sex,ipwhite,identity=2)
-    # check.equal(100, 101)
+
     assert result.response['page']['list'][0]['loginName'] == loginname
     assert result.response["page"]["list"][0]["status"] == 0
     userid = result.response["page"]["list"][0]["userId"]
@@ -111,5 +111,5 @@ def test_add_users(env,rolename, remark, parentid, deptname,loginname, username,
 
 
 if __name__=="__main__":
-     pytest.main(["-v", "test_01_user.py::test_add_user"])
-    # pytest.main(["-s", "test_01_user.py::test_add_user"])
+     pytest.main(["-v", "test_01_user_add.py::test_add_user"])
+    # pytest.main(["-s", "test_01_user_add.py::test_add_user"])

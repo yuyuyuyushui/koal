@@ -58,4 +58,4 @@ def test_query_assert_detail(env, resid):
 
 
 if __name__=="__main__":
-    pytest.main(["-s", "test_05_it_assert.py::test_add_assert"])
+    pytest.main(["-s", "test_01_it_assert_add.py::test_add_assert"])

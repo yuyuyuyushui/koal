@@ -4,9 +4,9 @@
     <file url="file://$PROJECT_DIR$/api/IT_asserts/it_asserts.py" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/api/assert_accunt_manage/assert_accunt_manage.py" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/api/business_system_management/business_system_management.py" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/api_test/test_02_Organize/test_02_organize.py" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/api_test/test_04_Businuess_system/test_04_businuess_system_add.py" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/api_test/test_05_It_assert/test_05_it_assert.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/api_test/test_02_Organize/test_01_organize_add.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/api_test/test_04_Businuess_system/test_01_businuess_system_add.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/api_test/test_05_It_assert/test_01_it_assert_add.py" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/auth_api.py" charset="GBK" />
     <file url="file://$PROJECT_DIR$/core/base.py" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/log/test.log" charset="GBK" />
