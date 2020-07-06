@@ -9,7 +9,7 @@ def add_organize(koal,parentid,deptname):
     return koal.organize_manage.add_organize(json=organize)
 
 
-def add_organize_and_get_deptId(koal,parentid,deptname):
+def dept_name_and_get_deptId(koal,deptname):
     '''
     关键字：添加机构并获取部门ID
     :param koal:
@@ -17,18 +17,18 @@ def add_organize_and_get_deptId(koal,parentid,deptname):
     :param deptname:
     :return:
     '''
-    organize={
-        "parentId":parentid,
-        "deptName":deptname
-    }
-    response = koal.organize_manage.add_organize(json=organize)
-    if response.success == False:
-        return response
+    # organize={
+    #     "parentId":parentid,
+    #     "deptName":deptname
+    # }
+    # response = koal.organize_manage.add_organize(json=organize)
+    # if response.success == False:
+    #     return response
     response2 = koal.organize_manage.query_organize()
     if response2.success == False:
         return response2
     for i in response2.response["data"]:
-        if i["parentId"]  == parentid and i["deptName"] == deptname:
+        if i["deptName"] == deptname:
             response2.deptId = i["deptId"]
     return response2
 
@@ -49,7 +49,8 @@ def edit_organize(koal,deptId,deptName,parentId):
     }
     return koal.organize_manage.update_organize(json=data)
 
-
+def dept_name_get_deptId(koal):
+    pass
 
 def query_organize_detail(koal, depid):
     """
@@ -68,6 +69,11 @@ def query_organize(koal):
 
 
 
-def delele_organize(koal,organize_id):
-
+def delele_organize(koal, organize_id):
+    """
+    关键字：删除部门
+    :param koal:
+    :param organize_id:
+    :return:
+    """
     return koal.organize_manage.delete_organize(organize_id)
