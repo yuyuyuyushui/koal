@@ -7,7 +7,6 @@ from core.base import *
 class RestClient():
 
     def __init__(self, api_url_path,token=None, *args, **kwargs):
-
         self.session = requests.session()
         self.session.headers["Content-Type"] = "application/json"
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -15,7 +14,6 @@ class RestClient():
             self.session.headers['token'] = token
         self.api_url_path = api_url_path
         self.url = None
-
     @response
     def get(self, url, **kwargs):
         self.url = self.api_url_path + url

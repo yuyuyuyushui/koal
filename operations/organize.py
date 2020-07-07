@@ -9,21 +9,15 @@ def add_organize(koal,parentid,deptname):
     return koal.organize_manage.add_organize(json=organize)
 
 
-def dept_name_and_get_deptId(koal,deptname):
+def first_level_dept_name_and_get_deptId(koal, deptname):
     '''
-    关键字：添加机构并获取部门ID
+    关键字：一级机构并获取部门ID
     :param koal:
     :param parentid:
     :param deptname:
     :return:
     '''
-    # organize={
-    #     "parentId":parentid,
-    #     "deptName":deptname
-    # }
-    # response = koal.organize_manage.add_organize(json=organize)
-    # if response.success == False:
-    #     return response
+
     response2 = koal.organize_manage.query_organize()
     if response2.success == False:
         return response2
@@ -33,7 +27,21 @@ def dept_name_and_get_deptId(koal,deptname):
     return response2
 
 
-def edit_organize(koal,deptId,deptName,parentId):
+def second_levels_name_and_get_deptID(koal,deptName):
+    """
+    关键字：二级部门名称返回部门Id
+    :param koal:
+    :param deptName:
+    :return:
+    """
+    response_querydept_list = koal.organize_manage.query_organize()
+    if response_querydept_list.success == False:
+        return response_querydept_list
+    for children in response_querydept_list["data"]["children"]:
+        if children["deptName"] == deptName:
+            response_querydept_list.deptId = children["deptId"]
+    return response_querydept_list
+def edit_organize(koal, deptId, deptName, parentId):
     '''
     关键字：编辑机构
     :param koal:
@@ -57,7 +65,7 @@ def query_organize_detail(koal, depid):
     关键字：机构详情查询
     :param koal:
     :param depid:
-    :return:
+    :return:deptId,deptName,parentId
     """
     return koal.organize_manage.query_organize_detail(depid)
 
