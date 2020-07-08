@@ -1,4 +1,4 @@
-from operations.organize import add_organize
+from operations.organize import add_organize_and_get_deptId
 from operations.roles import add_role
 from core.base import CommonItem
 def add_users(koal,rolename, remark, parentid, deptname,loginname, username,validityperiod,password,authtype,idcard=None,jobnumber=None,email=None,mobile=None,sex=None,ipwhite=None):
@@ -25,7 +25,7 @@ def add_users(koal,rolename, remark, parentid, deptname,loginname, username,vali
     deptid = None
     roleidlist = []
     if rolename== None and remark == None:
-        response = add_organize(koal, parentid, deptname)
+        response = add_organize_and_get_deptId(koal, parentid, deptname)
         if response.response["code"] != 0:
             result.success=False
             result.error="添加组织机构失败，返回码{}".format(response.response["code"])
@@ -78,7 +78,7 @@ def add_users(koal,rolename, remark, parentid, deptname,loginname, username,vali
         for i in role_response.response["list"]:
             if i["roleName"] == rolename:
                 roleidlist.append(i["roleId"])
-        response = add_organize(koal, parentid, deptname)
+        response = add_organize_and_get_deptId(koal, parentid, deptname)
         if response.response["code"] != 0:
             result.success = False
             result.error = "添加组织机构失败，返回码{}".format(response.response["code"])

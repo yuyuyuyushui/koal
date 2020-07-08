@@ -1,15 +1,33 @@
 # from core.base import CommonItem
 from random import randint
 
-def add_organize(koal,parentid,deptname):
+
+def add_organize_and_get_deptId(koal, parentid, deptname):
+    organize = {
+        "parentId": parentid,
+        "deptName": deptname
+    }
+    result = koal.organize_manage.add_organize(json=organize)
+    if result.success == False:
+        return result
+    result_query = koal.organize_manage.query_organize()
+    if result_query.success == False:
+        return result_query
+    for i in result_query.response["data"]:
+        if i["deptName"] == deptname:
+            result_query.deptId = i["deptId"]
+    if result_query.deptId == None:
+        result_query.success = False
+    return result_query
+
+def add_org(koal,parentid, deptname):
     organize = {
         "parentId": parentid,
         "deptName": deptname
     }
     return koal.organize_manage.add_organize(json=organize)
 
-
-def first_level_dept_name_and_get_deptId(koal, deptname):
+def get_dept_name(koal, deptname):
     '''
     关键字：一级机构并获取部门ID
     :param koal:
@@ -27,7 +45,7 @@ def first_level_dept_name_and_get_deptId(koal, deptname):
     return response2
 
 
-def second_levels_name_and_get_deptID(koal,deptName):
+def second_levels_name_and_get_deptID(koal, deptName):
     """
     关键字：二级部门名称返回部门Id
     :param koal:
@@ -41,6 +59,8 @@ def second_levels_name_and_get_deptID(koal,deptName):
         if children["deptName"] == deptName:
             response_querydept_list.deptId = children["deptId"]
     return response_querydept_list
+
+
 def edit_organize(koal, deptId, deptName, parentId):
     '''
     关键字：编辑机构
@@ -50,15 +70,17 @@ def edit_organize(koal, deptId, deptName, parentId):
     :param parentId:
     :return:
     '''
-    data={
-        'deptId':deptId,
-        'deptName':deptName,
-        'parentId':parentId
+    data = {
+        'deptId': deptId,
+        'deptName': deptName,
+        'parentId': parentId
     }
     return koal.organize_manage.update_organize(json=data)
 
+
 def dept_name_get_deptId(koal):
     pass
+
 
 def query_organize_detail(koal, depid):
     """
@@ -74,9 +96,6 @@ def query_organize(koal):
     return koal.organize_manage.query_organize()
 
 
-
-
-
 def delele_organize(koal, organize_id):
     """
     关键字：删除部门
@@ -85,3 +104,15 @@ def delele_organize(koal, organize_id):
     :return:
     """
     return koal.organize_manage.delete_organize(organize_id)
+
+
+def delete_orgs(koal, deptId_list):
+    """
+    关键字：批量删除部门
+    :param koal:
+    :param deptId_list:
+    :return:
+    """
+    for deptId in deptId_list:
+        result = koal.organize_manage.delete_organize(deptId)
+        assert result.success is True, result.error

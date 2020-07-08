@@ -36,5 +36,5 @@ def Role_Organize_Date(koal,parentid,deptname,identity, parentId, rolename, rema
                 raise Exception("角色已添加")
     except Exception as e:
         print(e)
-    add_organize(koal,parentid,deptname)
+    add_organize_and_get_deptId(koal, parentid, deptname)
     add_role(koal,identity, parentId, rolename, remark)

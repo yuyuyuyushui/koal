@@ -18,8 +18,19 @@ def koal():
     else:
         logger_info("登录失败")
 
-@pytest.fixture(scope="module",autouse=True)
-def foo():
-    print(" function setup")
-    yield 100
-    print(" function teardown")
+if __name__=="__main__":
+    api_url = 'https://10.11.132.131'
+    loginname = 'ghcatest'
+    password = '11111111'
+    verytype = '5'
+    data = {
+        "loginname": loginname,
+        "password": password,
+        "validcode": None,
+        "csrf": None,
+        "verifyType": verytype,
+        't': None
+    }
+    login = Login(api_url_path=api_url)
+    logins = login.login(json=data)
+    print(logins)
