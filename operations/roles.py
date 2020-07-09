@@ -56,7 +56,7 @@ def rolename_get_roleid(koal, rolename):
     result_query_role = query_roles(koal)
     if result_query_role.success==False:
         return result_query_role
-    for i in result_query_role.response["data"]:
+    for i in result_query_role.response["data"][0]["child"]:
         if i["roleName"] == rolename:
             result_query_role.roleId = i["roleId"]
     return result_query_role
