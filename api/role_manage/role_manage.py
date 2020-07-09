@@ -44,7 +44,7 @@ class RoleManage(RestClient):
         :param kwargs:
         :return:
         """
-        return self.get('/v1/role/list', **kwargs)
+        return self.get('/v1/role', **kwargs)
 
     def role_user_list(self,**kwargs):
         """
