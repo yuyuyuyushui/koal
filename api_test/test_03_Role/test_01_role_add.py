@@ -2,25 +2,11 @@ import pytest
 from random import randint
 from operations.roles import *
 
-role_date = [
-    ('test_add_role{}'.format(randint(1, 9999)), '测试标签', True),
-]
-
-
-@pytest.mark.parametrize("rolename, remark,expect", role_date)
-def test_add_role_two_name(koal, rolename, remark, expect):
-    """
-    测试角色的添加,判断输入的用户名不能重名
-    :param koal: 添加角色的前置条件
-    :param rolename:  角色的姓名
-    :param remark:  角色的标签
-    :return:
-    """
-    result1 = add_role(koal, rolename, remark)
-    result2 = add_role(koal, rolename, remark)
-
-    assert result1.success == expect, result1.error
-    assert result2.success == False, result2.response["msg"]
+def test_add_lv1_rolename_repeat(koal, parentId=1, rolename='add_lv1_rolename{}'.format(randint(0,999)),remark='test1'):
+    result = add_role(koal,parentId,rolename,remark)
+    assert result.success is True
+    result_double = add_role(koal, parentId, rolename, remark)
+    assert result_double.success is False
 
 
 delete_data = [
@@ -111,53 +97,8 @@ def test_retrieval_role_Jurisdiction(koal,setup_get_roleid):
     result = retrieval_role_Jurisdiction(koal,setup_get_roleid)
     assert result.success == True, result.error
 
-# role_date = [
-#     ('query_promission_role{}'.format(randint(1, 9999)), '测试标签')
-# ]
-#
-#
-# @pytest.mark.parametrize("rolename, remark", role_date)
-# def test_query_promission_list(koal, rolename, remark):
-#     """
-#     查询权限列表
-#     :param koal:
-#     :param rolename:
-#     :param remark:
-#     :return:
-#     """
-#     result = role_permission_query(koal, rolename, remark)
-#     print(result.response)
-#     assert result.success == True, result.error
-#     assert 0
-#
-#
-# delete_date = [
-#     ("test_delete_data{}".format(randint(1, 9999)), "删除标签"),
-# ]
-#
-#
-# @pytest.mark.parametrize("rolename,remark", delete_date)
-# def test_delete_role(koal, rolename, remark):
-#     response = Delet_role(koal, rolename, remark)
-#     assert response.success == True, response.error
-#
-#
-# query_data = [
-#     (1, 10),
-#     (2, 10),
-#     (3, 10),
-#     (1, 25),
-#     (1, 50)
-# ]
-#
-#
-# @pytest.mark.parametrize("page,limit", query_data)
-# def test_query_role_list(koal, page, limit):
-#     """查询用例，根据页码和条数来查询角色结果"""
-#     result = query_role_user_list(koal, page, limit)
-#     assert result.success == True, result.error
 
 
 if __name__ == "__main__":
-    pytest.main(['-s', "test_01_role_add.py::test_retrieval_role_Jurisdiction"])
+    pytest.main(['-s', "test_01_role_add.py::test_add_lv1_rolename_repeat"])
     # pytest.main()

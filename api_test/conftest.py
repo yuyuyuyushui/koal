@@ -4,8 +4,8 @@ import pytest,os,sys
 from koal import *
 from Login import *
 api_url = 'https://10.11.132.131'
-loginname  = 'ghcatest'
-password = '11111111'
+loginname  = 'admin'
+password = 'admin'
 verytype = '5'
 
 

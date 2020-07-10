@@ -21,7 +21,6 @@ class RestClient():
 
     @response
     def post(self, url, **kwargs):
-        logger_info(self.session.headers)
         self.url = self.api_url_path + url
         return self.session.request('post', self.url, verify = False, **kwargs)
 
