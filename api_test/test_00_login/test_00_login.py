@@ -4,10 +4,10 @@ from library.loggins import *
 from operations.access_audit import *
 from operations.login import *
 from library.redis_connect import *
-
+import allure
 url = 'https://10.11.132.131'
 
-
+@allure.feature("测试正常登录")
 def test_login_nomal(koal, url=url, loginname='admin', password='admin', verifytype=5):
     logger_debug('测试正常登录')
     result = loging(url=url, loginName=loginname, password=password, verifyType=verifytype)
@@ -15,7 +15,7 @@ def test_login_nomal(koal, url=url, loginname='admin', password='admin', verifyt
     result_access = access_audit_query(koal)
     assert result_access.success, result_access.errors
 
-
+@allure.feature("测试连续登录四次登录失败")
 def test_logining_four_false(koal, url=url, loginname='ghca', password='11', verifytype=5):
     logger_debug("测试连续登录四次登录失败")
     four_result=login_times(url=url,loginName=loginname,password=password,verifyType=verifytype,times=4)
@@ -30,6 +30,8 @@ def test_logining_four_false(koal, url=url, loginname='ghca', password='11', ver
     assert result_query_none.response["data"] == []
     result_five = login_times(url=url, loginName=loginname, password="111111", verifyType=verifytype, times=1)
     assert result_five[0].success is True, result_five.error
+
+@allure.feature("测试连续登录失败5次，IP地址被禁用")
 def test_loging_five_flse_and_ip_forbidden(koal, url=url):
     logger_debug("测试连续登录失败5次，IP地址被禁用")
     """
@@ -51,5 +53,5 @@ def test_loging_five_flse_and_ip_forbidden(koal, url=url):
     result_login_nomal2 = login_times(url,loginName='liulj',password='111111',verifyType=5,times=1)
     assert result_login_nomal2[0].success is True, result_login_nomal2[0].error
 if __name__ == "__main__":
-    pytest.main(["-s", "test_00_login.py"])
-
+    pytest.main(["-s", "test_00_login.py",'--alluredir', './temp'])
+    os.system('allure generate ./temp -o ./report --clean')
