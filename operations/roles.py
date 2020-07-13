@@ -1,4 +1,6 @@
 from core.base import CommonItem
+
+
 # import jsonpath
 
 
@@ -93,10 +95,11 @@ def rolename_and_parentid_get_roleId(koal, parentid, rolename):
     #     return result_query_role
     # return result_query_role
     print(result_query_role.response["data"][0]["child"])
-    roleid = get_id(rolename,parentid,result_query_role.response["data"][0]["child"])
+    roleid = get_id(rolename, parentid, result_query_role.response["data"][0]["child"])
     result_query_role.roleId = roleid
     print(result_query_role)
     return result_query_role
+
 
 def retrieval_role_Jurisdiction(koal, roleid):
     """
@@ -106,19 +109,16 @@ def retrieval_role_Jurisdiction(koal, roleid):
     return koal.role_manage.query_role_Jurisdiction_menu(roleid)
 
 
-def get_id(rolename,parentid,data):
+def get_id(rolename, parentid, data):
+    a = None
     for i in data:
-        if i["roleName"] == rolename and i["parentId"]==parentid:
-            print(111)
-            a = i["roleId"]
-            print(a)
+        if i["roleName"] == rolename and i["parentId"] == parentid:
             print(i["roleId"])
+            a = i["roleId"]
             return a
-        print(i["roleName"])
-        print(1)
-        get_id(rolename,parentid,i["child"])
-
-
+        if len(i["child"]) > 0:
+            a = get_id(rolename, parentid, i["child"])
+    return a
 def get_role_and_users_list(koal, roleId, page, limit):
     """
     关键字：获取角色关联用户列表
@@ -129,13 +129,14 @@ def get_role_and_users_list(koal, roleId, page, limit):
     :return:
     """
     param = {
-        'roleId':roleId,
-        "page":page,
-        "limit":limit
+        'roleId': roleId,
+        "page": page,
+        "limit": limit
     }
     return koal.role_manage.role_user_list(params=param)
 
-def remove_role_and_users(koal,roleId,userId):
+
+def remove_role_and_users(koal, roleId, userId):
     """
     关键字：移除角色关联的用户
     :param koal:
@@ -144,10 +145,12 @@ def remove_role_and_users(koal,roleId,userId):
     :return:
     """
     data = {
-        "roleId":roleId,
-        "userId":userId
+        "roleId": roleId,
+        "userId": userId
     }
     return koal.role_manage.remove_role_user(json=data)
+
+
 if __name__ == "__main__":
     ss = {
         "msg": "成功",
@@ -160,15 +163,48 @@ if __name__ == "__main__":
             "remark": "拥有完整权限",
             "createUser": "admin",
             "createTime": "0001-01-01 00:00:00.0",
-            "child": [ {
-                "roleId": 33,
+            "child": [{
+                "roleId": 3,
                 "parentId": 1,
-                "roleName": "jeuse1",
-                "userCount": 0,
-                "remark": "sss",
+                "roleName": "安全管理角色",
+                "userCount": 3,
+                "remark": "资产系统查看2",
                 "createUser": "admin",
-                "createTime": "2020-07-09 23:06:45.0",
-                "child": [],
+                "createTime": "2020-06-05 11:00:48.0",
+                "child": [{
+                    "roleId": 4,
+                    "parentId": 3,
+                    "roleName": "12",
+                    "userCount": 1,
+                    "remark": "21",
+                    "createUser": "罗志强",
+                    "createTime": "2020-06-05 14:38:16.0",
+                    "child": [],
+                    "identity": "2",
+                    "root": False
+                }],
+                "identity": "2",
+                "root": False
+            }, {
+                "roleId": 86,
+                "parentId": 1,
+                "roleName": "add_lv1_rolename459",
+                "userCount": 0,
+                "remark": "test_lv1",
+                "createUser": "admin",
+                "createTime": "2020-07-13 09:54:10.0",
+                "child": [{
+                    "roleId": 87,
+                    "parentId": 86,
+                    "roleName": "add_lv2_rolename810",
+                    "userCount": 0,
+                    "remark": "test+lv2",
+                    "createUser": "admin",
+                    "createTime": "2020-07-13 09:54:10.0",
+                    "child": [],
+                    "identity": None,
+                    "root": False
+                }],
                 "identity": None,
                 "root": False
             }],
@@ -177,5 +213,5 @@ if __name__ == "__main__":
         }]
     }
     # print(ss["data"][0])
-    sss = get_id("jeuse1",1,ss["data"][0]['child'])
+    sss = get_id("add_lv2_rolename810", 86, ss["data"])
     print(sss)
