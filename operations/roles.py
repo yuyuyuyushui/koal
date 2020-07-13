@@ -66,7 +66,7 @@ def lv1_rolename_get_roleid(koal, rolename):
     result_query_role = query_roles(koal)
     if result_query_role.success == False:
         return result_query_role
-    for role_lv1 in result_query_role.response["data"][0]["child"]:
+    for role_lv1 in result_query_role.response["data"]:
         if role_lv1["roleName"] == rolename:
             result_query_role.roleId = role_lv1["roleId"]
     return result_query_role
@@ -83,21 +83,8 @@ def rolename_and_parentid_get_roleId(koal, parentid, rolename):
     result_query_role = query_roles(koal)
     if result_query_role.success is False:
         return result_query_role
-
-    # for child_1 in result_query_role.response["data"][0]["child"]:
-    #     for child_2 in child_1["child"]:
-    #         if parentid == child_2["parentId"] and rolename == child_2["roleName"]:
-    #             result_query_role.roleId = child_2["roleId"]
-    #     if parentid == child_1["parentId"] and rolename == child_1["roleName"]:
-    #         result_query_role.roleId = child_1["roleId"]
-    # if result_query_role.roleId is None:
-    #     result_query_role.success = False
-    #     return result_query_role
-    # return result_query_role
-    print(result_query_role.response["data"][0]["child"])
-    roleid = get_id(rolename, parentid, result_query_role.response["data"][0]["child"])
+    roleid = get_id(rolename, parentid, result_query_role.response["data"])
     result_query_role.roleId = roleid
-    print(result_query_role)
     return result_query_role
 
 
@@ -110,15 +97,13 @@ def retrieval_role_Jurisdiction(koal, roleid):
 
 
 def get_id(rolename, parentid, data):
-    a = None
+    roleid = None
     for i in data:
         if i["roleName"] == rolename and i["parentId"] == parentid:
-            print(i["roleId"])
-            a = i["roleId"]
-            return a
+            return i["roleId"]
         if len(i["child"]) > 0:
-            a = get_id(rolename, parentid, i["child"])
-    return a
+            roleid = get_id(rolename, parentid, i["child"])
+    return roleid
 def get_role_and_users_list(koal, roleId, page, limit):
     """
     关键字：获取角色关联用户列表
