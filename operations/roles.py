@@ -84,6 +84,15 @@ def retrieval_role_permission(koal, roleid):
     """
     return koal.role_manage.query_role_permission_menu(roleid)
 
+def set_role_permission(koal,roleid):
+    """
+    关键字：设置角色权限
+    :param koal:
+    :param roleid:
+    :return:
+    """
+
+    return koal.role_manage.role_permissin_settings(roleid,)
 
 def get_id(rolename, parentid, data):
     roleid = None

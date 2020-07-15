@@ -6,9 +6,7 @@ import pytest
 def test_role_get_permission(koal,parentid=1,rolename='rolename{}'.format(randint(0,999)),remark='remark{}'.format(0,999)):
     result_add = add_role(koal,parentid,rolename,remark)
     assert result_add.success is True
-    result_lv1_roleid = rolename_and_parentid_get_roleId(koal,parentid,rolename)
-    assert result_lv1_roleid.success is True
-    result_permission = retrieval_role_permission(koal,result_lv1_roleid.roleId)
+    result_permission = retrieval_role_permission(koal,result_add.roleId)
 
     assert result_permission.success is False
 if __name__=="__main__":
