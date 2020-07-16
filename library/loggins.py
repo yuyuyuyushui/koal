@@ -1,4 +1,5 @@
 import logging, os,sys
+from random import randint
 class Loger():
     def __init__(self,clevel=logging.DEBUG, Flevel=logging.DEBUG):
         self.path= os.path.dirname(os.path.dirname(__file__)) + '/log/test.log'
@@ -39,4 +40,6 @@ def logger_info(message):
 def logger_error(message):
     return Loger().error(message)
 
-
+def ranint_name(name):
+    newname = '{}_{}'.format(name,randint(0,999))
+    return  newname

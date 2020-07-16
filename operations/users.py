@@ -1,4 +1,5 @@
 from core.base import CommonItem
+
 def add_user(koal, loginname, username,validityperiod,password,depid,authtype,idcard=None,jobnumber=None,roleidlist=None,email=None,mobile=None,sex=None,ipwhite=None,identity=None):
     """
     添加用户，关联角色，关联部门，角色和组织都可为空
@@ -34,25 +35,27 @@ def add_user(koal, loginname, username,validityperiod,password,depid,authtype,id
         "ipwhite": ipwhite,
         "identity":identity
     }
-    query_pragram = {
-        'page': 1,
-        'limit': 10,
-        'name': loginname,
-        'deptId': ''
+    query_data = {
+        "page":1,
+        "limit":100,
+        'name':loginname,
+        "deptId":None
     }
-    try:
-        response = koal.users.add_user(json=user_message)
+    result_add = koal.users.add_user(json=user_message)
+    if result_add.success is False:
+        return result_add
+    result = koal.users.query_user_list(params=query_data)
+    if result.success is False:
+        return result
+    for data in result.response["page"]["list"]:
+        if data["loginName"]==loginname:
+            result.userId = data["userId"]
+            return result
 
-        if response.success == False:
-            raise Exception("添加用户失败")
-        response_query = koal.users.query_user_list(params=query_pragram)
-        if response_query.success == False:
-            return False
-        return response_query
-    except Exception as e:
-        print(e)
+def userName_and_get_userNameid(koal,username):
 
 
+    pass
 
 
 def query_user_detail(koal, page, limit, name, deptid):

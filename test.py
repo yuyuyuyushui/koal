@@ -18,5 +18,3 @@ class TestClass:
     def test_02(self):
         print("hello world!")
 
-if __name__ == "__main__":
-    pytest.main(["-v", "test.py", "-m=webtest"])

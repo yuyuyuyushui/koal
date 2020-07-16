@@ -84,15 +84,25 @@ def retrieval_role_permission(koal, roleid):
     """
     return koal.role_manage.query_role_permission_menu(roleid)
 
-def set_role_permission(koal,roleid):
+
+def menu_name_and_get_meneid(menuname,data):
+    for data in data["data"]:
+        if menuname==data["menuName"]:
+            return data['menuId']
+    else:
+        raise Exception("查询menuId失败")
+def set_role_permission(koal,roleid,menuids):
     """
     关键字：设置角色权限
     :param koal:
     :param roleid:
-    :return:
+    :return:menuId: "1,10,12,13,14,282,283,285,286,287,304,550,20,22,23,24,30,32,33,34,35,38"
     """
+    data = {
+       "menuId":menuids
+    }
 
-    return koal.role_manage.role_permissin_settings(roleid,)
+    return koal.role_manage.role_permissin_settings(roleid,json=data)
 
 def get_id(rolename, parentid, data):
     roleid = None

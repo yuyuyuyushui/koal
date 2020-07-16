@@ -8,17 +8,17 @@ from operations.organize import *
 from operations.roles import *
 import pytest_check as check
 
-
-
-add_user_data=[
-    ("add_loginname_{}".format(randint(1,9999)),'name_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',5, 666, 777,  "9999@qq.com", 13221212121, 2222, 1111)
+add_user_data = [
+    ("add_loginname_{}".format(randint(1, 9999)), 'name_{}'.format(randint(1, 9999)), '2019-07-15~2019-08-20',
+     'ghcatest', 5, 666, 777, "9999@qq.com", 13221212121, 2222, 1111)
 
 ]
 
 
 @pytest.mark.parametrize("loginname, username, validityperiod, password, "
-                         " authtype,idcard,jobnumber,email,mobile,sex,ipwhite",add_user_data)
-def test_add_user(koal, Role_Organize_Date, loginname, username, validityperiod, password, authtype, idcard,jobnumber,email,mobile,sex,ipwhite):
+                         " authtype,idcard,jobnumber,email,mobile,sex,ipwhite", add_user_data)
+def test_add_user(koal, Role_Organize_Date, loginname, username, validityperiod, password, authtype, idcard, jobnumber,
+                  email, mobile, sex, ipwhite):
     """
         添加用户，关联角色，关联部门，角色和组织都可为空
         :param koal:
@@ -38,35 +38,37 @@ def test_add_user(koal, Role_Organize_Date, loginname, username, validityperiod,
         :return:
         """
 
-    result = add_user(koal,loginname,username,validityperiod,password, Role_Organize["depid"],authtype,idcard,jobnumber,Role_Organize["roleid"],email,mobile,sex,ipwhite,identity=2)
+    result = add_user(koal, loginname, username, validityperiod, password, Role_Organize["depid"], authtype, idcard,
+                      jobnumber, Role_Organize["roleid"], email, mobile, sex, ipwhite, identity=2)
 
     assert result.response['page']['list'][0]['loginName'] == loginname
     assert result.response["page"]["list"][0]["status"] == 0
     userid = result.response["page"]["list"][0]["userId"]
-    delet_result = delete_users(koal,userid)
+    delet_result = delete_users(koal, userid)
     assert delet_result.success == True, delet_result.error
     # query_result = koal.users.query_user_details(userid)
     # assert query_result.response["data"]["deptId"]==Role_Organize["depid"]
 
-query_date=[
-    ('1',10,'',''),
-    ('1',10,'',''),
-    ('1',25,'',''),
-    ('1',50,'',''),
-    ('1',100,'','')
+
+query_date = [
+    ('1', 10, '', ''),
+    ('1', 10, '', ''),
+    ('1', 25, '', ''),
+    ('1', 50, '', ''),
+    ('1', 100, '', '')
 ]
 
 
-@pytest.mark.parametrize("page,limit,name,deptid",query_date)
-def test_query_user(env,page,limit,name,deptid):
+@pytest.mark.parametrize("page,limit,name,deptid", query_date)
+def test_query_user(env, page, limit, name, deptid):
     query_params = {
         """
         页码，每页记录数，姓名，部门ID
         """
-        "page":page,
-        "limit":limit,
-        "name":name,
-        "deptId":deptid
+        "page": page,
+        "limit": limit,
+        "name": name,
+        "deptId": deptid
     }
     """
     totalCount：总页码数
@@ -95,21 +97,26 @@ def test_query_role_list(env):
     # assert 0
 
 
-add_user_data=[
-    (None,None,5,"test_yuyuyuy{}".format(randint(1,999)),"add_users_{}".format(randint(1,9999)),'lll_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',0, 666,777,9999,0000,2222,1111),
+add_user_data = [
+    (None, None, 5, "test_yuyuyuy{}".format(randint(1, 999)), "add_users_{}".format(randint(1, 9999)),
+     'lll_{}'.format(randint(1, 9999)), '2019-07-15~2019-08-20', 'ghcatest', 0, 666, 777, 9999, 0000, 2222, 1111),
     # (None,None,5,"test_yuyuyuy{}".format(randint(1,999)),"add_users_{}".format(randint(1,9999)),'lll_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',0, '5107211995111111111', 333333333333333,None,None,None,None),
-    #("test_role","测试新增用户一个角色",5,"test_yuyuyuy{}".format(randint(1,999)),"add_users_{}".format(randint(1,9999)),'lll_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',0, '5107211995111111111', 333333333333333,"786313105@qq.com",None,None,None)
+    # ("test_role","测试新增用户一个角色",5,"test_yuyuyuy{}".format(randint(1,999)),"add_users_{}".format(randint(1,9999)),'lll_{}'.format(randint(1,9999)),'2019-07-15~2019-08-20','ghcatest',0, '5107211995111111111', 333333333333333,"786313105@qq.com",None,None,None)
 
 ]
 
 
-@pytest.mark.parametrize("rolename, remark, parentid, deptname,loginname, username,validityperiod,password,authtype,idcard,jobnumber,email,mobile,sex,ipwhite",add_user_data)
-def test_add_users(env,rolename, remark, parentid, deptname,loginname, username,validityperiod,password,authtype,idcard,jobnumber,email,mobile,sex,ipwhite):
-    result =add_users(env.koal, remark, parentid, deptname,loginname, username,validityperiod,password,authtype,idcard,jobnumber,email,mobile,sex,ipwhite)
+@pytest.mark.parametrize(
+    "rolename, remark, parentid, deptname,loginname, username,validityperiod,password,authtype,idcard,jobnumber,email,mobile,sex,ipwhite",
+    add_user_data)
+def test_add_users(env, rolename, remark, parentid, deptname, loginname, username, validityperiod, password, authtype,
+                   idcard, jobnumber, email, mobile, sex, ipwhite):
+    result = add_users(env.koal, remark, parentid, deptname, loginname, username, validityperiod, password, authtype,
+                       idcard, jobnumber, email, mobile, sex, ipwhite)
     env.logger.info("添加用户的返回信息{}".format(result.response))
     assert result.success == True, result.error
 
 
-if __name__=="__main__":
-     pytest.main(["-v", "test_01_user_add.py::test_add_user"])
-    # pytest.main(["-s", "test_01_user_add.py::test_add_user"])
+if __name__ == "__main__":
+    pytest.main(["-v", "test_01_user_add.py::test_add_user"])
+# pytest.main(["-s", "test_01_user_add.py::test_add_user"])

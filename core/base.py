@@ -1,5 +1,6 @@
 import functools, os
 from library.loggins import *
+from random import randint
 class CommonItem():
     def __init__(self):
         self.success = False
@@ -66,5 +67,4 @@ def logger_info(message):
     return Loger().info(message)
 def logger_error(message):
     return Loger().error(message)
-
 
