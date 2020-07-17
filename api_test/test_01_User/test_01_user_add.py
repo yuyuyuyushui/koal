@@ -8,17 +8,9 @@ from operations.organize import *
 from operations.roles import *
 import pytest_check as check
 
-add_user_data = [
-    ("add_loginname_{}".format(randint(1, 9999)), 'name_{}'.format(randint(1, 9999)), '2019-07-15~2019-08-20',
-     'ghcatest', 5, 666, 777, "9999@qq.com", 13221212121, 2222, 1111)
 
-]
-
-
-@pytest.mark.parametrize("loginname, username, validityperiod, password, "
-                         " authtype,idcard,jobnumber,email,mobile,sex,ipwhite", add_user_data)
-def test_add_user(koal, Role_Organize_Date, loginname, username, validityperiod, password, authtype, idcard, jobnumber,
-                  email, mobile, sex, ipwhite):
+def test_add_user(koal, loginname=ranint_name('loginname'), username=ranint_name('username'), validityperiod="2019-08-04~2099-09-14", password='111111', authtype=0, idcard='1231231321', jobnumber='3211',
+                  email='zhiqiang.luo@gh-ca.com', mobile='13290980988', sex=None, ipwhite=None):
     """
         添加用户，关联角色，关联部门，角色和组织都可为空
         :param koal:
@@ -37,15 +29,18 @@ def test_add_user(koal, Role_Organize_Date, loginname, username, validityperiod,
         :param ipwhite:白名单
         :return:
         """
-
-    result = add_user(koal, loginname, username, validityperiod, password, Role_Organize["depid"], authtype, idcard,
-                      jobnumber, Role_Organize["roleid"], email, mobile, sex, ipwhite, identity=2)
+    result_role = add_rle(koal,parentId=1, rolename=ranint_name('add_rolename'), remark=ranint_name('add_remark'))
+    assert result_role.success is True
+    result_dept = add_organize_and_get_deptId(koal,parentid=0,deptname=ranint_name('dept_name'))
+    assert result_dept.success is True
+    result = add_user(koal, loginname, username, validityperiod, password, result_dept.deptId, authtype, idcard,
+                      jobnumber, [result_role.roleId], email, mobile, sex, ipwhite, identity=2)
 
     assert result.response['page']['list'][0]['loginName'] == loginname
     assert result.response["page"]["list"][0]["status"] == 0
-    userid = result.response["page"]["list"][0]["userId"]
-    delet_result = delete_users(koal, userid)
-    assert delet_result.success == True, delet_result.error
+    # userid = result.response["page"]["list"][0]["userId"]
+    # delet_result = delete_users(koal, userid)
+    # assert delet_result.success == True, delet_result.error
     # query_result = koal.users.query_user_details(userid)
     # assert query_result.response["data"]["deptId"]==Role_Organize["depid"]
 
@@ -82,19 +77,16 @@ def test_query_user(env, page, limit, name, deptid):
     assert userlist_result.json()["code"] == 0
 
 
-def test_query_role_list(env):
+def test_query_role_list(koal):
     """
     检索角色列表
     :param env:
     :return:
     """
-    para = {
-        "userId": ''
-    }
-    role_list = env.koal.users.retrieval_role_list(params=para)
-    env.logger.info("角色列表信息{}".format(role_list.json()))
-    assert role_list.json()['code'] == 0
-    # assert 0
+    logger_debug("检索角色")
+    role_list = query_roles(koal)
+    assert role_list.success is True
+
 
 
 add_user_data = [
@@ -118,5 +110,5 @@ def test_add_users(env, rolename, remark, parentid, deptname, loginname, usernam
 
 
 if __name__ == "__main__":
-    pytest.main(["-v", "test_01_user_add.py::test_add_user"])
+    pytest.main(["-s", "test_01_user_add.py::test_add_user"])
 # pytest.main(["-s", "test_01_user_add.py::test_add_user"])

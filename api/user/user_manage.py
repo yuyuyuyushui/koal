@@ -37,7 +37,7 @@ class Users(RestClient):
         """
         return self.delete('/v1/user/{}'.format(userID),**kwargs)
 
-    def retrieval_role_list(self,**kwargs):
+    def query_role_list(self, **kwargs):
         """
         检索角色列表
         :param kwargs:

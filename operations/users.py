@@ -1,5 +1,6 @@
 from core.base import CommonItem
 
+from operations.roles import *
 def add_user(koal, loginname, username,validityperiod,password,depid,authtype,idcard=None,jobnumber=None,roleidlist=None,email=None,mobile=None,sex=None,ipwhite=None,identity=None):
     """
     添加用户，关联角色，关联部门，角色和组织都可为空
@@ -25,7 +26,7 @@ def add_user(koal, loginname, username,validityperiod,password,depid,authtype,id
         "deptId": depid,
         "idCard	": idcard,
         "jobNumber": jobnumber,
-        "roleIdList": [roleidlist],
+        "roleIdList": roleidlist,
         "validityPeriod": validityperiod,
         "password": password,
         "email": email,
@@ -51,6 +52,10 @@ def add_user(koal, loginname, username,validityperiod,password,depid,authtype,id
         if data["loginName"]==loginname:
             result.userId = data["userId"]
             return result
+    else:
+        raise Exception("未检索到用户")
+
+
 
 def userName_and_get_userNameid(koal,username):
 
@@ -86,4 +91,31 @@ def delete_users(koal,userid):
 
     return  koal.users.delete_user(userid)
 
+
+def add_rle(koal, parentId, rolename, remark, identity=None):
+    """
+    关键字：添加角色
+    :param koal:
+    :param parentId:
+    :param rolename:
+    :param remark:
+    :param identity:
+    :return:
+    """
+
+    result = add_roles(koal, parentId, rolename, remark, identity=None)
+    if result.success is False:
+        return result
+    return query_role_and_get_roleId(koal,rolename,parentId)
+
+
+def query_role_and_get_roleId(koal,rolename,parentid,userid=''):
+    data = {
+        "userId":userid
+    }
+    result = koal.users.query_role_list(params=data)
+    if result.success is False:
+        return result
+    result.roleId = get_id(rolename,parentid,result.response["data"])
+    return result
 

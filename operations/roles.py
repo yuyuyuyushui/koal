@@ -12,14 +12,8 @@ def add_role(koal, parentId, rolename, remark, identity=None):
     :param remark:
     :return:
     """
-    role_message = {
-        "roleName": rolename,
-        'identity': identity,
-        "remark": remark,
-        'parentId': parentId,
-        'root': 'true'
-    }
-    result =koal.role_manage.add_role(json=role_message)
+
+    result=add_roles(koal, parentId, rolename, remark, identity=None)
     if result.success is False:
         return result
     result_query_role = query_roles(koal)
@@ -28,6 +22,16 @@ def add_role(koal, parentId, rolename, remark, identity=None):
     roleid = get_id(rolename, parentId, result_query_role.response["data"])
     result_query_role.roleId = roleid
     return result_query_role
+
+def add_roles(koal, parentId, rolename, remark, identity=None):
+    role_message = {
+        "roleName": rolename,
+        'identity': identity,
+        "remark": remark,
+        'parentId': parentId,
+        'root': 'true'
+    }
+    return koal.role_manage.add_role(json=role_message)
 
 
 def mody_roles(koal, roleid, modify_rolename, modify_remark):
