@@ -7,6 +7,7 @@ from library.redis_connect import *
 import allure
 url = 'https://10.11.132.131'
 
+
 @allure.feature("测试正常登录")
 def test_login_nomal(koal, url=url, loginname='admin', password='admin', verifytype=5):
     logger_debug('测试正常登录')
@@ -14,6 +15,7 @@ def test_login_nomal(koal, url=url, loginname='admin', password='admin', verifyt
     assert result.success is True, result.error
     result_access = access_audit_query(koal)
     assert result_access.success, result_access.errors
+
 
 @allure.feature("测试连续登录四次登录失败")
 def test_logining_four_false(koal, url=url, loginname='ghca', password='11', verifytype=5):

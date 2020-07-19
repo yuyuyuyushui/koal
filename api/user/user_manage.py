@@ -11,6 +11,9 @@ class Users(RestClient):
     def add_user(self, **kwargs):
         return self.post('/v1/user', **kwargs)
 
+    def edit_user(self, userId, **kwargs):
+        return self.put("/v1/user/{}".format(userId),**kwargs)
+
     def query_user_list(self, **kwargs):
         """
         用户列表(分页)
@@ -43,4 +46,4 @@ class Users(RestClient):
         :param kwargs:
         :return:
         """
-        return self.get('/v1/user/roleList',**kwargs)
+        return self.get('/v1/role/list',**kwargs)

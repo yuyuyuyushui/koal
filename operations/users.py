@@ -1,7 +1,10 @@
 from core.base import CommonItem
 
 from operations.roles import *
-def add_user(koal, loginname, username,validityperiod,password,depid,authtype,idcard=None,jobnumber=None,roleidlist=None,email=None,mobile=None,sex=None,ipwhite=None,identity=None):
+
+
+def add_user(koal, loginname, username, validityperiod, password, depid, authtype, idcard=None, jobnumber=None,
+             roleidlist=None, email=None, mobile=None, sex=None, ipwhite=None, identity=None):
     """
     添加用户，关联角色，关联部门，角色和组织都可为空
     :param koal:
@@ -34,62 +37,57 @@ def add_user(koal, loginname, username,validityperiod,password,depid,authtype,id
         "authType": authtype,
         "sex": sex,
         "ipwhite": ipwhite,
-        "identity":identity
-    }
-    query_data = {
-        "page":1,
-        "limit":100,
-        'name':loginname,
-        "deptId":None
+        "identity": identity
     }
     result_add = koal.users.add_user(json=user_message)
     if result_add.success is False:
         return result_add
-    result = koal.users.query_user_list(params=query_data)
+    result = query_user_list(koal, name=loginname, page=1, limit=100, deptId=None)
     if result.success is False:
         return result
+    print(result.response)
     for data in result.response["page"]["list"]:
-        if data["loginName"]==loginname:
+        if data["loginName"] == loginname:
             result.userId = data["userId"]
-            return result
-    else:
+
+    if result.userId == None:
         raise Exception("未检索到用户")
-
-
-
-def userName_and_get_userNameid(koal,username):
-
-
-    pass
-
-
-def query_user_detail(koal, page, limit, name, deptid):
-    """
-    先查询所有用户的ID，再根据ID查看用户的具体详情
-    :param koal:
-    :return:
-    """
-    user_list={
-        "page":page,
-        'limit':limit,
-        "name":name,
-        "deptId":deptid
-    }
-    pages = None
-    try:
-        user_result = koal.users.query_user_list(params=user_list)
-        pages = user_result.response['page']
-        assert user_result.response['code']==0
-    except:
-        print("查询有误")
-
-    result = koal.users.query_user_details(pages)
     return result
 
 
-def delete_users(koal,userid):
+def edit_user(koal,usrId, loginname, username, validityperiod, password, depid, authtype, status=None, idcard=None, jobnumber=None,
+             roleidlist=None, email=None, mobile=None, sex=None, ipwhite=None, identity=None):
+    user_message = {
+        "loginName": loginname,
+        "userName": username,
+        "deptId": depid,
+        "idCard	": idcard,
+        "jobNumber": jobnumber,
+        "roleIdList": roleidlist,
+        "validityPeriod": validityperiod,
+        "password": password,
+        "email": email,
+        "mobile": mobile,
+        "authType": authtype,
+        "sex": sex,
+        "ipwhite": ipwhite,
+        "status": status,
+        "identity": identity
+    }
+    return koal.users.edit_user(usrId,json=user_message)
 
-    return  koal.users.delete_user(userid)
+
+def query_user_list(koal, page, limit, name, deptId):
+    query_data = {
+        "page": page,
+        "limit": limit,
+        'name': name,
+        "deptId": deptId
+    }
+
+    return koal.users.query_user_list(params=query_data)
+def delete_users(koal, userid):
+    return koal.users.delete_user(userid)
 
 
 def add_rle(koal, parentId, rolename, remark, identity=None):
@@ -102,20 +100,32 @@ def add_rle(koal, parentId, rolename, remark, identity=None):
     :param identity:
     :return:
     """
-
     result = add_roles(koal, parentId, rolename, remark, identity=None)
     if result.success is False:
         return result
-    return query_role_and_get_roleId(koal,rolename,parentId)
+    return query_role_and_get_roleId(koal, rolename, parentId)
 
 
-def query_role_and_get_roleId(koal,rolename,parentid,userid=''):
+def query_role_and_get_roleId(koal, rolename, parentid, page=1,limit=100,param=None):
+    """
+    关键字：查询角色并获取角色id
+    :param koal:
+    :param rolename:
+    :param parentid:
+    :param userid:
+     {"msg":"成功","code":0,"page":{"totalCount":3,"pageSize":100,"totalPage":1,"currPage":1,"list":[{"roleId":1,"parentId":0,"roleName":"根角色","userCount":1,"remark":"拥有完整权限","createUser":"admin","createTime":"0001-01-01 00:00:00.0","child":null,"identity":null,"root":false},{"roleId":3,"parentId":1,"roleName":"安全管理角色","userCount":3,"remark":"资产系统查看2","createUser":"admin","createTime":"2020-06-05 11:00:48.0","child":null,"identity":null,"root":false},{"roleId":116,"parentId":3,"roleName":"ss","userCount":0,"remark":"s","createUser":"admin","createTime":"2020-07-18 23:53:32.0","child":null,"identity":null,"root":false}]}}    """
     data = {
-        "userId":userid
+        "page":page,
+        "limit":limit,
+        "param":param
     }
     result = koal.users.query_role_list(params=data)
     if result.success is False:
         return result
-    result.roleId = get_id(rolename,parentid,result.response["data"])
-    return result
 
+    for role in result.response["page"]["list"]:
+        if role["parentId"]==parentid and role["roleName"] ==rolename:
+            result.roleId = role["roleId"]
+    if result.roleId == None:
+        raise Exception("查询角色失败")
+    return result
