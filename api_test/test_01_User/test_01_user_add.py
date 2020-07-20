@@ -44,7 +44,11 @@ def test_add_user(koal, loginname=ranint_name('loginname'), username=ranint_name
     result_edit = edit_user(koal,usrId=result.userId,loginname=loginname, username=new_username,validityperiod=validityperiod, password=password, depid=result_dept.deptId, authtype=authtype, idcard=idcard,
                             jobnumber=jobnumber, roleidlist=[result_role.roleId], email=email, mobile=mobile, sex=sex, ipwhite=ipwhite, status=result.response["page"]["list"][0]["status"], identity=2)
     assert result_edit.success is True
-
+    result_delet_user = delete_users(koal,result.userId)
+    assert result_delet_user.success is True
+    delete_orgs(koal,[result_dept.deptId])
+    result_delete_role = delete_role(koal,result_role.roleId)
+    assert result_delete_role.success is True
 query_date = [
     ('1', 10, '', ''),
     ('1', 10, '', ''),
