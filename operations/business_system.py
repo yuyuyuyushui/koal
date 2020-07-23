@@ -1,7 +1,7 @@
 from core.base import *
 
 
-def query_business_system_list(koal,page, limit):
+def query_business_system_list(koal, page, limit):
     """
             分页查询业务系统列表
             :param page:
@@ -14,7 +14,7 @@ def query_business_system_list(koal,page, limit):
     }
     return koal.business_system.query_business_system_list(params=param)
 
-def add_business_system(koal,abisname, workflownodenum, abisadminids ):
+def add_business_system(koal,abisname, workflownodenum, abisadminids):
     """
     添加业务系统
     :param koal:
@@ -84,7 +84,13 @@ def query_system_admin_list(koal, keyword, page, limit, abisId=None):
     }
     return koal.business_system.query_admin(params=query_data)
 
-
+def username_and_query_userId(koal,loginname):
+    result_query = query_system_admin_list(koal,keyword=loginname,page=1,limit=100)
+    if result_query.success is False:
+        return result_query
+    if loginname in result_query.response["page"]["list"][0]["loginName"]:
+        result_query.userId = result_query.response["page"]["list"][0]["userId"]
+    return result_query
 def modify_business_admin_jurisdiction(koal, id, permsSetPassword, permsViewPassword, permsApproveFirst, permsApproveSecond, receiveWarn):
     """
     修改业务系统管理员权限

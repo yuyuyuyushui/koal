@@ -1,4 +1,5 @@
 from api.login.loging import *
+
 def loging(url,loginName,password,verifyType, t=None,validcode=None,csrf=None):
     '''
 
@@ -21,6 +22,8 @@ def loging(url,loginName,password,verifyType, t=None,validcode=None,csrf=None):
         't': t
     }
     return Login(api_url_path=url).login(json=data)
+
+
 def login_times(url,loginName,password,verifyType,times, t=None,validcode=None,csrf=None):
     data = {
         "loginname": loginName,
