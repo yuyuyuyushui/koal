@@ -3,15 +3,15 @@ import pytest,os,sys
 # import yaml
 from koal import *
 from Login import *
-api_url = 'https://10.11.132.131'
-loginname  = 'admin'
-password = 'admin'
+api_url = 'https://10.11.220.162'
+loginname  = 'ghcatest'
+password = '111111'
 verytype = '5'
 
 
 @pytest.fixture(scope="session")
 def koal():
-    response = loging(api_url,loginname,password,verytype)
+    response = loging(api_url, loginname, password, verytype)
     if response.success == True:
         token = response.response["data"]["token"]
         yield Koal(api_url=api_url, token=token)

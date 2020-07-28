@@ -10,7 +10,6 @@ class Login(RestClient):
     def get_captcha(self, **kwargs):
         return self.get("/v1/captcha", **kwargs)
 
-    def loginout(self,**kwargs):
-        return self.get("/v1/author/login/",**kwargs)
+
 if __name__=="__main__":
     Login(api_url_path='')

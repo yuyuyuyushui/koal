@@ -28,4 +28,4 @@ def test_lv2_role_edit(koal,parentid=1,rolename='lv1_rolename{}'.format(randint(
     assert result_lv1_delet.success is True
 
 if __name__ == "__main__":
-    pytest.main(['-s', "test_02_role_edit.py::test_lv2_role_edit"])
+    pytest.main(['-s', "test_02_role_edit.py"])

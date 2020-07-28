@@ -5,6 +5,7 @@ from api.business_system_management.business_system_management import BusinessSy
 from api.IT_asserts.it_asserts import Asserts_IT
 from api.assert_accunt_manage.assert_accunt_manage import Assert_accunt_manage
 from api.security_audit.access_audit import Access_audit
+from api.login.loging import *
 import json
 
 
@@ -12,6 +13,7 @@ class Koal():
 
     def __init__(self, api_url, **kwargs):
         self.path = api_url
+        self.login = Login(self.path,**kwargs)
         self.users = Users(self.path, **kwargs)
         self.organize_manage = OrganizeManage(self.path, **kwargs)
         self.role_manage = RoleManage(self.path, **kwargs)

@@ -27,4 +27,4 @@ def test_edit_second_levle_org_name(koal, parentid=0, dept_first_name='first_dep
 
 
 if __name__=='__main__':
-    pytest.main(['-s', "test_02_organize_edit.py::test_edit_second_levle_org_name"])
+    pytest.main(['-s', "test_02_organize_edit.py"])

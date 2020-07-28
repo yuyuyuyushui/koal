@@ -5,7 +5,7 @@ from operations.access_audit import *
 from operations.login import *
 from library.redis_connect import *
 import allure
-url = 'https://10.11.132.131'
+url = 'https://10.11.220.162'
 
 
 @allure.feature("测试正常登录")

@@ -30,5 +30,5 @@ def test_add_lv2_rolename(koal,parentId=1,rolename='add_lv1_rolename{}'.format(r
 
 
 if __name__ == "__main__":
-    pytest.main(['-s', "test_01_role_add.py::test_add_lv2_rolename"])
+    pytest.main(['-s', "test_01_role_add.py"])
     # pytest.main()
