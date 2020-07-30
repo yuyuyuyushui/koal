@@ -1,5 +1,5 @@
 import pytest,os,sys
-# from library.environment import Env
+from library.environment import Env
 # import yaml
 from koal import *
 from Login import *
@@ -15,6 +15,15 @@ def koal():
     if response.success == True:
         token = response.response["data"]["token"]
         yield Koal(api_url=api_url, token=token)
+    else:
+        logger_info("登录失败")
+
+@pytest.fixture(scope="session")
+def env():
+    response = loging(api_url, loginname, password, verytype)
+    if response.success == True:
+        token = response.response["data"]["token"]
+        yield Env(api_url=api_url,token=token)
     else:
         logger_info("登录失败")
 

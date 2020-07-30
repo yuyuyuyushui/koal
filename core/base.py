@@ -26,6 +26,7 @@ def response(func):
         except Exception as e:
             logger_error(e)
             return result
+
         if response.json()["code"] != 0:
             result.error = "{name}返回的错误代码{code}".format(name=func.__name__, code=response.json()["code"])
             result.response = response.json()

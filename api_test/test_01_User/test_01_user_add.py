@@ -14,9 +14,9 @@ from operations.roles import *
 def test_add_user(koal, loginname=ranint_name('loginname'), username=ranint_name('username'),
                   validityperiod="2019-08-04~2099-09-14", password='111111', authtype=0, idcard='1231231321',
                   jobnumber='3211',
-                  email='zhiqiang.luo@gh-ca.com', mobile='13290980988', sex=None, ipwhite=None,new_username=ranint_name('edit_name')):
+                  email='zhiqiang.luo@gh--ca.com.cn', mobile='13290980988', sex=None, ipwhite=None,new_username=ranint_name('edit_name')):
     """
-        添加用户，关联角色，关联部门，角色和组织都可为空
+        新增角色，新增部门，新增用户，编辑用户，删除用户，删除部门，删除角色
         :param koal:
         :param loginname: 登录名
         :param username: 用户名
@@ -49,8 +49,10 @@ def test_add_user(koal, loginname=ranint_name('loginname'), username=ranint_name
     delete_orgs(koal,[result_dept.deptId])
     result_delete_role = delete_role(koal,result_role.roleId)
     assert result_delete_role.success is True
+
+
+
 query_date = [
-    ('1', 10, '', ''),
     ('1', 10, '', ''),
     ('1', 25, '', ''),
     ('1', 50, '', ''),
@@ -65,10 +67,10 @@ def test_query_user(koal, page, limit, name, deptid):
     assert userlist_result.success is True
 
 
-def test_edit_user(koal,):
+def test_edit_user(koal):
     pass
 
 
 if __name__ == "__main__":
-    pytest.main(["-s", "test_01_user_add.py::test_add_user"])
+    pytest.main(["-s", "test_01_user_add.py::test_query_user"])
 # pytest.main(["-s", "test_01_user_add.py::test_add_user"])
