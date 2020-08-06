@@ -87,3 +87,29 @@ class Portal(RestClient):
     def delete_temporary_grant_authorization_apply_history(self,applyId,**kwargs):
         return self.delete("/v1/portal/apply/remove/{}".format(applyId),**kwargs)
 
+    def submit_temporary_grant_authorization_apply_history(self,applyId,**kwargs):
+        return self.put("/v1/portal/apply/submit/{}".format(applyId),**kwargs)
+
+    def withdraw_temporary_grant_authorization_apply(self,applyId, **kwargs):
+        return self.put("/v1/portal/apply/recall/{}".format(applyId),**kwargs)
+
+    def remove_temporary_authorization_apply_resource_acounts(self,id,**kwargs):
+        return self.delete("/v1/portal/apply/detail/remove/{}".format(id),**kwargs)
+
+    def temporary_grant_authorization_visit_initialization(self,id,**kwargs):
+        return self.get("/v1/portal/apply/session/init/{}".format(id),**kwargs)
+
+    def temporary_grant_resource_visit_submit(self, **kwargs):
+        return self.put("/v1/portal/apply/session/submit",**kwargs)
+
+    def end_temporary_visit(self,applyId, **kwargs):
+        return self.put("/v1/portal/apply/detail/finished/{}".format(applyId),**kwargs)
+
+    def consumer_visit_session_list_latest(self, **kwargs):
+        return self.get("/v1/portal/session/list", **kwargs)
+
+    def web_application_form_write(self,sid ,**kwargs):
+        return self.get("/v1/portal/httpsso/{}".format(sid), **kwargs)
+
+    def web_application_CAS_authentication(self,sid,**kwargs):
+        return self.get("/v1/portal/httpcas/{}".format(sid), **kwargs)

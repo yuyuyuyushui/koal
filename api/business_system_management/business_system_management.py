@@ -36,6 +36,7 @@ class BusinessSystemManagement(RestClient):
         :return:
         """
         return self.get("/v1/abis/{}".format(abisid),**kwargs)
+
     def modify_business_system(self,abisid,**kwargs):
         """
          修改业务系统

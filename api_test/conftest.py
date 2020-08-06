@@ -18,6 +18,7 @@ def koal():
     else:
         logger_info("登录失败")
 
+
 @pytest.fixture(scope="session")
 def env():
     response = loging(api_url, loginname, password, verytype)

@@ -70,4 +70,4 @@ class Assert_accunt_manage(RestClient):
         return self.get("/v1/account/disable/{}".format(accountId), **kwargs)
 
     def enable_assert_accunt(self, accountId, **kwargs):
-        return self.get("/v1/account/enable/{accountId}".format(accountId=accountId))
+        return self.get("/v1/account/enable/{accountId}".format(accountId=accountId),**kwargs)

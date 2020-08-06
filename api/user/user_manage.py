@@ -47,3 +47,11 @@ class Users(RestClient):
         :return:
         """
         return self.get('/v1/role/list',**kwargs)
+
+    def batch_upload_user(self, **kwargs):
+        """
+        json格式：[{},{},{}]
+        :param kwargs:
+        :return:
+        """
+        return  self.post("/v1/user/batch",**kwargs)
