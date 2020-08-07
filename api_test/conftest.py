@@ -4,8 +4,8 @@ from library.environment import Env
 from koal import *
 from Login import *
 api_url = 'https://10.11.220.162'
-loginname  = 'ghcatest'
-password = '111111'
+loginname  = 'admin'
+password = 'admin'
 verytype = '5'
 
 
