@@ -19,8 +19,7 @@ def response(func):
             if "params" in kwargs:
                 logger_info("请求方式：{a}，请求连接{b}，请求体params={d}，响应体{c}".format(a=func.__name__, b= self.url, c=response.json(), d=kwargs["params"]))
             elif "json" in kwargs:
-                logger_info(
-                    "请求方式：{a}，请求连接{b}，请求体json={d}，响应体{c}".format(a=func.__name__, b=self.url, c=response.json(), d=kwargs["json"]))
+                logger_info("请求方式：{a}，请求连接{b}，请求体json={d}，响应体{c},请求头{e}".format(e=self.session.headers,a=func.__name__, b=self.url, c=response.json(), d=kwargs["json"]))
             else:
                 logger_info("请求方式：{a}，请求连接{b}，，请求体{d}，响应体{c}".format(a=func.__name__, b=self.url, c=response.json(), d="为空"))
         except Exception as e:
