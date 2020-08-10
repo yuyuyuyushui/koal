@@ -20,8 +20,10 @@ def get_agreement_agent_configure_paramenter(koal):
     return koal.tool_login.agreement_agent_read_configure_paramenter()
 
 
-def get_character_session_issue_assset_order_command_firewall(koal, login_name=None, account_id=None, protocols=None, client_ip=None,
-                                                              credentials=None, user_pwd=None, authId=None, ticket=None):
+def get_character_session_issue_assset_order_command_firewall(koal, login_name=None, account_id=None, protocols=None,
+                                                              client_ip=None,
+                                                              credentials=None, user_pwd=None, authId=None,
+                                                              ticket=None):
     params = {
         'login_name': login_name,
         'account_id': account_id,
@@ -34,9 +36,43 @@ def get_character_session_issue_assset_order_command_firewall(koal, login_name=N
     }
     return koal.tool_login.character_session_issue_assset_order_command_firewall(params=params)
 
-def test_tool_get_character_session_issue_assset_order(env):
-    result = get_character_session_issue_assset_order_command_firewall(koal=env.tool_koal, **kwargs)
+
+kwargs = {
+
+    'login_name': None,
+    'account_id': 1,
+    "protocols": 2,
+    "client_ip": 2,
+    "credentials": 1,
+    "user_pwd": 1,
+    "authId": 1,
+    "ticket": 1
+
+}
+
+
+def test_tool_get_character_session_issue_assset_order(env, login_name, account_id, protocols, client_ip, credentials,
+                                                       user_pwd, authId, ticket):
+    result = get_character_session_issue_assset_order_command_firewall(koal=env.tool_koal, login_name=login_name,
+                                                                       account_id=account_id, protocols=protocols,
+                                                                       client_ip=client_ip,
+                                                                       credentials=credentials, user_pwd=user_pwd,
+                                                                       authId=authId, ticket=ticket)
     print(result.response)
     assert result.success is True, result.error
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
+    kwargs = {
+
+        'login_name': None,
+        'account_id': 1,
+        "protocols": 2,
+        "client_ip": 2,
+        "credentials": 1,
+        "user_pwd": 1,
+        "authId": 1,
+        "ticket": 1
+
+    }
+    print(**kwargs)

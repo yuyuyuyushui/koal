@@ -15,6 +15,7 @@ def content_md5(data):
         data = hashlib.md5(data.encode('utf-8'))
     value = data.hexdigest().encode('utf-8')
     return value.decode('utf-8')
+
 class Tool_login(RestClient):
     def __init__(self,**kwargs):
         super(Tool_login,self).__init__(**kwargs)
@@ -25,7 +26,7 @@ class Tool_login(RestClient):
         return self.post('/v1/api/user/auth', **kwargs)
 
     def agreement_agent_read_configure_paramenter(self, **kwargs):
-        return self.get("/v1/api/proxy/config")
+        return self.get("/v1/api/proxy/config",**kwargs)
 
     def character_session_issue_assset_order_command_firewall(self, **kwargs):
         return self.post("/v1/api/proxy/params", **kwargs)
