@@ -34,33 +34,16 @@ def get_character_session_issue_assset_order_command_firewall(koal, login_name=N
         "authId": authId,
         "ticket": ticket
     }
+    print(params)
     return koal.tool_login.character_session_issue_assset_order_command_firewall(params=params)
 
-
-kwargs = {
-
-    'login_name': None,
-    'account_id': 1,
-    "protocols": 2,
-    "client_ip": 2,
-    "credentials": 1,
-    "user_pwd": 1,
-    "authId": 1,
-    "ticket": 1
+kwargs={
 
 }
-
-
-def test_tool_get_character_session_issue_assset_order(env, login_name, account_id, protocols, client_ip, credentials,
-                                                       user_pwd, authId, ticket):
-    result = get_character_session_issue_assset_order_command_firewall(koal=env.tool_koal, login_name=login_name,
-                                                                       account_id=account_id, protocols=protocols,
-                                                                       client_ip=client_ip,
-                                                                       credentials=credentials, user_pwd=user_pwd,
-                                                                       authId=authId, ticket=ticket)
+def test_tool_get_character_session_issue_assset_order(env, **kwargs):
+    result = get_character_session_issue_assset_order_command_firewall(koal=env.tool_koal, **kwargs)
     print(result.response)
     assert result.success is True, result.error
-
 
 if __name__ == "__main__":
     kwargs = {

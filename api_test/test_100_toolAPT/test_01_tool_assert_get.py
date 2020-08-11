@@ -12,15 +12,20 @@ def test_tool_get_confiture_parameter(env):
     assert result.success is True,result.error
 
 
-def test_tool_get_character_session_issue_assset_order(env, login_name, account_id, protocols, client_ip, credentials,
-                                                       user_pwd, authId, ticket):
-    result = get_character_session_issue_assset_order_command_firewall(koal=env.tool_koal, login_name=login_name,
-                                                                       account_id=account_id, protocols=protocols,
-                                                                       client_ip=client_ip,
-                                                                       credentials=credentials, user_pwd=user_pwd,
-                                                                       authId=authId, ticket=ticket)
-    print(result.response)
-    assert result.success is True, result.error
+def test_tool_get_character_session_issue_assset_order(env):
+    params = {
+        'login_name': None,
+        'account_id': '00a6860e1767f18f1086d95eef506efe',
+        "protocols": 'ssh',
+        "client_ip": '10.1.7.22',
+        "credentials": None,
+        "user_pwd": None,
+        "authId": None,
+        "ticket": None
+    }
+    result = env.tool_koal.tool_login.character_session_issue_assset_order_command_firewall(params=params)
+    assert result.response is True, result.error
+
 
 if __name__ == "__main__":
     pytest.main(["-s", "test_01_tool_assert_get.py::test_tool_get_character_session_issue_assset_order"])

@@ -29,4 +29,19 @@ class Tool_login(RestClient):
         return self.get("/v1/api/proxy/config",**kwargs)
 
     def character_session_issue_assset_order_command_firewall(self, **kwargs):
-        return self.post("/v1/api/proxy/params", **kwargs)
+        return self.get("/v1/api/proxy/params", **kwargs)
+
+    def remoteAPP_read_session_paramenter_interface(self,sessionId, **kwargs):
+        return self.post("/v1/api/koal/session/{}".format(sessionId), **kwargs)
+
+    def protocols_agent_source_session_open(self,**kwargs):
+        return self.post("/v1/api/report/session/loginout",**kwargs)
+
+    def character_protocols_agent_session_state_reporte_interface(self, **kwargs):
+        return self.post("/v1/api/report/sessionList/char", **kwargs)
+
+    def graphical_protocols_agent_session_stat_reporte_interface(self, **kwargs):
+        return self.post("/v1/api/report/sessionList/guacamole",**kwargs)
+
+    def character_opration_commend_reporte(self, **kwargs):
+        return self.post("/v1/api/report/session/cmds", **kwargs)
