@@ -6,6 +6,8 @@ appid = '2099081'
 access_key_secret='oGJhOMEVjhE9bqjy427Nrsn33oAlib'
 date_gmt = formatdate(None, usegmt=True)
 data = str(access_key_secret) + "\n" + date_gmt
+
+
 def content_md5(data):
     """计算data的MD5值，返回str类型。
 
@@ -16,11 +18,13 @@ def content_md5(data):
     value = data.hexdigest().encode('utf-8')
     return value.decode('utf-8')
 
+
 class Tool_login(RestClient):
     def __init__(self,**kwargs):
         super(Tool_login,self).__init__(**kwargs)
         self.session.headers["Date"] = date_gmt
         self.session.headers["Authorization"] = 'Sign {appid}:{signature}'.format(appid=appid, signature=content_md5(data))
+        self.session.headers['token'] = 'Trust'
 
     def get_asserts(self, **kwargs):
         return self.post('/v1/api/user/auth', **kwargs)
@@ -45,3 +49,6 @@ class Tool_login(RestClient):
 
     def character_opration_commend_reporte(self, **kwargs):
         return self.post("/v1/api/report/session/cmds", **kwargs)
+
+    def database_opration_commend_report(self, **kwargs):
+        return self.post("/v1/api/report/session/sql",**kwargs)
