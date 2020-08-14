@@ -6,7 +6,7 @@ from core.base import *
 
 class RestClient():
 
-    def __init__(self, api_url_path,token=None, *args, **kwargs):
+    def __init__(self, api_url_path,token=None):
         self.session = requests.session()
         self.session.headers["Content-Type"] = "application/json"
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)

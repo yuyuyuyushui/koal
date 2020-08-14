@@ -7,6 +7,8 @@ from api.assert_accunt_manage.assert_accunt_manage import Assert_accunt_manage
 from api.security_audit.access_audit import Access_audit
 from api.login.loging import *
 from api.tool_api.tool_login import *
+from api.session_and_log_audit.session_log_audit import *
+from api.operation_portal.portal import *
 import json
 
 
@@ -14,7 +16,7 @@ class Koal():
 
     def __init__(self, api_url, **kwargs):
         self.path = api_url
-        self.login = Login(self.path,**kwargs)
+        self.login = Login(self.path, **kwargs)
         self.tool_login = Tool_login(api_url_path=self.path,**kwargs)
         self.users = Users(self.path, **kwargs)
         self.organize_manage = OrganizeManage(self.path, **kwargs)
@@ -23,6 +25,8 @@ class Koal():
         self.it_assert = Asserts_IT(self.path, **kwargs)
         self.assert_accunt_manage = Assert_accunt_manage(self.path, **kwargs)
         self.access_audit = Access_audit(self.path, **kwargs)
+        self.session_log_audit = Session_Log_Audit(self.path,**kwargs)
+        self.portal = Portal(self.path,**kwargs)
 if __name__=="__main__":
     query_params = {
 

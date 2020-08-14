@@ -1,7 +1,7 @@
 from core.rest_client import *
 class Portal(RestClient):
-    def __init__(self,**kwargs):
-        super(Portal,self).__init__(**kwargs)
+    # def __init__(self, **kwargs):
+    #     super(Portal,self).__init__( **kwargs)
 
     def downlaod_tunnel(self, **kwargs):
         return self.get("/v1/portal/download",**kwargs)
@@ -113,3 +113,6 @@ class Portal(RestClient):
 
     def web_application_CAS_authentication(self,sid,**kwargs):
         return self.get("/v1/portal/httpcas/{}".format(sid), **kwargs)
+if __name__=="__main__":
+    x = Portal(1)
+    print(x.url)

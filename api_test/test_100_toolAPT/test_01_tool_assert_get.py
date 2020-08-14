@@ -15,7 +15,7 @@ def test_tool_get_asserts(env):
 
 
 def test_tool_get_confiture_parameter(env):
-    result = get_agreement_agent_configure_paramenter(env.tool_koal)
+    result = env.tool_koal.tool_login.agreement_agent_read_configure_paramenter()
     print(result.response)
     assert result.success is True,result.error
 
@@ -66,5 +66,5 @@ def test_proticols_agent_session_state_report(env):
     result = env.tool_koal.tool_login.character_protocols_agent_session_state_reporte_interface(json=data)
     assert result.success is True
 if __name__ == "__main__":
-    pytest.main(["-s", "test_01_tool_assert_get.py::test_protocos_agent_session_open"])
+    pytest.main(["-s", "test_01_tool_assert_get.py::test_tool_get_confiture_parameter"])
 

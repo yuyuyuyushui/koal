@@ -10,5 +10,6 @@
     <orderEntry type="jdk" jdkName="Python 3.6 (koal)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="koalApplication" />
+    <orderEntry type="module" module-name="TUGithubAPI-teach_011" />
   </component>
 </module>
