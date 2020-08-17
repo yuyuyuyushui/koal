@@ -1,9 +1,16 @@
-from email.utils import formatdate
+class Person:
+    def __init__(self,name,age,d=0):
+        self.name = name
+        self.age =age
+        self.d = d
 
-import pytest
-def demo(num1,num2,num3):
-    print(num1,num2,num3)
-
-
-def test_demo(num1,num2,num3):
-    demo(num1,num2,num3)
+class Liu(Person):
+    def __init__(self,*args,**kwargs):
+        super(Liu,self).__init__(*args,**kwargs)
+        self.q = Qiang(self.name)
+class Qiang():
+    def __init__(self,name,d = 0):
+        self.name = name
+        self.d = d
+if __name__=="__main__":
+    print(Liu(name='ll',age='k',d=3).age)
