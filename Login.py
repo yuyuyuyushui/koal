@@ -1,7 +1,8 @@
 from api.login.loging import *
 from koal import *
 
-def loging(url, loginName,password,verifyType, t=None,validcode=None,csrf=None):
+
+def loging(url, loginName, password, verifyType, t=None,validcode=None,csrf=None):
     data = {
         "loginname": loginName,
         "password":password,
@@ -11,7 +12,7 @@ def loging(url, loginName,password,verifyType, t=None,validcode=None,csrf=None):
         't': t
     }
     return Login(api_url_path=url).login(json=data)
-    # return Koal(api_url=url).login.login(json=data)
+
 
 
 if __name__=="__main__":
