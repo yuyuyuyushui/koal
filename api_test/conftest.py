@@ -19,14 +19,22 @@ def koal():
         logger_info("登录失败")
 
 
+# @pytest.fixture(scope="session")
+# def env():
+#     response = loging(api_url, loginname, password, verytype)
+#     if response.success == True:
+#         token = response.response["data"]["token"]
+#         yield Env(api_url=api_url,token=token)
+#     else:
+#         logger_info("登录失败")
+
 @pytest.fixture(scope="session")
-def env():
-    response = loging(api_url, loginname, password, verytype)
-    if response.success == True:
-        token = response.response["data"]["token"]
-        yield Env(api_url=api_url,token=token)
-    else:
-        logger_info("登录失败")
+def envi():
+    yield Env()
+
+
+def get(attribute):
+    return getattr(envi, attribute)
 
 if __name__=="__main__":
     api_url = 'https://10.11.132.131'

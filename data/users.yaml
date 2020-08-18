@@ -1,5 +1,5 @@
 
-API_URL  : '10.11.220.162'
+API_URL  : 'https://10.11.220.162'
 
 LOGINNAME : ['admin','ghcatest','ghca']
 
