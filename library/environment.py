@@ -5,7 +5,7 @@ import os,yaml
 from Login import *
 
 
-class Env():
+class Env:
     """
     环境类，提供admin，ghcatest，ghca三个已登录用户
     """
@@ -13,12 +13,16 @@ class Env():
     FILEPATH = os.path.dirname(os.path.dirname(__file__)) + r'\data\users.yaml'
 
     def __init__(self):
-        self.loginData = self.__openFile()
-        self.token_list = self.__webLogin(apiUrl=self.loginData["API_URL"],nameList=self.loginData['LOGINNAME'], passwdList=self.loginData["PASSWD"])
-        self.admin = Koal(api_url=self.loginData['API_URL'],token=self.token_list[0])
-        self.ghcatest = Koal(api_url=self.loginData['API_URL'], token=self.token_list[1])
-        self.ghca = Koal(api_url=self.loginData['API_URL'], token=self.token_list[2])
-        self.koal = Koal(api_url=self.loginData['API_URL'],token=None)
+        self.login_data = self.__openFile()
+        self.__webLogin(apiUrl=self.login_data["API_URL"], nameList=self.login_data['LOGINNAME'],
+                        passwdList=self.login_data["PASSWD"])
+        print(Env.__dict__)
+        # if hasattr(Env,self.loginData['LOGINNAME']):
+        #     setattr(Env,self.loginData['LOGINNAME'],Koal(api_url=self.loginData['API_URL'],token=self.token_list[0]))
+        # self.admin = Koal(api_url=self.loginData['API_URL'],token=self.token_list[0])
+        # self.ghcatest = Koal(api_url=self.loginData['API_URL'], token=self.token_list[1])
+        # self.ghca = Koal(api_url=self.loginData['API_URL'], token=self.token_list[2])
+        # self.koal = Koal(api_url=self.loginData['API_URL'],token=None)
         self.tool_koal = Koal(api_url=None)
 
     def __webLogin(self, apiUrl, nameList, passwdList, verifyType=5, validcode=None,csrf=None, t=None):
@@ -44,9 +48,13 @@ class Env():
                 "verifyType": verifyType,
                 't': t
             }
+
             response = Login(apiUrl).login(json=data)
             if response.success is True:
                 token.append(response.response["data"]["token"])
+                if not hasattr(Env, name):
+                    setattr(Env, name,
+                            Koal(api_url=self.login_data['API_URL'], token=response.response["data"]["token"]))
             else:
                 logger_info("登录失败")
         return token
@@ -58,6 +66,7 @@ class Env():
         """
         with open(Env.FILEPATH, 'r') as f:
             return yaml.load(f.read(), Loader=yaml.FullLoader)
+
 
 
 if __name__ == "__main__":

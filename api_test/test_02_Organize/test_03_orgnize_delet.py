@@ -6,8 +6,8 @@ import sys
 
 data=[
     ('admin',0, ranint_name('test'),True),
-    ('ghcatest',0, ranint_name('test'),False),
-    ('ghca',0, ranint_name('test'),False)
+    ('ghcatest',0, ranint_name('test'),True),
+    ('ghca',0, ranint_name('test'),True)
 ]
 
 
