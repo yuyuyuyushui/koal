@@ -55,3 +55,5 @@ class Users(RestClient):
         :return:
         """
         return  self.post("/v1/user/batch",**kwargs)
+if __name__ == '__main__':
+    print(Users.__dict__)

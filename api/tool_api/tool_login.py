@@ -20,7 +20,7 @@ def content_md5(data):
 
 
 class Tool_login(RestClient):
-    def __init__(self,**kwargs):
+    def __init__(self, **kwargs):
         super(Tool_login,self).__init__(**kwargs)
         self.session.headers["Date"] = date_gmt
         self.session.headers["Authorization"] = 'Sign {appid}:{signature}'.format(appid=appid, signature=content_md5(data))

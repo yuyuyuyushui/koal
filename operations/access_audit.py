@@ -13,7 +13,8 @@ def access_audit_query(koal):
     result = koal.access_audit.access_isolation()
     return result
 
-def delet_access_audit(koal,key):
+
+def delet_access_audit(koal, key):
     """
     关键字：删除访问隔离
     :param koal:

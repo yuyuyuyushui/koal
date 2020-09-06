@@ -1,4 +1,5 @@
 from api.login.loging import *
+from koal import Koal
 
 def loging(url,loginName,password,verifyType, t=None,validcode=None,csrf=None):
     '''
@@ -24,17 +25,17 @@ def loging(url,loginName,password,verifyType, t=None,validcode=None,csrf=None):
     return Login(api_url_path=url).login(json=data)
 
 
-def login_times(url,loginName,password,verifyType,times, t=None,validcode=None,csrf=None):
-    data = {
-        "loginname": loginName,
-        "password": password,
-        "validcode": validcode,
-        "csrf": csrf,
-        "verifyType": verifyType,
-        't': t
-    }
+def login_times(url,loginName,password,times):
+    # data = {
+    #     "loginname": loginName,
+    #     "password": password,
+    #     "validcode": validcode,
+    #     "csrf": csrf,
+    #     "verifyType": verifyType,
+    #     't': t
+    # }
     result_login_false = []
     for i in range(int(times)):
-        result = Login(api_url_path=url).login(json=data)
+        result = Koal.web_login(url,loginName,password)
         result_login_false.append(result)
     return result_login_false

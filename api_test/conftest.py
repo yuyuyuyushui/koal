@@ -3,10 +3,9 @@ from library.environment import Env
 # import yaml
 from koal import *
 from Login import *
-api_url = 'https://10.11.220.162'
-loginname  = 'ghcatest'
-password = '111111'
-verytype = '5'
+from library.Data import *
+from library.redis_connect import *
+
 
 
 @pytest.fixture(scope="session")
@@ -19,36 +18,18 @@ def koal():
         logger_info("登录失败")
 
 
-# @pytest.fixture(scope="session")
-# def env():
-#     response = loging(api_url, loginname, password, verytype)
-#     if response.success == True:
-#         token = response.response["data"]["token"]
-#         yield Env(api_url=api_url,token=token)
-#     else:
-#         logger_info("登录失败")
-
 @pytest.fixture(scope="session")
 def envi():
-    yield Env()
+    redis = RedisConnet(Data.Redis_host, Data.Redis_port, Data.Redis_passwd)
+    yield Env(Data.UrlPath, Data.LoginNameList, Data.PassWordList, redis)
 
 
-def get(attribute):
-    return getattr(envi, attribute)
 
-if __name__=="__main__":
-    api_url = 'https://10.11.132.131'
-    loginname = 'ghcatest'
-    password = '11111111'
-    verytype = '5'
-    data = {
-        "loginname": loginname,
-        "password": password,
-        "validcode": None,
-        "csrf": None,
-        "verifyType": verytype,
-        't': None
-    }
-    login = Login(api_url_path=api_url)
-    logins = login.login(json=data)
-    print(logins)
+
+if __name__ == '__main__':
+    # q = zip(Data.LoginNameList, Data.PassWordList)
+    # print(q)
+    a = [1, 2, 3]
+    b = [4, 5, 6]
+    c = [zip(a,b)]
+    print(c)

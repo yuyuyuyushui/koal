@@ -2,25 +2,28 @@ from operations.tool import *
 import pytest
 import uuid,datetime
 from email.utils import formatdate
+from library.Data import *
 
-def test_tool_get_asserts(env):
+tool_loging = Tool_login(api_url_path=Data.UrlPath)
+
+def test_tool_get_asserts():
     data = {
         "login_name": 'ghcatest',
         "password": '111111',
         "public_key": None,
         "client_ip": '10.1.6.22'
     }
-    result = env.tool_koal.tool_login.get_asserts(json=data)
+    result = tool_loging.get_asserts(json=data)
     assert result.success is True, result.error
 
 
-def test_tool_get_confiture_parameter(env):
-    result = env.tool_koal.tool_login.agreement_agent_read_configure_paramenter()
+def test_tool_get_confiture_parameter():
+    result = tool_loging.agreement_agent_read_configure_paramenter()
     print(result.response)
     assert result.success is True,result.error
 
 
-def test_tool_get_character_session_issue_assset_order(env):
+def test_tool_get_character_session_issue_assset_order():
     params = {
         'login_name': 'ghcatest',
         'account_id': '61235eae-2260-4434-88c4-c2277a407d08',
@@ -31,11 +34,11 @@ def test_tool_get_character_session_issue_assset_order(env):
         "authId": None,
         "ticket": None
     }
-    result = env.tool_koal.tool_login.character_session_issue_assset_order_command_firewall(params=params)
+    result = tool_loging.character_session_issue_assset_order_command_firewall(params=params)
     assert result.success is True, result.error
 
 
-def test_protocos_agent_session_open(env):
+def test_protocos_agent_session_open():
     data ={
         'from':'ssh',
         'login_name':'ghcatest',
@@ -54,16 +57,17 @@ def test_protocos_agent_session_open(env):
         'dev_id':1,
         'mode':None
     }
-    result = env.tool_koal.tool_login.protocols_agent_source_session_open(json=data)
+    result = tool_loging.protocols_agent_source_session_open(json=data)
     assert result.success is True
 
-def test_proticols_agent_session_state_report(env):
+
+def test_proticols_agent_session_state_report():
     data = {
         "session_id":1,
         "date":1,
         "dev_id":1
     }
-    result = env.tool_koal.tool_login.character_protocols_agent_session_state_reporte_interface(json=data)
+    result = tool_loging.character_protocols_agent_session_state_reporte_interface(json=data)
     assert result.success is True
 if __name__ == "__main__":
     pytest.main(["-s", "test_01_tool_assert_get.py::test_tool_get_confiture_parameter"])

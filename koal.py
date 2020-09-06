@@ -9,33 +9,49 @@ from api.login.loging import *
 from api.tool_api.tool_login import *
 from api.session_and_log_audit.session_log_audit import *
 from api.operation_portal.portal import *
-import json
+import json,yaml
 
 
 class Koal():
 
     def __init__(self, api_url, **kwargs):
-        self.path = api_url
-        self.login = Login(self.path, **kwargs)
-        self.tool_login = Tool_login(api_url_path=self.path,**kwargs)
-        self.users = Users(self.path, **kwargs)
-        self.organize_manage = OrganizeManage(self.path, **kwargs)
-        self.role_manage = RoleManage(self.path, **kwargs)
-        self.business_system = BusinessSystemManagement(self.path ,**kwargs)
-        self.it_assert = Asserts_IT(self.path, **kwargs)
-        self.assert_accunt_manage = Assert_accunt_manage(self.path, **kwargs)
-        self.access_audit = Access_audit(self.path, **kwargs)
-        self.session_log_audit = Session_Log_Audit(self.path,**kwargs)
-        self.portal = Portal(self.path,**kwargs)
+        self.api_url = api_url
+        self.tool_login = Tool_login(api_url_path=self.api_url,**kwargs)
+        self.users = Users(self.api_url, **kwargs)
+        self.organize_manage = OrganizeManage(self.api_url, **kwargs)
+        self.role_manage = RoleManage(self.api_url, **kwargs)
+        self.business_system = BusinessSystemManagement(self.api_url ,**kwargs)
+        self.it_assert = Asserts_IT(self.api_url, **kwargs)
+        self.assert_accunt_manage = Assert_accunt_manage(self.api_url, **kwargs)
+        self.access_audit = Access_audit(self.api_url, **kwargs)
+        self.session_log_audit = Session_Log_Audit(self.api_url,**kwargs)
+        self.portal = Portal(self.api_url,**kwargs)
+    @staticmethod
+    def web_login(api_url, loginName, password, verifyType=5, t=None,validcode=None,csrf=None):
+        """
+        web的登陆接口
+        :param loginName:
+        :param password:
+        :param verifyType:
+        :param t:
+        :param validcode:
+        :param csrf:
+        :return:
+        """
+        data = {
+            "loginname": loginName,
+            "password": password,
+            "validcode": validcode,
+            "csrf": csrf,
+            "verifyType": verifyType,
+            't': t
+        }
+        return Login(api_url).login(json=data)
+
+    @staticmethod
+    def tool_login(api_url):
+        return Tool_login(api_url_path=api_url)
 if __name__=="__main__":
-    query_params = {
-
-        "page": '1',
-        "limit": "10",
-        "name": "",
-        "deptId": ""
-    }
-
-    a = Koal("https://10.11.220.162",token = '9f50978d581b69062c97fa11bbed0100').users.query_user_list(params=query_params)
-    print(a)
+    xx = Koal.web_login()
+    print(Koal(token=xx).api_url)
 
