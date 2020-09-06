@@ -27,7 +27,7 @@ class Koal():
         self.session_log_audit = Session_Log_Audit(self.api_url,**kwargs)
         self.portal = Portal(self.api_url,**kwargs)
     @staticmethod
-    def web_login(api_url, loginName, password, verifyType=5, t=None,validcode=None,csrf=None):
+    def web_login(api_url):
         """
         web的登陆接口
         :param loginName:
@@ -38,15 +38,15 @@ class Koal():
         :param csrf:
         :return:
         """
-        data = {
-            "loginname": loginName,
-            "password": password,
-            "validcode": validcode,
-            "csrf": csrf,
-            "verifyType": verifyType,
-            't': t
-        }
-        return Login(api_url).login(json=data)
+        # data = {
+        #     "loginname": loginName,
+        #     "password": password,
+        #     "validcode": validcode,
+        #     "csrf": csrf,
+        #     "verifyType": verifyType,
+        #     't': t
+        # }
+        return Login(api_url)
 
     @staticmethod
     def tool_login(api_url):
