@@ -2,7 +2,7 @@ import logging, os,sys
 from random import randint
 class Loger():
     def __init__(self,clevel=logging.DEBUG, Flevel=logging.DEBUG):
-        self.path= os.path.dirname(os.path.dirname(__file__)) + '/log/test.log'
+        self.path= os.path.dirname(os.path.dirname(__file__)) + '/log/test_path.log'
         self.logger = logging.getLogger(self.path)
         self.logger.setLevel(logging.DEBUG)
         fmt = logging.Formatter('[%(asctime)s] ---[%(levelname)s]--%(message)s', '%Y-%m-%d %H:%M:%S')

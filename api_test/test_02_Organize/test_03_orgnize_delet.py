@@ -17,6 +17,7 @@ def test_delet_first_level_organaze(envi, role, parentid, first_name, expect):
     result_lv1= add_organize_and_get_deptId(koalAdmin, parentid, first_name)
     assert result_lv1.success == expect, result_lv1.error
 
-
+def test_env(envi):
+    print(dir(envi))
 if __name__ == '__main__':
     pytest.main(['-s', "test_03_orgnize_delet.py"])

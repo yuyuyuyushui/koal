@@ -5,11 +5,11 @@ from random import randint
 import json
 
 
-def test_query_admin_list_and_add_business_system(koal, abisname=ranint_name('test_business'), workflownodenum=1,admin_name='ghca'):
+def test_query_admin_list_and_add_business_system(envi, abisname=ranint_name('test_business'), workflownodenum=1, admin_name='ghca'):
     logger_info("测试增加业务系统添加一个管理员")
-    result_adminId = query_admin_list_and_get_admin_id(koal,keyword=None, page=1, limit=100,userName=admin_name)
+    result_adminId = query_admin_list_and_get_admin_id(envi.ghcatest, keyword=None, page=1, limit=100, userName=admin_name)
     assert result_adminId.success is True
-    result_add = add_business_system(koal,abisname,workflownodenum,result_adminId.userId)
+    result_add = add_business_system(envi.ghcatest, abisname, workflownodenum, result_adminId.userId)
     assert result_add.success is True
 
 

@@ -1,5 +1,6 @@
 from api.login.loging import *
 from koal import *
+# from faker import Faker
 
 
 def loging(url, loginName, password, verifyType, t=None,validcode=None,csrf=None):

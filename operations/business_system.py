@@ -43,9 +43,6 @@ def delete_business_system(koal,abisid):
     return koal.business_system.delete_business_system(abisid)
 
 
-
-
-
 def modify_business_system(koal,abisId, abisName, workflowNodeNum, abisAdminIds):
     """
     修改业务系统
@@ -81,8 +78,6 @@ def query_system_admin_list(koal, keyword, page, limit, abisId=None):
     return koal.business_system.query_admin(params=query_data)
 
 
-
-
 def modify_business_admin_jurisdiction(koal, id, permsSetPassword, permsViewPassword, permsApproveFirst, permsApproveSecond, receiveWarn):
     """
     修改业务系统管理员权限
@@ -103,6 +98,7 @@ def modify_business_admin_jurisdiction(koal, id, permsSetPassword, permsViewPass
         "receiveWarn":receiveWarn
     }]}
     return koal.business_system.modify_business_admin_jurisdiction(json=admin_data)
+
 
 def admin_jursisdiction_set(koal,abisId):
     """

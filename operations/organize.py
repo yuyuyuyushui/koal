@@ -20,6 +20,7 @@ def add_organize_and_get_deptId(koal, parentid, deptname):
         result_query.success = False
     return result_query
 
+
 def add_org(koal,parentid, deptname):
     organize = {
         "parentId": parentid,

@@ -39,7 +39,7 @@ def response(func):
 def logger(leve):
     def load_func(func):
         def wrapper(*args, **kwargs):
-            log_path = os.path.dirname(os.path.dirname(__file__)) + '/log/test.log'
+            log_path = os.path.dirname(os.path.dirname(__file__)) + '/log/test_path.log'
             if leve == '1':
                 Loger(clevel=logging.DEBUG,Flevel=logging.DEBUG).debug("测试的内容{}".format(func.__name__))
                 return func(*args,**kwargs)

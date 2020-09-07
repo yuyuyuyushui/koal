@@ -1,14 +1,16 @@
 class Person:
+    csl = 7
     def __init__(self, name, age, d=0):
         self.__name = name
         self.age =age
         self.d = d
     @staticmethod
     def eat():
-        print("nichihaolema")
+        print(Person.csl)
 
-    def get(self):
-        print(self.__name)
+    def get(self,data):
+        Person.csl = data
+
 
     def __str__(self):
         return 's'
@@ -59,4 +61,7 @@ def yy():
     """
     return func
 if __name__=="__main__":
-    from faker import Faker
+    Person('q','s').get(4)
+    Person.eat()
+    q = Person("4",'s')
+    print(q.csl)

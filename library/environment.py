@@ -10,14 +10,15 @@ class Env:
     环境类，提供admin，ghcatest，ghca三个已登录用户
     """
 
-    def __init__(self, url,namelist,passwdlist,redis_conn):
+    def __init__(self, url, namelist, passwdlist):
         # login_data = self.__openFile()
         self.api_url = url
         self.nameList = namelist
         self.passwdList = passwdlist
         self.__webLogin(self.nameList,
                         self.passwdList)
-        self.redis  = redis_conn
+        self.web_loging = Login(api_url_path=url)
+        self.tool_loging = Tool_login(api_url_path=url)
 
     def __webLogin(self, nameList, passwdList,verifyType=5, t=None,validcode=None,csrf=None):
         """

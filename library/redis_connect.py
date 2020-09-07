@@ -25,7 +25,7 @@ class RedisConnet:
         except Exception as e:
             print(e)
 
-    def detete_keys(self,keys):
+    def detete_keys(self, keys):
         """
         循环删除keys
         :param keys:
@@ -37,8 +37,4 @@ class RedisConnet:
         return self.conn
 if __name__=="__main__":
     conn = redis_conn()
-
-    # print(conn.get("login:fail:ip:10.1.6.81:"))
-    # conn.delete("login:fail:ip:")
-    # print(conn.get("login:fail:ip:"))
     print(conn.keys('login:fail:ip:*'))

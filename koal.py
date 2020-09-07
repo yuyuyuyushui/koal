@@ -16,7 +16,7 @@ class Koal():
 
     def __init__(self, api_url, **kwargs):
         self.api_url = api_url
-        self.tool_login = Tool_login(api_url_path=self.api_url,**kwargs)
+        # self.tool_login = Tool_login(api_url_path=self.api_url,**kwargs)
         self.users = Users(self.api_url, **kwargs)
         self.organize_manage = OrganizeManage(self.api_url, **kwargs)
         self.role_manage = RoleManage(self.api_url, **kwargs)

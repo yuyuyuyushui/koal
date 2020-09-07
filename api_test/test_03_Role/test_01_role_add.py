@@ -14,7 +14,7 @@ def test_add_lv1_rolename_repeat(koal, parentId=1, rolename='add_lv1_rolename{}'
     assert result_delete.success is True
 
 
-def test_add_lv2_rolename(koal,parentId=1,rolename='add_lv1_rolename{}'.format(randint(0,999)),remark='test_lv1',rolename_lv2='add_lv2_rolename{}'.format(randint(0,999)),remark2='test+lv2'):
+def test_add_lv2_rolename(koal,parentId=1,rolename='add_lv1_rolename{}'.format(randint(0,999)),remark='test_lv1',rolename_lv2='add_lv2_rolename{}'.format(randint(0,999)),remark2='test_path+lv2'):
     logger_debug("测试添加二级角色")
     result_lv1 = add_role(koal,parentId,rolename,remark)
     assert result_lv1.success is True

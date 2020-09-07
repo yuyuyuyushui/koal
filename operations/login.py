@@ -1,7 +1,7 @@
 from api.login.loging import *
 from koal import Koal
 
-def loging(url,loginName,password,verifyType=5, t=None,validcode=None,csrf=None):
+def loging(envi,loginName,password,verifyType=5, t=None,validcode=None,csrf=None):
     '''
 
     :param url:
@@ -22,12 +22,12 @@ def loging(url,loginName,password,verifyType=5, t=None,validcode=None,csrf=None)
         "verifyType":verifyType,
         't': t
     }
-    return Login(api_url_path=url).login(json=data)
+    return envi.web_loging.login(json=data)
 
 
-def login_times(url, loginName, password,times):
+def login_times(envi, loginName, password,times):
     result_login_false = []
     for i in range(int(times)):
-        result = loging(url,loginName,password)
+        result = loging(envi,loginName,password)
         result_login_false.append(result)
     return result_login_false

@@ -197,7 +197,7 @@ if __name__ == "__main__":
                     "parentId": 86,
                     "roleName": "add_lv2_rolename810",
                     "userCount": 0,
-                    "remark": "test+lv2",
+                    "remark": "test_path+lv2",
                     "createUser": "admin",
                     "createTime": "2020-07-13 09:54:10.0",
                     "child": [],
