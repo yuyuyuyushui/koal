@@ -77,7 +77,7 @@ def edit_user(koal,usrId, loginname, username, validityperiod, password, depid, 
     return koal.users.edit_user(usrId,json=user_message)
 
 
-def query_user_list(koal, page, limit, name, deptId):
+def query_user_list(koal, page, limit, name, deptId=None):
     query_data = {
         "page": page,
         "limit": limit,
@@ -86,6 +86,15 @@ def query_user_list(koal, page, limit, name, deptId):
     }
 
     return koal.users.query_user_list(params=query_data)
+
+
+def qury_user_list_and_get_userId(koal,page=1,limit=100,name=None,deptId=None):
+    result = query_user_list(koal,page,limit,name)
+    if result.success is False:
+        return result
+
+
+
 def delete_users(koal, userid):
     return koal.users.delete_user(userid)
 
@@ -126,6 +135,7 @@ def query_role_and_get_roleId(koal, rolename, parentid, page=1,limit=100,param=N
     for role in result.response["page"]["list"]:
         if role["parentId"]==parentid and role["roleName"] ==rolename:
             result.roleId = role["roleId"]
+
     if result.roleId == None:
         raise Exception("查询角色失败")
     return result

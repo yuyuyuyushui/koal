@@ -3,12 +3,14 @@ from library.loggins import Loger
 from api.login.loging import *
 import os,yaml
 from Login import *
+from library.settings import *
 
 
 class Env:
     """
     环境类，提供admin，ghcatest，ghca三个已登录用户
     """
+    filePath = FILEPATH
 
     def __init__(self, url, namelist, passwdlist):
         # login_data = self.__openFile()
@@ -19,6 +21,7 @@ class Env:
                         self.passwdList)
         self.web_loging = Login(api_url_path=url)
         self.tool_loging = Tool_login(api_url_path=url)
+        self.koal = Koal(self.api_url,)
 
     def __webLogin(self, nameList, passwdList,verifyType=5, t=None,validcode=None,csrf=None):
         """
@@ -49,7 +52,18 @@ class Env:
             else:
                 logger_info("登录失败")
 
-
+    @staticmethod
+    def openFile():
+        """
+        打开yaml文件，登陆数据
+        :return:
+        """
+        try:
+            with open(Env.filePath, 'r', encoding='utf-8') as f:
+                return yaml.load(f.read(), Loader=yaml.FullLoader)
+        except Exception as e:
+            logger_error(e)
+            raise Exception
 
 if __name__ == "__main__":
     import os

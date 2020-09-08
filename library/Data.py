@@ -44,4 +44,6 @@ class Useryaml():
             raise Exception
 
 if __name__ == '__main__':
-    pass
+    a = list(zip(Data.LoginNameList,Data.PassWordList))
+    for  i,k  in a:
+        print(i,k)

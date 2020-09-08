@@ -9,6 +9,9 @@ from library.redis_connect import *
 def envi():
     yield Env(Data.UrlPath, Data.LoginNameList, Data.PassWordList)
 
+@pytest.fixture(scope="session")
+def ghcatest():
+    yield Env(Data.UrlPath, Data.LoginNameList, Data.PassWordList).ghcatest
 
 @pytest.fixture(scope="session")
 def redis():
