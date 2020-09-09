@@ -1,3 +1,14 @@
+def add_name(name):
+    def wrapper(cls):
+        cls.jiji = name
+        return cls
+    return wrapper
+class Commmet():
+    def __init__(self):
+        self.success = False
+        self.response = False
+        self.error = False
+
 class Person:
     csl = 7
     def __init__(self, name, age, d=0):
@@ -10,10 +21,18 @@ class Person:
 
     def get(self,data):
         Person.csl = data
+        return 3
 
+    def __getattribute__(self, item):
+        ret = super().__getattribute__(item)
+        def res(*args,**kwargs):
+            result = Commmet()
+            response = ret(*args,**kwargs)
+            if response:
+                return result
+            return response
+        return res
 
-    def __str__(self):
-        return 's'
 class QQ(Person):
     def __init__(self, name, age, *args):
         super(QQ,self).__init__(*args)
@@ -51,8 +70,7 @@ def func1(s):
 def func2(s):
     s = s / 3
     return s
-def func():
-    print("sss")
+
 def yy():
     """
     打印
@@ -61,7 +79,7 @@ def yy():
     """
     return func
 if __name__=="__main__":
-    Person('q','s').get(4)
-    Person.eat()
-    q = Person("4",'s')
-    print(q.csl)
+    p = Person('luo','age')
+    h = p.get(6)
+    print(h.success)
+

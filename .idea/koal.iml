@@ -11,5 +11,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="koalApplication" />
     <orderEntry type="module" module-name="TUGithubAPI-teach_011" />
+    <orderEntry type="module" module-name="马哥python" />
   </component>
 </module>
