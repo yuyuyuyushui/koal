@@ -4,7 +4,7 @@ class Loger():
     def __init__(self,clevel=logging.DEBUG, Flevel=logging.DEBUG):
         self.path= os.path.dirname(os.path.dirname(__file__)) + '/log/test_path.log'
         self.logger = logging.getLogger(self.path)
-        self.logger.setLevel(logging.DEBUG)
+        self.logger.setLevel(clevel)
         fmt = logging.Formatter('[%(asctime)s] ---[%(levelname)s]--%(message)s', '%Y-%m-%d %H:%M:%S')
         # 设置CMD日志
         sh = logging.StreamHandler()
@@ -33,12 +33,12 @@ class Loger():
 
     def cri(self, message):
         self.logger.critical(message)
-def logger_debug(message):
-    return Loger().debug(message)
-def logger_info(message):
-    return Loger().info(message)
-def logger_error(message):
-    return Loger().error(message)
+# def logger_debug(message):
+#     return Loger().debug(message)
+# def logger_info(message):
+#     return Loger().info(message)
+# def logger_error(message):
+#     return Loger().error(message)
 
 def ranint_name(name):
     newname = '{}_{}'.format(name,randint(0,999))

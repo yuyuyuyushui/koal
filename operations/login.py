@@ -25,7 +25,7 @@ def loging(envi,loginName,password,verifyType=5, t=None,validcode=None,csrf=None
     return envi.web_loging.login(json=data)
 
 
-def login_times(envi, loginName, password,times):
+def login_times(envi, loginName, password, times):
     result_login_false = []
     for i in range(int(times)):
         result = loging(envi,loginName,password)

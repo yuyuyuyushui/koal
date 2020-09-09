@@ -34,6 +34,7 @@ def test_add_user(ghcatest, loginname=ranint_name('loginname'), username=ranint_
         :param ipwhite:白名单
         :return:
         """
+
     result_role = add_rle(ghcatest, parentId=1, rolename=ranint_name('add_rolename'), remark=ranint_name('add_remark'))
     assert result_role.success is True
     result_dept = add_organize_and_get_deptId(ghcatest, parentid=0, deptname=ranint_name('dept_name'))

@@ -1,5 +1,6 @@
 import pytest
 def test_web_terminal_character_sign_in(env):
+    logger_info
     param = {
         "loginName":'ghcatest',
         'accountId':'1623993bffbf63c65930a500a5164700'

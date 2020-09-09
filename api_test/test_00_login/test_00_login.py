@@ -12,7 +12,7 @@ from library.Data import *
 # url = Data.UrlPath
 
 @allure.feature("测试正常登录")
-def test_login_nomal(envi, loginname='admin', password='ghcatest'):
+def test_login_nomal(envi, loginname='admin', password='admin'):
     logger_debug('测试正常登录')
 
     result = loging(envi,loginname,password)
@@ -41,7 +41,7 @@ def test_logining_four_false(envi,redis, loginname='ghca', password='11'):
 
     result_five = login_times(envi, loginName=loginname, password="111111", times=1)
     assert result_five[0].success is True, result_five.error
-
+    assert 0
 @allure.feature("测试连续登录失败5次，IP地址被禁用")
 def test_loging_five_flse_and_ip_forbidden(envi):
     logger_debug("测试连续登录失败5次，IP地址被禁用")
@@ -51,7 +51,7 @@ def test_loging_five_flse_and_ip_forbidden(envi):
     login_false_list = login_times(envi, loginName='ghca', password='111', times=3)
     assert login_false_list[2].success is False
 
-    result_login_false_list = login_times(envi, loginName='liulj', password='111', times=2)
+    result_login_false_list = login_times(envi, loginName='dinaliu', password='111', times=2)
     assert result_login_false_list[1].response['msg'] == '连续登录失败,IP被禁用'
 
     result_ip = access_audit_query(envi.admin)
@@ -67,8 +67,9 @@ def test_loging_five_flse_and_ip_forbidden(envi):
     result_login_nomal = login_times(envi,loginName='ghca',password='111111',times=1)
     assert result_login_nomal[0].success is True
 
-    result_login_nomal2 = login_times(envi, loginName='liulj',password='111111',times=1)
+    result_login_nomal2 = login_times(envi, loginName='dinaliu',password='111111',times=1)
     assert result_login_nomal2[0].success is True, result_login_nomal2[0].error
+
 if __name__ == "__main__":
     pytest.main(["-s", "test_00_login.py",'--alluredir', './temp'])
     # # os.system('allure generate ./temp -o ./report --clean')

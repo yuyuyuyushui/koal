@@ -3,7 +3,7 @@ API_URL  : 'https://10.11.132.131'
 
 LOGINNAME : ['admin','ghcatest','ghca']
 
-PASSWD : ["ghcatest",'111111','111111']
+PASSWD : ["admin",'111111','111111']
 
 REDIS_HOST : '10.11.132.131'
 
