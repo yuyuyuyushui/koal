@@ -11,6 +11,7 @@ class Env:
     环境类，提供admin，ghcatest，ghca三个已登录用户
     """
     filePath = FILEPATH
+    logger = Loger() #这里关联loger
 
     def __init__(self, url, namelist, passwdlist):
         # login_data = self.__openFile()
@@ -21,7 +22,8 @@ class Env:
                         self.passwdList)
         self.web_loging = Login(api_url_path=url)
         self.tool_loging = Tool_login(api_url_path=url)
-        self.koal = Koal(self.api_url,)
+        self.koal = Koal(self.api_url)
+
 
     def __webLogin(self, nameList, passwdList,verifyType=5, t=None,validcode=None,csrf=None):
         """
@@ -47,10 +49,11 @@ class Env:
             response = Koal.web_login(self.api_url).login(json=data)
             if response.success is True:
                 token = response.response["data"]["token"]
-                if not hasattr(Env, name):
-                    setattr(Env, name,Koal(self.api_url, token=token))
+                if not hasattr(self, name):
+                    setattr(self, name, Koal(self.api_url, token=token))
             else:
                 logger_info("登录失败")
+
 
     @staticmethod
     def openFile():

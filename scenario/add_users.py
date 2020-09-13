@@ -1,6 +1,7 @@
 from operations.organize import add_organize_and_get_deptId
-from operations.roles import add_role
+from operations.role import add_role
 from core.base import CommonItem
+
 def add_users(koal,rolename, remark, parentid, deptname,loginname, username,validityperiod,password,authtype,idcard=None,jobnumber=None,email=None,mobile=None,sex=None,ipwhite=None):
     """
     判断角色是否为空，角色，可以为列表模式，都不为空时，获取角色ID，部门ID

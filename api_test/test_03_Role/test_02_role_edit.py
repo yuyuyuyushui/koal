@@ -1,6 +1,6 @@
 import pytest
 from random import randint
-from operations.roles import *
+from operations.role import *
 from library.loggins import *
 
 

@@ -2,10 +2,10 @@ from configparser import ConfigParser
 import pytest, json
 from operations.users import *
 from random import randint
-from scenario_test.add_users import add_users
+from scenario.add_users import add_users
 from library.loggins import *
 from operations.organize import *
-from operations.roles import *
+from operations.role import *
 
 
 # import pytest_check as check

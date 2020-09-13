@@ -4,25 +4,6 @@ from core.base import CommonItem
 # import jsonpath
 
 
-def add_role(koal, parentId, rolename, remark, identity=None):
-    """
-    添加角色
-    :param koal:
-    :param rolename:
-    :param remark:
-    :return:
-    """
-
-    result=add_roles(koal, parentId, rolename, remark, identity=None)
-    if result.success is False:
-        return result
-    result_query_role = query_roles(koal)
-    if result_query_role.success is False:
-        return result_query_role
-    roleid = get_id(rolename, parentId, result_query_role.response["data"])
-    result_query_role.roleId = roleid
-    return result_query_role
-
 def add_roles(koal, parentId, rolename, remark, identity=None):
     role_message = {
         "roleName": rolename,
@@ -95,6 +76,8 @@ def menu_name_and_get_meneid(menuname,data):
             return data['menuId']
     else:
         raise Exception("查询menuId失败")
+
+
 def set_role_permission(koal,roleid,menuids):
     """
     关键字：设置角色权限

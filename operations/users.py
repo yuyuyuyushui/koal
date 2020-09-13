@@ -1,6 +1,6 @@
 from core.base import CommonItem
 
-from operations.roles import *
+from operations.role import *
 
 
 def add_user(koal, loginname, username, validityperiod, password, depid, authtype, idcard=None, jobnumber=None,

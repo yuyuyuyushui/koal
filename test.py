@@ -51,7 +51,7 @@ class Qiang():
         self.d = d
 
     def printl(self):
-        print(1)
+        return self.__class__
 
     @property
     def name(self):
@@ -79,7 +79,8 @@ def yy():
     """
     return func
 if __name__=="__main__":
-    p = Person('luo','age')
-    h = p.get(6)
-    print(h.success)
-
+    p = 'adsdadf'
+    p = set(p)
+    print(p)
+    p = dict.fromkeys(p).keys()
+    print(p)

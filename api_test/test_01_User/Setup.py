@@ -1,6 +1,6 @@
 import pytest
 from operations.organize import *
-from operations.roles import *
+from operations.role import *
 
 role_organize_date=[
     ('0',"test1",None,1,"安全管理员",'系统所有权限',1,100),
