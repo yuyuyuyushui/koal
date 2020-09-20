@@ -16,7 +16,7 @@ def ghcatest():
     yield Env(Data.UrlPath, Data.LoginNameList, Data.PassWordList).ghcatest
 
 logger = Loger()
-reids_Conn = RedisConnet(Data.Redis_host, Data.Redis_port, Data.Redis_passwd)
+redis_ = RedisConnet(Data.Redis_host, Data.Redis_port, Data.Redis_passwd)
 
 
 

@@ -7,12 +7,13 @@ from library.redis_connect import *
 import allure
 from koal import Koal
 from library.Data import *
-from api_test.conftest import logger
+from api_test.conftest import *
 
 
 # url = Data.UrlPath
 
 @allure.feature("测试正常登录")
+@pytest.mark.正常登陆
 def test_login_nomal(envi, loginname='admin', password='admin'):
     logger.debug("正常测试")
 
@@ -24,7 +25,8 @@ def test_login_nomal(envi, loginname='admin', password='admin'):
 
 
 @allure.feature("测试连续登录四次登录失败")
-def test_logining_four_false(envi,redis, loginname='ghca', password='11'):
+@pytest.mark.测试连续登录四次登录失败
+def test_logining_four_false(envi, loginname='ghca', password='11'):
     logger.info("录四次登录失败")
     four_result=login_times(envi,loginName=loginname,password=password, times=4)
     assert four_result[0].success is False
@@ -35,14 +37,14 @@ def test_logining_four_false(envi,redis, loginname='ghca', password='11'):
 
     result_delete = delet_access_audit(envi.admin, key=result_query.response["data"][0]["key"])
     assert result_delete.success is True
-    redis.detete_keys("login:fail:*")
+    redis_.detete_keys("login:fail:*")
 
     result_query_none = access_audit_query(envi.admin)
     assert result_query_none.response["data"] == []
 
     result_five = login_times(envi, loginName=loginname, password="111111", times=1)
     assert result_five[0].success is True, result_five.error
-    assert 0
+
 
 
 @allure.feature("测试连续登录失败5次，IP地址被禁用")
@@ -74,7 +76,7 @@ def test_loging_five_flse_and_ip_forbidden(envi):
     assert result_login_nomal2[0].success is True, result_login_nomal2[0].error
 
 if __name__ == "__main__":
-    pytest.main(["-s", "test_00_login.py::test_login_nomal",'--alluredir', './temp'])
+    pytest.main(["-s", "test_00_login.py",'--alluredir', './temp'])
     # # os.system('allure generate ./temp -o ./report --clean')
     # Koal.web_login()
 
