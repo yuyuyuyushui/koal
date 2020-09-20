@@ -1,5 +1,7 @@
 import logging, os,sys
 from random import randint
+import logging.config
+
 class Loger():
     def __init__(self,clevel=logging.DEBUG, Flevel=logging.DEBUG):
         self.path= os.path.dirname(os.path.dirname(__file__)) + '/log/test_path.log'

@@ -9,11 +9,12 @@ from koal import Koal
 from library.Data import *
 from api_test.conftest import logger
 
+
 # url = Data.UrlPath
 
 @allure.feature("测试正常登录")
 def test_login_nomal(envi, loginname='admin', password='admin'):
-    envi.logger.info("测试正常登陆")
+    logger.debug("正常测试")
 
     result = loging(envi,loginname,password)
     assert result.success is True, result.error
@@ -24,7 +25,7 @@ def test_login_nomal(envi, loginname='admin', password='admin'):
 
 @allure.feature("测试连续登录四次登录失败")
 def test_logining_four_false(envi,redis, loginname='ghca', password='11'):
-    logger_debug("测试连续登录四次登录失败")
+    logger.info("录四次登录失败")
     four_result=login_times(envi,loginName=loginname,password=password, times=4)
     assert four_result[0].success is False
     assert four_result[3].response["msg"] == '连续登录失败,用户帐号被禁用'

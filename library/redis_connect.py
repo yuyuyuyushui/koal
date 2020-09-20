@@ -18,7 +18,9 @@ def delete_keys(keys):
     return conn
 
 
+
 class RedisConnet:
+
     def __init__(self, host, port, passwd):
         try:
             self.conn = redis.Redis(connection_pool=redis.ConnectionPool(host=host, port=port, password=passwd))

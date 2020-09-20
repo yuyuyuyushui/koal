@@ -15,15 +15,13 @@ def envi():
 def ghcatest():
     yield Env(Data.UrlPath, Data.LoginNameList, Data.PassWordList).ghcatest
 
+logger = Loger()
+reids_Conn = RedisConnet(Data.Redis_host, Data.Redis_port, Data.Redis_passwd)
 
-@pytest.fixture(scope="session")
-def redis():
-    redis = RedisConnet(Data.Redis_host, Data.Redis_port, Data.Redis_passwd)
-    yield redis
 
 
 
 
 
 if __name__ == '__main__':
-    pass
+   pass
