@@ -14,7 +14,7 @@ from api_test.conftest import *
 
 @allure.feature("测试正常登录")
 @pytest.mark.正常登陆
-def test_login_nomal(envi, loginname='admin', password='admin'):
+def test_login_nomal(envi, loginname='ghcatest', password='111111'):
     logger.debug("正常测试")
 
     result = loging(envi,loginname,password)
@@ -26,7 +26,7 @@ def test_login_nomal(envi, loginname='admin', password='admin'):
 
 @allure.feature("测试连续登录四次登录失败")
 @pytest.mark.测试连续登录四次登录失败
-def test_logining_four_false(envi, loginname='ghca', password='11'):
+def test_logining_four_false(envi, loginname='test1', password='11'):
     logger.info("录四次登录失败")
     four_result=login_times(envi,loginName=loginname,password=password, times=4)
     assert four_result[0].success is False
@@ -56,7 +56,7 @@ def test_loging_five_flse_and_ip_forbidden(envi):
     login_false_list = login_times(envi, loginName='ghca', password='111', times=3)
     assert login_false_list[2].success is False
 
-    result_login_false_list = login_times(envi, loginName='dinaliu', password='111', times=2)
+    result_login_false_list = login_times(envi, loginName='test1', password='111', times=2)
     assert result_login_false_list[1].response['msg'] == '连续登录失败,IP被禁用'
 
     result_ip = access_audit_query(envi.admin)
@@ -69,7 +69,7 @@ def test_loging_five_flse_and_ip_forbidden(envi):
     result_query = access_audit_query(envi.admin)
     assert result_query.response["data"] == []
 
-    result_login_nomal = login_times(envi,loginName='ghca',password='111111',times=1)
+    result_login_nomal = login_times(envi,loginName='ghcatest',password='111111',times=1)
     assert result_login_nomal[0].success is True
 
     result_login_nomal2 = login_times(envi, loginName='dinaliu',password='111111',times=1)

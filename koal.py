@@ -52,6 +52,5 @@ class Koal():
     def tool_login(api_url):
         return Tool_login(api_url_path=api_url)
 if __name__=="__main__":
-    xx = Koal.web_login()
-    print(Koal(token=xx).api_url)
+    pass
 

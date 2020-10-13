@@ -16,7 +16,7 @@ class UseYaml:
             with open(UseYaml.filePath, 'r', encoding='utf-8') as f:
                 return yaml.load(f.read(), Loader=yaml.FullLoader)
         except Exception as e:
-            logger_error(e)
+
             raise Exception
 
 
@@ -31,16 +31,17 @@ class Data():
 
 
 class Useryaml():
-    filePath = FILEPATH
+    def __init__(self, yaml_path):
+        self.path  = yaml_path
 
-    def get_data(self,param):
+    def get_data(self, param):
         try:
             with open(UseYaml.filePath, 'r', encoding='utf-8') as f:
                 data = yaml.load(f.read(), Loader=yaml.FullLoader)
                 if param in data:
                     return data[param]
         except Exception as e:
-            logger_error(e)
+
             raise Exception
 
 if __name__ == '__main__':

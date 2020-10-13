@@ -5,6 +5,16 @@ from core.base import CommonItem
 
 
 def add_roles(koal, parentId, rolename, remark, identity=None):
+    """
+    添加角色
+    :param koal:
+    :param parentId:
+    :param rolename:
+    :param remark:
+    :param identity:
+    :return:
+    """
+
     role_message = {
         "roleName": rolename,
         'identity': identity,

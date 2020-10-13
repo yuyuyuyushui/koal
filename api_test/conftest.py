@@ -8,8 +8,8 @@ from library.redis_connect import *
 @pytest.fixture(scope="session")
 def envi():
     yield Env(Data.UrlPath, Data.LoginNameList, Data.PassWordList)
-    # redis = RedisConnet(Data.Redis_host, Data.Redis_port, Data.Redis_passwd)
-    # redis.detete_keys("login:fail:*")
+    redis = RedisConnet(Data.Redis_host, Data.Redis_port, Data.Redis_passwd)
+    redis.detete_keys("login:fail:*")
 
 @pytest.fixture(scope="session")
 def ghcatest():
@@ -18,6 +18,8 @@ def ghcatest():
 logger = Loger()
 redis_ = RedisConnet(Data.Redis_host, Data.Redis_port, Data.Redis_passwd)
 
+if __name__ == '__main__':
+    print(redis_)
 
 
 

@@ -2,7 +2,7 @@ from koal import Koal
 from library.loggins import Loger
 from api.login.loging import *
 import os,yaml
-from Login import *
+
 from library.settings import *
 
 
@@ -18,12 +18,11 @@ class Env:
         self.api_url = url
         self.nameList = namelist
         self.passwdList = passwdlist
+        self.web_loging = Koal.web_login(url)
         self.__webLogin(self.nameList,
                         self.passwdList)
-        self.web_loging = Login(api_url_path=url)
-        self.tool_loging = Tool_login(api_url_path=url)
+        self.tool_loging = Koal.tool_login(url)
         self.koal = Koal(self.api_url)
-
 
     def __webLogin(self, nameList, passwdList,verifyType=5, t=None,validcode=None,csrf=None):
         """
@@ -46,7 +45,7 @@ class Env:
                 "verifyType": verifyType,
                 't': t
             }
-            response = Koal.web_login(self.api_url).login(json=data)
+            response = self.web_loging.login(json=data)
             if response.success is True:
                 token = response.response["data"]["token"]
                 if not hasattr(self, name):
